@@ -8,7 +8,7 @@ func GetDistrictID(state string, district string) string {
 
 	switch state {
 	case "kerala":
-		id, ok = klDistricts[district]
+		id, ok = kerala[district]
 	default:
 		log.Fatalln("Invalid state")
 	}

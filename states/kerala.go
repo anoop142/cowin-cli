@@ -1,6 +1,6 @@
 package states
 
-var klDistricts = map[string]string{
+var kerala = map[string]string{
 	"alappuzha":          "301",
 	"ernakulam":          "307",
 	"idukki":             "306",
