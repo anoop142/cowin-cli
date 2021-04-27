@@ -9,17 +9,9 @@ import (
 
 type CentreData struct {
 	Centers []struct {
-		Name         string `json:"name"`
-		DistrictName string `json:"district_name"`
-		BlockName    string `json:"block_name"`
-		Pincode      int    `json:"pincode"`
-		Lat          int    `json:"lat"`
-		Long         int    `json:"long"`
-		From         string `json:"from"`
-		To           string `json:"to"`
-		FeeType      string `json:"fee_type"`
-		Sessions     []struct {
-			SessionID         string   `json:"session_id"`
+		Name     string `json:"name"`
+		FeeType  string `json:"fee_type"`
+		Sessions []struct {
 			Date              string   `json:"date"`
 			AvailableCapacity int      `json:"available_capacity"`
 			Slots             []string `json:"slots"`
