@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 )
 
@@ -24,14 +25,14 @@ var centreData CentreData
 func getApiData(apiURL string) {
 	resp, err := http.Get(apiURL)
 	if err != nil {
-		panic(err)
+		log.Fatalln(err)
 	}
 
 	defer resp.Body.Close()
 	body, err := io.ReadAll(resp.Body)
 
 	if err != nil {
-		panic(err)
+		log.Fatalln(err)
 	}
 
 	json.Unmarshal(body, &centreData)
