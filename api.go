@@ -49,7 +49,12 @@ func getApiData(apiURL string) {
 func printCenters(apiURL string, printInfo bool) {
 	getApiData(apiURL)
 	for _, v := range centreData.Centers {
-		fmt.Printf("%v\n", v.Name)
+		fmt.Printf("%v ", v.Name)
+		if v.FeeType != "Free" {
+			fmt.Printf("Paid")
+		}
+		fmt.Println()
+
 		if printInfo {
 			for _, vv := range v.Sessions {
 				fmt.Printf("  %v - %v\n", vv.Date, vv.AvailableCapacity)
