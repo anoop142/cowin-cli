@@ -14,6 +14,6 @@ example :
         cowin-cli -state kerala -district alappuzha 
 
 Not all states are implemented yet.
-You can contribute district id of pther states, take states/kerala.go as template/
+You can contribute district id of osther states, take states/kerala.go as template.
 
 
