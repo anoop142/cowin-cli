@@ -3,12 +3,19 @@ package states
 import "log"
 
 func GetDistrictID(state string, district string) string {
+	var id string
+	var ok bool
+
 	switch state {
 	case "kerala":
-		return getDistrictKL(district)
+		id, ok = klDistricts[district]
 	default:
 		log.Fatalln("Invalid state")
 	}
 
-	return ""
+	if !ok {
+		log.Fatalln("Invalid district")
+	}
+
+	return id
 }

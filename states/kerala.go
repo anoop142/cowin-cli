@@ -1,7 +1,5 @@
 package states
 
-import "log"
-
 var klDistricts = map[string]string{
 	"alappuzha":          "301",
 	"ernakulam":          "307",
@@ -17,12 +15,4 @@ var klDistricts = map[string]string{
 	"thiruvananthapuram": "296",
 	"thrissur":           "303",
 	"wayanad":            "299",
-}
-
-func getDistrictKL(name string) string {
-	id, ok := klDistricts[name]
-	if !ok {
-		log.Fatalln("Invalid district")
-	}
-	return id
 }
