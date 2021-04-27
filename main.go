@@ -3,7 +3,6 @@ package main
 import (
 	"flag"
 	"fmt"
-	"os"
 	"time"
 
 	"github.com/anoop142/cowin-cli/states"
@@ -23,7 +22,7 @@ func main() {
 
 	flag.Parse()
 	flag.Usage = func() {
-		fmt.Printf("%s --state state --district district [--info] [--date dd-mm-yyyy]\n", os.Args[0])
+		fmt.Printf("cowin-cli --state state --district district [--info] [--date dd-mm-yyyy]\n")
 		flag.PrintDefaults()
 	}
 
