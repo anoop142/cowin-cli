@@ -27,8 +27,7 @@ func main() {
 	}
 
 	if *state != "" && *district != "" {
-		apiURL := fmt.Sprintf("https://cdn-api.co-vin.in/api/v2/appointment/sessions/calendarByDistrict?district_id=%s&date=%s", states.GetDistrictID(*state, *district), *date)
-		printCenters(apiURL, *info)
+		printCentersDistrict(states.GetDistrictID(*state, *district), *date, *info)
 	} else {
 		flag.Usage()
 	}

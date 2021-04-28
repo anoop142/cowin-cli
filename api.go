@@ -6,6 +6,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"net/url"
 )
 
 type CentreData struct {
@@ -22,8 +23,8 @@ type CentreData struct {
 
 var centreData CentreData
 
-func getApiData(apiURL string) {
-	resp, err := http.Get(apiURL)
+func getReq(URL string) []byte {
+	resp, err := http.Get(URL)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -35,12 +36,31 @@ func getApiData(apiURL string) {
 		log.Fatalln(err)
 	}
 
-	json.Unmarshal(body, &centreData)
+	return body
 
 }
 
-func printCenters(apiURL string, printInfo bool) {
-	getApiData(apiURL)
+func getDataDistricts(districtID string, date string) {
+	u, err := url.Parse(apiDistrictURL)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	q := u.Query()
+	q.Set("district_id", districtID)
+	q.Add("date", date)
+
+	u.RawQuery = q.Encode()
+
+	json.Unmarshal(getReq(u.String()), &centreData)
+
+}
+
+func printCentersDistrict(districtID string, date string, printInfo bool) {
+
+	getDataDistricts(districtID, date)
+
 	for _, v := range centreData.Centers {
 		fmt.Printf("%v ", v.Name)
 		if v.FeeType != "Free" {
