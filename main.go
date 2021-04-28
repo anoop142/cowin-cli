@@ -15,6 +15,7 @@ func getDate() string {
 }
 
 func main() {
+	pincode := flag.String("pin", "", "pincode")
 	state := flag.String("state", "", "state")
 	district := flag.String("district", "", "district")
 	date := flag.String("date", getDate(), "date dd-mm-yyyy")
@@ -25,9 +26,11 @@ func main() {
 		fmt.Printf("cowin-cli --state state --district district [--info] [--date dd-mm-yyyy]\n")
 		flag.PrintDefaults()
 	}
+	if *pincode != "" {
+		printCentersByPincode(*pincode, *date, *info)
 
-	if *state != "" && *district != "" {
-		printCentersDistrict(states.GetDistrictID(*state, *district), *date, *info)
+	} else if *state != "" && *district != "" {
+		printCentersByDistrict(states.GetDistrictID(*state, *district), *date, *info)
 	} else {
 		flag.Usage()
 	}

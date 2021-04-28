@@ -57,9 +57,42 @@ func getDataDistricts(districtID string, date string) {
 
 }
 
-func printCentersDistrict(districtID string, date string, printInfo bool) {
+func getDataByPincode(pincode string, date string) {
+	u, err := url.Parse(apiPincodeURL)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+	q := u.Query()
+	q.Set("date", date)
+	q.Add("pincode", pincode)
+	u.RawQuery = q.Encode()
+
+	json.Unmarshal(getReq(u.String()), &centreData)
+}
+
+func printCentersByDistrict(districtID string, date string, printInfo bool) {
 
 	getDataDistricts(districtID, date)
+
+	for _, v := range centreData.Centers {
+		fmt.Printf("%v ", v.Name)
+		if v.FeeType != "Free" {
+			fmt.Printf("Paid")
+		}
+		fmt.Println()
+
+		if printInfo {
+			for _, vv := range v.Sessions {
+				fmt.Printf("  %v - %v\n", vv.Date, vv.AvailableCapacity)
+			}
+		}
+	}
+}
+
+func printCentersByPincode(picode string, date string, printInfo bool) {
+
+	getDataByPincode(picode, date)
 
 	for _, v := range centreData.Centers {
 		fmt.Printf("%v ", v.Name)
