@@ -23,7 +23,9 @@ func main() {
 
 	flag.Parse()
 	flag.Usage = func() {
-		fmt.Printf("cowin-cli --state state --district district [--info] [--date dd-mm-yyyy]\n")
+		fmt.Printf("Usage :\n")
+		fmt.Printf("\n  cowin-cli --state state --district district [--info] [--date dd-mm-yyyy]\n")
+		fmt.Printf("  cowin-cli --pincode pin  [--info] [--date dd-mm-yyyy]\n\n")
 		flag.PrintDefaults()
 	}
 	if *pincode != "" {
