@@ -95,9 +95,9 @@ func printCentersByDistrict(districtID string, date string, printInfo bool) {
 
 }
 
-func printCentersByPincode(picode string, date string, printInfo bool) {
+func printCentersByPincode(pincode string, date string, printInfo bool) {
 
-	getDataByPincode(picode, date)
+	getDataByPincode(pincode, date)
 
 	printCenterData(printInfo)
 }
