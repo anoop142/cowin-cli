@@ -71,10 +71,7 @@ func getDataByPincode(pincode string, date string) {
 	json.Unmarshal(getReq(u.String()), &centreData)
 }
 
-func printCentersByDistrict(districtID string, date string, printInfo bool) {
-
-	getDataDistricts(districtID, date)
-
+func printCenterData(printInfo bool) {
 	for _, v := range centreData.Centers {
 		fmt.Printf("%v ", v.Name)
 		if v.FeeType != "Free" {
@@ -90,21 +87,17 @@ func printCentersByDistrict(districtID string, date string, printInfo bool) {
 	}
 }
 
+func printCentersByDistrict(districtID string, date string, printInfo bool) {
+
+	getDataDistricts(districtID, date)
+
+	printCenterData(printInfo)
+
+}
+
 func printCentersByPincode(picode string, date string, printInfo bool) {
 
 	getDataByPincode(picode, date)
 
-	for _, v := range centreData.Centers {
-		fmt.Printf("%v ", v.Name)
-		if v.FeeType != "Free" {
-			fmt.Printf("Paid")
-		}
-		fmt.Println()
-
-		if printInfo {
-			for _, vv := range v.Sessions {
-				fmt.Printf("  %v - %v\n", vv.Date, vv.AvailableCapacity)
-			}
-		}
-	}
+	printCenterData(printInfo)
 }
