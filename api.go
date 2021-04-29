@@ -7,7 +7,6 @@ import (
 	"log"
 	"net/http"
 	"net/url"
-	"strings"
 )
 
 type CentreData struct {
@@ -62,7 +61,12 @@ func getCenters(districtID string, pincode string, vaccine string, date string) 
 	q.Set("date", date)
 
 	if vaccine != "" {
-		q.Add("vaccine", strings.ToUpper(vaccine))
+		v, ok := vaccinesList[vaccine]
+
+		if !ok {
+			log.Fatal("Invalid vaccine")
+		}
+		q.Add("vaccine", v)
 	}
 
 	if pincode != "" {
