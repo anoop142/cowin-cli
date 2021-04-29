@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"net/url"
+	"strings"
 )
 
 type CentreData struct {
@@ -40,7 +41,7 @@ func getReq(URL string) []byte {
 
 }
 
-func getDataDistricts(districtID string, date string) {
+func getCenters(districtID string, pincode string, vaccine string, date string) {
 	u, err := url.Parse(apiDistrictURL)
 
 	if err != nil {
@@ -48,27 +49,22 @@ func getDataDistricts(districtID string, date string) {
 	}
 
 	q := u.Query()
-	q.Set("district_id", districtID)
-	q.Add("date", date)
-
-	u.RawQuery = q.Encode()
-
-	json.Unmarshal(getReq(u.String()), &centreData)
-
-}
-
-func getDataByPincode(pincode string, date string) {
-	u, err := url.Parse(apiPincodeURL)
-
-	if err != nil {
-		log.Fatal(err)
-	}
-	q := u.Query()
 	q.Set("date", date)
-	q.Add("pincode", pincode)
+
+	if vaccine != "" {
+		q.Add("vaccine", strings.ToUpper(vaccine))
+	}
+
+	if pincode != "" {
+		q.Add("pincode", pincode)
+	} else {
+		q.Add("district_id", districtID)
+	}
+
 	u.RawQuery = q.Encode()
 
 	json.Unmarshal(getReq(u.String()), &centreData)
+
 }
 
 func printCenterData(printInfo bool) {
@@ -87,17 +83,10 @@ func printCenterData(printInfo bool) {
 	}
 }
 
-func printCentersByDistrict(districtID string, date string, printInfo bool) {
+func printCenters(districtID, pincode, vaccine, date string, printInfo bool) {
 
-	getDataDistricts(districtID, date)
-
-	printCenterData(printInfo)
-
-}
-
-func printCentersByPincode(pincode string, date string, printInfo bool) {
-
-	getDataByPincode(pincode, date)
+	getCenters(districtID, pincode, vaccine, date)
 
 	printCenterData(printInfo)
+
 }
