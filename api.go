@@ -26,6 +26,7 @@ var centreData CentreData
 
 func getReq(URL string) []byte {
 	resp, err := http.Get(URL)
+
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -41,8 +42,17 @@ func getReq(URL string) []byte {
 
 }
 
+func getApiURL(pincode string) string {
+	if pincode != "" {
+		return apiPincodeURL
+	} else {
+		return apiDistrictURL
+	}
+}
+
 func getCenters(districtID string, pincode string, vaccine string, date string) {
-	u, err := url.Parse(apiDistrictURL)
+
+	u, err := url.Parse(getApiURL(pincode))
 
 	if err != nil {
 		log.Fatal(err)
