@@ -7,17 +7,18 @@ cowin-cli is a simple cli tool to list centres available for scheduling vaccinat
 
 ### USAGE
 
-    cowin-cli -state state -district district [--vaccine vaccine name] [-info ] [-date dd-mm-yyyy]
+    cowin-cli -s state -d district [-v vaccine ] [-i] [-c dd-mm-yyyy]
 
-    cowin-cli -pin pincode --vaccine covishield
+    cowin-cli -p pincode
 
 
 example :
         
-        cowin-cli -state kerala -district alappuzha 
+        cowin-cli -s kerala -d alappuzha 
 
-        cowin-cli -pin 688003 --vaccine covaxin
+        cowin-cli -p 688003 -v covishield
 
+By default we use tomorrow's date like the cowin portal.
 Not all states are implemented yet.
 You can contribute district id of other states, take states/kerala.go as template.
 
