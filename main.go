@@ -15,18 +15,18 @@ func getDate() string {
 }
 
 func main() {
-	pincode := flag.String("pin", "", "pincode")
-	state := flag.String("state", "", "state")
-	district := flag.String("district", "", "district")
-	date := flag.String("date", getDate(), "date dd-mm-yyyy")
-	vaccine := flag.String("vaccine", "", "vaccine name")
-	info := flag.Bool("info", false, "full info")
+	pincode := flag.String("p", "", "pincode")
+	state := flag.String("s", "", "state")
+	district := flag.String("d", "", "district")
+	date := flag.String("c", getDate(), "date dd-mm-yyyy")
+	vaccine := flag.String("v", "", "vaccine name")
+	info := flag.Bool("i", false, "full info")
 
 	flag.Parse()
 	flag.Usage = func() {
 		fmt.Printf("Usage :\n")
-		fmt.Printf("\n  cowin-cli --state state --district district [--vaccine vaccine name] [--info] [--date dd-mm-yyyy]\n")
-		fmt.Printf("  cowin-cli --pin pincode \n\n")
+		fmt.Printf("\n  cowin-cli -s state -d district [-v vaccine ] [-i] [-c dd-mm-yyyy]\n")
+		fmt.Printf("  cowin-cli -p pincode \n\n")
 		flag.PrintDefaults()
 	}
 	if *pincode != "" || (*state != "" && *district != "") {
