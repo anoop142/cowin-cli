@@ -24,7 +24,7 @@ clean:
 	go clean
 
 run: 	build
-	./$(BIN)
+	./$(BIN)/cowin-cli
 
 install:	build
 	cp $(BIN) $(INSTALL_DIR)
