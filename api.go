@@ -16,6 +16,8 @@ type CentreData struct {
 		Sessions []struct {
 			Date              string   `json:"date"`
 			AvailableCapacity int      `json:"available_capacity"`
+			MinAgeLimit       int      `json:"min_age_limit"`
+			Vaccine           string   `json:"vaccine"`
 			Slots             []string `json:"slots"`
 		} `json:"sessions"`
 	} `json:"centers"`
@@ -91,7 +93,7 @@ func printCenterData(printInfo bool) {
 
 		if printInfo {
 			for _, vv := range v.Sessions {
-				fmt.Printf("  %v - %v\n", vv.Date, vv.AvailableCapacity)
+				fmt.Printf("  %v - %v  %v %v\n", vv.Date, vv.AvailableCapacity, vv.Vaccine, vv.MinAgeLimit)
 			}
 		}
 	}
