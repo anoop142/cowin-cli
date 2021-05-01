@@ -21,16 +21,17 @@ func main() {
 	date := flag.String("c", getDate(), "date dd-mm-yyyy")
 	vaccine := flag.String("v", "", "vaccine name")
 	info := flag.Bool("i", false, "full info")
+	bookable := flag.Bool("b", false, "bookable only")
 
 	flag.Parse()
 	flag.Usage = func() {
 		fmt.Printf("Usage :\n")
-		fmt.Printf("\n  cowin-cli -s state -d district [-v vaccine ] [-i] [-c dd-mm-yyyy]\n")
+		fmt.Printf("\n  cowin-cli -s state -d district [-v vaccine ] [-i] [-b] [-c dd-mm-yyyy]\n")
 		fmt.Printf("  cowin-cli -p pincode \n\n")
 		flag.PrintDefaults()
 	}
 	if *pincode != "" || (*state != "" && *district != "") {
-		printCenters(states.GetDistrictID(*state, *district), *pincode, *vaccine, *date, *info)
+		printCenters(states.GetDistrictID(*state, *district), *pincode, *vaccine, *date, *info, *bookable)
 	} else {
 		flag.Usage()
 	}

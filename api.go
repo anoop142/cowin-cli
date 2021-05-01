@@ -83,8 +83,20 @@ func getCenters(districtID string, pincode string, vaccine string, date string) 
 
 }
 
-func printCenterData(printInfo bool) {
+func printCenterData(printInfo bool, bookable bool) {
 	for _, v := range centreData.Centers {
+
+		// skip if  the center is  not bookable
+		if bookable {
+			totalCapacity := 0
+			for _, vv := range v.Sessions {
+				totalCapacity += vv.AvailableCapacity
+			}
+			if totalCapacity < 1 {
+				continue
+			}
+		}
+
 		fmt.Printf("%v ", v.Name)
 		if v.FeeType != "Free" {
 			fmt.Printf("Paid")
@@ -99,10 +111,10 @@ func printCenterData(printInfo bool) {
 	}
 }
 
-func printCenters(districtID, pincode, vaccine, date string, printInfo bool) {
+func printCenters(districtID, pincode, vaccine, date string, printInfo bool, bookable bool) {
 
 	getCenters(districtID, pincode, vaccine, date)
 
-	printCenterData(printInfo)
+	printCenterData(printInfo, bookable)
 
 }
