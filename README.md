@@ -7,7 +7,7 @@ cowin-cli is a simple cli tool to list centres available for scheduling vaccinat
 
 ### USAGE
 
-    cowin-cli -s state -d district [-v vaccine ] [-i] [-c dd-mm-yyyy]
+    cowin-cli -s state -d district [-v vaccine ] [-i] [-b] [-c dd-mm-yyyy]
 
     cowin-cli -p pincode
 
