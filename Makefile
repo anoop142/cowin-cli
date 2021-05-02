@@ -27,6 +27,6 @@ run: 	build
 	./$(BIN)/cowin-cli
 
 install:	build
-	cp $(BIN) $(INSTALL_DIR)
+	cp $(BIN)/cowin-cli $(INSTALL_DIR)
 
 all:	build
