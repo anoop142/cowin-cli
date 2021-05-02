@@ -18,9 +18,9 @@ There are two modes of operation
 
 ### Example :
         
-        cowin-cli -s kerala -d alappuzha 
+        cowin-cli -s kerala -d alappuzha -i
 
-        cowin-cli -p 688003 -v covishield
+        cowin-cli -p 688003 -v covishield -i
 ### Output
         
     Aroor FHC
@@ -28,7 +28,7 @@ There are two modes of operation
     Ala PHC
         03-05-2021 - 0   45+
     
- 2. ### Book vaccine
+2. ### Book vaccine
  
     
     cowin-cli -sc -s state -d district [-no mobileNo] [-name Name] 
@@ -62,7 +62,7 @@ There are two modes of operation
 
 
 ### Options:
-    -b	bookable only
+    -b	print bookable only
     -c string
             date dd-mm-yyyy (default "03-05-2021")
     -d string
@@ -87,8 +87,7 @@ you can pass -name with "all" to book all registered under same number.
 if name is not passed user will prompted to select one.
 
 ### Why cowin-cli generates  OTP first and prompt to input after selecting the Center?
-This is done to prevent waiting for OTP, it  may take some time to generate otp and receive it, thit time can be saved by sending otp first and entering it after selecting Center.
-
+This is done to prevent waiting for OTP. It  may take some time to generate otp and receive it, this time can be used for selecting the center and enter opt after it.
 ### Note
 By default we use tomorrow's date like the cowin portal.
 Not all states are implemented yet.
