@@ -107,9 +107,10 @@ func printBeneficaries(b beneficariesData) {
 
 // getBeneficariesID gets list of beneficaries id and dose
 func (scheduleData *ScheduleData) getBeneficariesID(b beneficariesData, name string) {
-	var limit, opt int
+	var opt int
 
-	if len(b.Beneficiaries) == 1 {
+	IDtotalCount := len(b.Beneficiaries)
+	if IDtotalCount == 1 {
 		scheduleData.beneficariesRefIDs = append(scheduleData.beneficariesRefIDs, b.Beneficiaries[0].BeneficiaryReferenceID)
 		scheduleData.dose = getDoseNo(b.Beneficiaries[0].Dose1Date)
 		// name specified
@@ -124,20 +125,19 @@ func (scheduleData *ScheduleData) getBeneficariesID(b beneficariesData, name str
 					scheduleData.dose = getDoseNo(v.Dose1Date)
 					break
 				}
+			}
+			fmt.Printf("name %s not found!\n", name)
 
-			}
-			if len(scheduleData.beneficariesRefIDs) == 0 {
-				log.Fatalf("name %v not found\n", name)
-			}
 		}
 
-	} else {
+	}
+	if len(scheduleData.beneficariesRefIDs) == 0 {
 		//print beneficaries and prompt user
 		printBeneficaries(b)
-		opt = getUserSelection("Enter name ID : ", limit, true)
+		opt = getUserSelection("Enter name ID : ", IDtotalCount, true)
 
 		// get all beneficaries
-		if opt == limit+1 {
+		if opt == IDtotalCount {
 			scheduleData.getAllbID(b)
 			// append chosen one
 		} else {
