@@ -6,6 +6,7 @@ cowin-cli is a simple cli tool to book vaccines as well as list centres availabl
     go build
 
 ### USAGE
+
 There are two modes of operation
 
 1. ### List vaccine centers
@@ -59,7 +60,28 @@ There are two modes of operation
 
         Appointment scheduled successfully!
 
-This vaccination center is completely booked for the selected date.
+
+### Options:
+    -b	bookable only
+    -c string
+            date dd-mm-yyyy (default "03-05-2021")
+    -d string
+            district
+    -i	full info
+    -name string
+            registered name
+    -no string
+            mobile number
+    -p string
+            pincode
+    -s string
+            state
+    -sc
+            schedule vaccine
+    -v string
+            vaccine name
+    -version
+            version
 
 you can pass -name with "all" to book all registered under same number.
 if name is not passed user will prompted to select one.
