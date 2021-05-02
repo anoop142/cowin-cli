@@ -8,6 +8,15 @@ import (
 	"github.com/anoop142/cowin-cli/states"
 )
 
+const (
+	version = "0.6"
+	author  = "Anoop S"
+)
+
+func printAbout() {
+	fmt.Printf("cowin-cli v%v %v\n", version, author)
+}
+
 func getDate() string {
 	dateNow := time.Now()
 	dateTommorrow := dateNow.AddDate(0, 0, 1)
@@ -25,9 +34,11 @@ func main() {
 	schedule := flag.Bool("sc", false, "schedule vaccine ")
 	mobileNumber := flag.String("no", "", "mobile number")
 	name := flag.String("name", "", "registered name")
+	version := flag.Bool("version", false, "version")
 
 	flag.Parse()
 	flag.Usage = func() {
+		printAbout()
 		fmt.Printf("Usage :\n")
 		fmt.Println("\nList :")
 		fmt.Printf("\n  cowin-cli -s state -d district [-v vaccine ] [-i] [-b] [-c dd-mm-yyyy]\n")
@@ -43,6 +54,8 @@ func main() {
 		} else {
 			printCenters(states.GetDistrictID(*state, *district), *pincode, *vaccine, *date, *info, *bookable)
 		}
+	} else if *version {
+		printAbout()
 	} else {
 		flag.Usage()
 	}
