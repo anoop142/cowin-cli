@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strings"
 
 	"github.com/olekukonko/tablewriter"
 )
@@ -156,8 +157,20 @@ func printCenterBookable(centerList []CenterBookable) {
 	}
 	table.Render()
 }
+func getSpecifiedCenterSessionID(centerBookable []CenterBookable, specifiedCenters string) string {
+	specifiedCentersList := strings.Split(specifiedCenters, ",")
 
-func (scheduleData *ScheduleData) getSessionID(districtID, date string) {
+	for _, specifiedCenter := range specifiedCentersList {
+		for _, center := range centerBookable {
+			if center.Name == specifiedCenter {
+				return center.SessionID
+			}
+		}
+	}
+	return ""
+}
+
+func (scheduleData *ScheduleData) getSessionID(districtID, date string, specifiedCenters string) {
 	var center CentreData
 	var centerBookable []CenterBookable
 	var opt int
@@ -183,10 +196,16 @@ func (scheduleData *ScheduleData) getSessionID(districtID, date string) {
 		}
 	}
 	if len(centerBookable) > 0 {
-		printCenterBookable(centerBookable)
-		opt = getUserSelection("Enter Center ID :", len(centerBookable), false)
+		if specifiedCenters != "" {
+			scheduleData.sessionID = getSpecifiedCenterSessionID(centerBookable, specifiedCenters)
+		}
 
-		scheduleData.sessionID = centerBookable[opt].SessionID
+		if scheduleData.sessionID == "" {
+			printCenterBookable(centerBookable)
+			opt = getUserSelection("Enter Center ID :", len(centerBookable), false)
+
+			scheduleData.sessionID = centerBookable[opt].SessionID
+		}
 	} else {
 		log.Fatalln("No Centers available for booking")
 	}
@@ -221,12 +240,12 @@ func (scheduleData ScheduleData) scheduleVaccineNow() {
 
 }
 
-func scheduleVaccine(districtID, pincode, date, mobileNumber, name string) {
+func scheduleVaccine(districtID, pincode, date, mobileNumber, name, centers string) {
 	var scheduleData ScheduleData
 
 	scheduleData.genOTP(mobileNumber)
 
-	scheduleData.getSessionID(districtID, date)
+	scheduleData.getSessionID(districtID, date, centers)
 
 	scheduleData.validateOTP(getOTPprompt())
 

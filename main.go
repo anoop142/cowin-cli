@@ -34,6 +34,7 @@ func main() {
 	schedule := flag.Bool("sc", false, "schedule vaccine ")
 	mobileNumber := flag.String("no", "", "mobile number")
 	name := flag.String("name", "", "registered name")
+	centers := flag.String("centers", "", "centers to auto book seperated by ,")
 	version := flag.Bool("version", false, "version")
 
 	flag.Parse()
@@ -50,9 +51,13 @@ func main() {
 	}
 	if *pincode != "" || (*state != "" && *district != "") {
 		if *schedule {
-			scheduleVaccine(states.GetDistrictID(*state, *district), *pincode, *date, *mobileNumber, *name)
+			scheduleVaccine(states.GetDistrictID(*state, *district), *pincode,
+				*date, *mobileNumber, *name, *centers)
 		} else {
-			printCenters(states.GetDistrictID(*state, *district), *pincode, *vaccine, *date, *info, *bookable)
+			printCenters(states.GetDistrictID(
+				*state, *district), *pincode, *vaccine,
+				*date, *info, *bookable,
+			)
 		}
 	} else if *version {
 		printAbout()
