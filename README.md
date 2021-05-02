@@ -31,7 +31,7 @@ There are two modes of operation
 2. ### Book vaccine
  
     
-    cowin-cli -sc -s state -d district [-no mobileNo] [-name Name] 
+     cowin-cli -sc -state -d district [-no mobileNumber] [-name Name] [-centers center1,cetner2 ]
 
 ### Example:
 
@@ -65,6 +65,8 @@ There are two modes of operation
     -b	print bookable only
     -c string
             date dd-mm-yyyy (default "03-05-2021")
+    -centers string
+    	centers to auto book seperated by ','
     -d string
             district
     -i	full info
