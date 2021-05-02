@@ -14,6 +14,7 @@ type CentreData struct {
 		Name     string `json:"name"`
 		FeeType  string `json:"fee_type"`
 		Sessions []struct {
+			SessionID         string   `json:"session_id"`
 			Date              string   `json:"date"`
 			AvailableCapacity int      `json:"available_capacity"`
 			MinAgeLimit       int      `json:"min_age_limit"`
@@ -22,8 +23,6 @@ type CentreData struct {
 		} `json:"sessions"`
 	} `json:"centers"`
 }
-
-var centreData CentreData
 
 func getReq(URL string) []byte {
 	resp, err := http.Get(URL)
@@ -51,7 +50,7 @@ func getApiURL(pincode string) string {
 	}
 }
 
-func getCenters(districtID string, pincode string, vaccine string, date string) {
+func (center *CentreData) getCenters(districtID string, pincode string, vaccine string, date string) {
 
 	u, err := url.Parse(getApiURL(pincode))
 
@@ -79,20 +78,20 @@ func getCenters(districtID string, pincode string, vaccine string, date string) 
 
 	u.RawQuery = q.Encode()
 
-	json.Unmarshal(getReq(u.String()), &centreData)
+	json.Unmarshal(getReq(u.String()), center)
 
 }
 
-func printCenterData(printInfo bool, bookable bool) {
-	for _, v := range centreData.Centers {
+func (center CentreData) printCenterData(printInfo bool, bookable bool) {
+	for _, v := range center.Centers {
 
 		// skip if  the center is  not bookable
 		if bookable {
-			totalCapacity := 0
+			totalAvailablity := 0
 			for _, vv := range v.Sessions {
-				totalCapacity += vv.AvailableCapacity
+				totalAvailablity += vv.AvailableCapacity
 			}
-			if totalCapacity < 1 {
+			if totalAvailablity < 1 {
 				continue
 			}
 		}
@@ -112,9 +111,10 @@ func printCenterData(printInfo bool, bookable bool) {
 }
 
 func printCenters(districtID, pincode, vaccine, date string, printInfo bool, bookable bool) {
+	var center CentreData
 
-	getCenters(districtID, pincode, vaccine, date)
+	center.getCenters(districtID, pincode, vaccine, date)
 
-	printCenterData(printInfo, bookable)
+	center.printCenterData(printInfo, bookable)
 
 }
