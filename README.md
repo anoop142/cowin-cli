@@ -87,7 +87,7 @@ you can pass -name with "all" to book all registered under same number.
 if name is not passed user will prompted to select one.
 
 ### Why cowin-cli generates  OTP first and prompt to input after selecting the Center?
-This is done to prevent waiting for OTP. It  may take some time to generate otp and receive it, this time can be used for selecting the center and enter opt after it.
+This is done to prevent waiting for OTP. It  may take some time to generate OTP and receive it, this time can be used for selecting the center and enter OTP after it.
 ### Note
 By default we use tomorrow's date like the cowin portal.
 Not all states are implemented yet.
