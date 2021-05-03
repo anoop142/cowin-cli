@@ -162,6 +162,7 @@ func getSpecifiedCenterSessionID(centerBookable []CenterBookable, specifiedCente
 	for _, specifiedCenter := range specifiedCentersList {
 		for _, center := range centerBookable {
 			if center.Name == specifiedCenter {
+				fmt.Println("Center : ", specifiedCenter)
 				return center.SessionID
 			}
 		}
