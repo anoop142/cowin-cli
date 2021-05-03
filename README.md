@@ -33,7 +33,7 @@ There are two modes of operation
     
      cowin-cli -sc -state -d district [-no mobileNumber] [-name Name] [-centers center1,cetner2 ]
 
-### Example:
+### Example 1:
 
     cowin-cli -sc -s kerala -d alappuzha -no 9123456780
 ### Output
@@ -60,6 +60,9 @@ There are two modes of operation
 
         Appointment scheduled successfully!
 
+### Example 2:
+
+        cowin-cli -sc -s kerala -d alappuzha -no 9123456780 -name "John doe" -centers "Aroor FHC,Ala PHC"
 
 ### Options:
     -b	print bookable only
