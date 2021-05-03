@@ -239,7 +239,7 @@ func (scheduleData ScheduleData) scheduleVaccineNow() {
 	case 500:
 		fmt.Println("Internal Server error")
 	default:
-		log.Fatalln("Error")
+		log.Fatalln("Error ", statusCode)
 	}
 
 }
