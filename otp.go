@@ -8,7 +8,7 @@ import (
 )
 
 // genOTP generates OTP and return txnId
-func (scheduleData *ScheduleData) genOTP(mobileNumber string) {
+func genOTP(mobileNumber string) string {
 
 	if mobileNumber == "" {
 		fmt.Printf("\nEnter Mobile Number : ")
@@ -38,7 +38,7 @@ func (scheduleData *ScheduleData) genOTP(mobileNumber string) {
 		log.Fatalln("cannot get txnId")
 	}
 
-	scheduleData.txnId = fmt.Sprintf("%v", txnId)
+	return fmt.Sprintf("%v", txnId)
 
 }
 

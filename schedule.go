@@ -170,7 +170,8 @@ func getSpecifiedCenterSessionID(centerBookable []CenterBookable, specifiedCente
 	return ""
 }
 
-func (scheduleData *ScheduleData) getSessionID(districtID, date string, specifiedCenters string) {
+// getSessionID gets session ID and generates OTP
+func (scheduleData *ScheduleData) getSessionID(districtID, date, specifiedCenters, mobileNumber string) {
 	var center CentreData
 	var centerBookable []CenterBookable
 	var opt int
@@ -196,6 +197,9 @@ func (scheduleData *ScheduleData) getSessionID(districtID, date string, specifie
 		}
 	}
 	if len(centerBookable) > 0 {
+		// generate OTP only if there is bookable centers
+		scheduleData.txnId = genOTP(mobileNumber)
+
 		if specifiedCenters != "" {
 			scheduleData.sessionID = getSpecifiedCenterSessionID(centerBookable, specifiedCenters)
 		}
@@ -243,9 +247,7 @@ func (scheduleData ScheduleData) scheduleVaccineNow() {
 func scheduleVaccine(districtID, pincode, date, mobileNumber, name, centers string) {
 	var scheduleData ScheduleData
 
-	scheduleData.genOTP(mobileNumber)
-
-	scheduleData.getSessionID(districtID, date, centers)
+	scheduleData.getSessionID(districtID, date, centers, mobileNumber)
 
 	scheduleData.validateOTP(getOTPprompt())
 
