@@ -126,7 +126,6 @@ func (scheduleData *ScheduleData) getBeneficariesID(b beneficariesData, name str
 					break
 				}
 			}
-			fmt.Printf("name %s not found!\n", name)
 
 		}
 
