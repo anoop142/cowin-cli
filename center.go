@@ -96,9 +96,8 @@ func (center CentreData) printCenterData(printInfo bool, bookable bool) {
 		fmt.Println()
 
 		if printInfo {
-			for _, vv := range v.Sessions {
-				fmt.Printf("  %v - %v  %v %v+\n", vv.Date, vv.AvailableCapacity, vv.Vaccine, vv.MinAgeLimit)
-			}
+			fmt.Printf("  %v - %v  %v %v+\n", v.Sessions[0].Date, v.Sessions[0].AvailableCapacity, v.Sessions[0].Vaccine, v.Sessions[0].MinAgeLimit)
+
 		}
 	}
 }
