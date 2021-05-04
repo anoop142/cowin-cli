@@ -67,7 +67,7 @@ There are two modes of operation
 ### Options:
     -b	print bookable only
     -c string
-            date dd-mm-yyyy (default "03-05-2021")
+            date dd-mm-yyyy (default tomorrow's date)
     -centers string
     	centers to auto book seperated by ','
     -d string
