@@ -35,6 +35,7 @@ func main() {
 	mobileNumber := flag.String("no", "", "mobile number")
 	name := flag.String("name", "", "registered name")
 	centers := flag.String("centers", "", "centers to auto book seperated by ,")
+	mAgeLimit := flag.Int("m", 0, "minimum age limit")
 	version := flag.Bool("version", false, "version")
 
 	flag.Parse()
@@ -56,7 +57,7 @@ func main() {
 		} else {
 			printCenters(states.GetDistrictID(
 				*state, *district), *pincode, *vaccine,
-				*date, *info, *bookable,
+				*date, *info, *bookable, *mAgeLimit,
 			)
 		}
 	} else if *version {

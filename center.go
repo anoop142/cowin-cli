@@ -82,10 +82,15 @@ func (center *CentreData) getCenters(districtID string, pincode string, vaccine 
 
 }
 
-func (center CentreData) printCenterData(printInfo bool, bookable bool) {
+func (center CentreData) printCenterData(printInfo,
+	bookable bool, mAgeLimit int) {
 	for _, v := range center.Centers {
 		// skip if  the center is  not bookable
 		if bookable && v.Sessions[0].AvailableCapacity < 1 {
+			continue
+		}
+		// skip if the specified age limit is less than min age limit
+		if mAgeLimit > 0 && mAgeLimit < v.Sessions[0].MinAgeLimit {
 			continue
 		}
 
@@ -102,11 +107,12 @@ func (center CentreData) printCenterData(printInfo bool, bookable bool) {
 	}
 }
 
-func printCenters(districtID, pincode, vaccine, date string, printInfo bool, bookable bool) {
+func printCenters(districtID, pincode, vaccine, date string,
+	printInfo, bookable bool, mAgeLimit int) {
 	var center CentreData
 
 	center.getCenters(districtID, pincode, vaccine, date)
 
-	center.printCenterData(printInfo, bookable)
+	center.printCenterData(printInfo, bookable, mAgeLimit)
 
 }
