@@ -21,11 +21,14 @@ There are two modes of operation
     cowin-cli -p pincode
 
 
-### Example :
+### Example 1:
         
         cowin-cli -s kerala -d alappuzha -i
 
         cowin-cli -p 688003 -v covishield -i
+### Example 2:
+
+        cowin-cli -s kerala -d alappuzha -i -m 18
 ### Output
         
     Aroor FHC
@@ -87,6 +90,8 @@ There are two modes of operation
                 pincode
         -v string
                 vaccine name
+        -m int
+                minimum age limit
    
 * **Booking params**
 
