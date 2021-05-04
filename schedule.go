@@ -183,18 +183,17 @@ func (scheduleData *ScheduleData) getSessionID(districtID, date, specifiedCenter
 	}
 
 	for _, v := range center.Centers {
-		for _, vv := range v.Sessions {
-			if vv.AvailableCapacity > 0 {
-				centerBookable = append(centerBookable, CenterBookable{
-					Name:        v.Name,
-					Freetype:    v.FeeType,
-					SessionID:   vv.SessionID,
-					Vaccine:     vv.Vaccine,
-					MinAgeLimit: vv.MinAgeLimit,
-					Date:        vv.Date,
-				})
 
-			}
+		if v.Sessions[0].AvailableCapacity > 0 {
+			centerBookable = append(centerBookable, CenterBookable{
+				Name:        v.Name,
+				Freetype:    v.FeeType,
+				SessionID:   v.Sessions[0].SessionID,
+				Vaccine:     v.Sessions[0].Vaccine,
+				MinAgeLimit: v.Sessions[0].MinAgeLimit,
+				Date:        v.Sessions[0].Date,
+			})
+
 		}
 	}
 	if len(centerBookable) > 0 {
