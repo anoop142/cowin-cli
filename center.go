@@ -32,7 +32,12 @@ func getReq(URL string) []byte {
 	}
 
 	defer resp.Body.Close()
+
 	body, err := io.ReadAll(resp.Body)
+
+	if resp.StatusCode != 200 {
+		log.Fatalln(string(body))
+	}
 
 	if err != nil {
 		log.Fatalln(err)
