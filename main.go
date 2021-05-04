@@ -35,6 +35,7 @@ func main() {
 	mobileNumber := flag.String("no", "", "mobile number")
 	name := flag.String("name", "", "registered name")
 	centers := flag.String("centers", "", "centers to auto book seperated by ,")
+	mAgeLimit := flag.Int("m", 0, "minimum age limit")
 	version := flag.Bool("version", false, "version")
 
 	flag.Parse()
@@ -42,7 +43,7 @@ func main() {
 		printAbout()
 		fmt.Printf("Usage :\n")
 		fmt.Println("\nList :")
-		fmt.Printf("\n  cowin-cli -s state -d district [-v vaccine ] [-i] [-b] [-c dd-mm-yyyy]\n")
+		fmt.Printf("\n  cowin-cli -s state -d district [-v vaccine] [-m age] [-i] [-b] [-c dd-mm-yyyy]\n")
 		fmt.Printf("  cowin-cli -p pincode \n\n")
 		fmt.Println("Book Vaccine:")
 		fmt.Printf("\n  cowin-cli -sc -state -d district [-no mobileNumber] [-name Name] [-centers center1,cetner2 ]\n\n")
@@ -56,7 +57,7 @@ func main() {
 		} else {
 			printCenters(states.GetDistrictID(
 				*state, *district), *pincode, *vaccine,
-				*date, *info, *bookable,
+				*date, *info, *bookable, *mAgeLimit,
 			)
 		}
 	} else if *version {
