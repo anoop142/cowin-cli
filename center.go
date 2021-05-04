@@ -84,16 +84,9 @@ func (center *CentreData) getCenters(districtID string, pincode string, vaccine 
 
 func (center CentreData) printCenterData(printInfo bool, bookable bool) {
 	for _, v := range center.Centers {
-
 		// skip if  the center is  not bookable
-		if bookable {
-			totalAvailablity := 0
-			for _, vv := range v.Sessions {
-				totalAvailablity += vv.AvailableCapacity
-			}
-			if totalAvailablity < 1 {
-				continue
-			}
+		if bookable && v.Sessions[0].AvailableCapacity < 1 {
+			continue
 		}
 
 		fmt.Printf("%v ", v.Name)
