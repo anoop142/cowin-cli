@@ -1,9 +1,14 @@
 ### INTRODUCTON
 cowin-cli is a simple cli tool to book vaccines as well as list centres available for scheduling vaccination  in India with their info. It uses the offical  api used by the cowin portal.
 
+
 ### BUILD
 
     go build
+
+### DOWNLOAD
+Download precompiled binaries [here](https://github.com/anoop142/cowin-cli/releases)
+
 
 ### USAGE
 
@@ -65,28 +70,41 @@ There are two modes of operation
         cowin-cli -sc -s kerala -d alappuzha -no 9123456780 -name "John doe" -centers "Aroor FHC,Ala PHC"
 
 ### Options:
-    -b	print bookable only
-    -c string
-            date dd-mm-yyyy (default tomorrow's date)
-    -centers string
-    	centers to auto book seperated by ','
-    -d string
-            district
-    -i	full info
-    -name string
-            registered name
-    -no string
-            mobile number
-    -p string
-            pincode
-    -s string
-            state
-    -sc
-            schedule vaccine
-    -v string
-            vaccine name
-    -version
-            version
+ * **Main params**
+        
+        -s string
+                state
+        -d string
+                district
+   
+* **List params**
+
+        -b	print bookable only
+        -c string
+                date dd-mm-yyyy (default tomorrow's date)
+        -i	full info
+        -p string
+                pincode
+        -v string
+                vaccine name
+   
+* **Booking params**
+
+        -sc
+                invoke schedule vaccine modes
+        -name string
+                registered name
+        -no string
+                mobile number
+        -centers string seperated by ','
+                centers to auto select
+        
+* **Misc**
+
+        -version
+                print version
+        -help 
+                print help
 
 you can pass -name with "all" to book all registered under same number.
 if name is not passed user will prompted to select one.
