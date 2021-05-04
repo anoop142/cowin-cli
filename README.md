@@ -16,7 +16,7 @@ There are two modes of operation
 
 1. ### List vaccine centers
 
-    cowin-cli -s state -d district [-v vaccine ] [-i] [-b] [-c dd-mm-yyyy]
+    cowin-cli -s state -d district [-v vaccine] [-m age] [-i] [-b] [-c dd-mm-yyyy]
 
     cowin-cli -p pincode
 
@@ -25,7 +25,7 @@ There are two modes of operation
         
         cowin-cli -s kerala -d alappuzha -i
 
-        cowin-cli -p 688003 -v covishield -i
+        cowin-cli -p 688003 -v covishield -i -m 45
 ### Output
         
     Aroor FHC
@@ -87,6 +87,8 @@ There are two modes of operation
                 pincode
         -v string
                 vaccine name
+        -m int
+                min age limit
    
 * **Booking params**
 
