@@ -43,7 +43,7 @@ func main() {
 		printAbout()
 		fmt.Printf("Usage :\n")
 		fmt.Println("\nList :")
-		fmt.Printf("\n  cowin-cli -s state -d district [-v vaccine ] [-i] [-b] [-c dd-mm-yyyy]\n")
+		fmt.Printf("\n  cowin-cli -s state -d district [-v vaccine] [-m age] [-i] [-b] [-c dd-mm-yyyy]\n")
 		fmt.Printf("  cowin-cli -p pincode \n\n")
 		fmt.Println("Book Vaccine:")
 		fmt.Printf("\n  cowin-cli -sc -state -d district [-no mobileNumber] [-name Name] [-centers center1,cetner2 ]\n\n")
