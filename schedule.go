@@ -158,8 +158,9 @@ func printCenterBookable(centerList []CenterBookable) {
 }
 func getSpecifiedCenterSessionID(centerBookable []CenterBookable, specifiedCenters string) string {
 	specifiedCentersList := strings.Split(specifiedCenters, ",")
-
 	for _, specifiedCenter := range specifiedCentersList {
+		// remove leading and trailing spaces
+		specifiedCenter = strings.TrimSpace(specifiedCenter)
 		for _, center := range centerBookable {
 			if center.Name == specifiedCenter {
 				fmt.Println("Center : ", specifiedCenter)
