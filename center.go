@@ -3,9 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"io"
 	"log"
-	"net/http"
 	"net/url"
 )
 
@@ -22,29 +20,6 @@ type CentreData struct {
 			Slots             []string `json:"slots"`
 		} `json:"sessions"`
 	} `json:"centers"`
-}
-
-func getReq(URL string) []byte {
-	resp, err := http.Get(URL)
-
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	defer resp.Body.Close()
-
-	body, err := io.ReadAll(resp.Body)
-
-	if resp.StatusCode != 200 {
-		log.Fatalln(string(body))
-	}
-
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	return body
-
 }
 
 func getApiURL(pincode string) string {
@@ -82,8 +57,13 @@ func (center *CentreData) getCenters(districtID string, pincode string, vaccine 
 	}
 
 	u.RawQuery = q.Encode()
+	resp, statusCode := getReqAuth(u.String(), "")
 
-	json.Unmarshal(getReq(u.String()), center)
+	if statusCode != 200 {
+		log.Fatalln(string(resp))
+	}
+
+	json.Unmarshal(resp, center)
 
 }
 

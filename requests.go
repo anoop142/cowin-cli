@@ -12,7 +12,7 @@ func getReqAuth(URL string, bearerToken string) ([]byte, int) {
 
 	req, err := http.NewRequest("GET", URL, nil)
 	checkError(err)
-
+	req.Header.Add("user-agent", "Mozilla/5.0 (Linux x86_64) Chrome/90.0.4430.93 Safari/537.36")
 	req.Header.Add("authorization", fmt.Sprintf("Bearer %s", bearerToken))
 	resp, err := client.Do(req)
 
