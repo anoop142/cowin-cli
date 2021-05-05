@@ -163,7 +163,7 @@ func getSpecifiedCenterSessionID(centerBookable []CenterBookable, specifiedCente
 		specifiedCenter = strings.TrimSpace(specifiedCenter)
 		for _, center := range centerBookable {
 			if center.Name == specifiedCenter {
-				fmt.Println(specifiedCenter, center.Vaccine)
+				fmt.Println("Center: ", specifiedCenter, center.Vaccine)
 				return center.SessionID
 			}
 		}
