@@ -150,9 +150,9 @@ func (scheduleData *ScheduleData) getBeneficariesID(b beneficariesData, name str
 // printCenterBookable prints centers avaliable for booking
 func printCenterBookable(centerList []CenterBookable) {
 	table := tablewriter.NewWriter(os.Stdout)
-	table.SetHeader([]string{"ID", "Center", "Free type", "Min Age", "Date"})
+	table.SetHeader([]string{"ID", "Center", "Free type", "Min Age", "Vaccine"})
 	for i, v := range centerList {
-		table.Append([]string{fmt.Sprint(i), v.Name, v.Freetype, fmt.Sprint(v.MinAgeLimit), v.Date})
+		table.Append([]string{fmt.Sprint(i), v.Name, v.Freetype, fmt.Sprint(v.MinAgeLimit), v.Vaccine})
 	}
 	table.Render()
 }
@@ -163,7 +163,7 @@ func getSpecifiedCenterSessionID(centerBookable []CenterBookable, specifiedCente
 		specifiedCenter = strings.TrimSpace(specifiedCenter)
 		for _, center := range centerBookable {
 			if center.Name == specifiedCenter {
-				fmt.Println("Center : ", specifiedCenter)
+				fmt.Println(specifiedCenter, center.Vaccine)
 				return center.SessionID
 			}
 		}
