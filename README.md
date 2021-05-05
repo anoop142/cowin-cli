@@ -113,6 +113,11 @@ if name is not passed user will prompted to select one.
 
 ### Why cowin-cli generates  OTP first and prompt to input after selecting the Center?
 This is done to prevent waiting for OTP. It  may take some time to generate OTP and receive it, this time can be used for selecting the center and enter OTP after it.
+
+### Bugs with the API
+* API will throw error unauthorized access if specified vaccine is not found at the moment.
+* Random Unauthorized access error for no specific reasons.
+
 ### Note
 By default we use tomorrow's date like the cowin portal.
 Not all states are implemented yet.
