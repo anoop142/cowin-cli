@@ -177,10 +177,6 @@ func (scheduleData *ScheduleData) getSessionID(districtID, date, specifiedCenter
 	var centerBookable []CenterBookable
 	var opt int
 	center.getCenters(districtID, "", "", date)
-	// Try again if centers is empty
-	if len(center.Centers) < 1 {
-		center.getCenters(districtID, "", "", date)
-	}
 
 	for _, v := range center.Centers {
 		for _, vv := range v.Sessions {
