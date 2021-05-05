@@ -103,16 +103,15 @@ func (center CentreData) printCenterData(printInfo, bookable bool, spAge int) {
 				continue
 			}
 		}
-
-		fmt.Printf("%v ", v.Name)
-		if v.FeeType != "Free" {
-			fmt.Printf("Paid")
-		}
-		fmt.Println()
-
-		if printInfo {
+		if !printInfo {
+			fmt.Printf("%v ", v.Name)
+			if v.FeeType != "Free" {
+				fmt.Printf("Paid")
+			}
+			fmt.Println()
+		} else {
 			for _, vv := range v.Sessions {
-				fmt.Printf("  %v - %v  %v %v+\n", vv.Date, vv.AvailableCapacity, vv.Vaccine, vv.MinAgeLimit)
+				fmt.Printf("%v  %v  %v  %v  %v %v+\n", v.Name, v.FeeType, vv.Date, vv.AvailableCapacity, vv.Vaccine, vv.MinAgeLimit)
 			}
 		}
 	}
