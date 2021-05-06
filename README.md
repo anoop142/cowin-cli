@@ -19,7 +19,7 @@ There are two modes of operation
 
 1. ### List vaccine centers
 
-    cowin-cli -s state -d district [-v vaccine] [-m age] [-i] [-b] [-c dd-mm-yyyy]
+    cowin-cli -s state -d district [-v vaccine] [-m age] [-i] [-b] [-slot slotTime] [-c dd-mm-yyyy]
 
     cowin-cli -p pincode
 
@@ -96,13 +96,15 @@ There are two modes of operation
 * **Booking params**
 
         -sc
-                invoke schedule vaccine modes
+                invoke schedule vaccine mode
         -name string
                 registered name
         -no string
                 mobile number
         -centers string seperated by ','
                 centers to auto select
+        -m int
+                min age limit
         
 * **Misc**
 
