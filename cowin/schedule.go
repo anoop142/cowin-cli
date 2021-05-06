@@ -264,10 +264,11 @@ func ScheduleVaccine(state, district, pincode, date,
 		date, centers, mobileNumber, age)
 
 	scheduleData.validateOTP(getOTPprompt())
-
-	if scheduleData.bearerToken == "" {
+	// ask 3 times if otp is incorrect
+	for i := 0; scheduleData.bearerToken == "" && i < 3; i++ {
 		fmt.Println("Incorrect OTP")
 		scheduleData.validateOTP(getOTPprompt())
+
 	}
 
 	scheduleData.getBeneficariesID(getBeneficaries(scheduleData.bearerToken), name)
