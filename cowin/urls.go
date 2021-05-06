@@ -1,4 +1,4 @@
-package main
+package cowin
 
 const (
 	apiDistrictURL      = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/calendarByDistrict?"

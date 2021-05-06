@@ -1,4 +1,4 @@
-package main
+package cowin
 
 var vaccinesList = map[string]string{
 	"covaxin":    "COVAXIN",

@@ -1,4 +1,4 @@
-package main
+package cowin
 
 import (
 	"bytes"

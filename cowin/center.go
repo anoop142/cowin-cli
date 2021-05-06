@@ -1,4 +1,4 @@
-package main
+package cowin
 
 import (
 	"encoding/json"
@@ -97,11 +97,11 @@ func (center CentreData) printCenterData(printInfo, bookable bool, spAge int) {
 	}
 }
 
-func printCenters(districtID, pincode, vaccine, date string,
+func PrintCenters(state, district, pincode, vaccine, date string,
 	printInfo, bookable bool, spAge int) {
 	var center CentreData
 
-	center.getCenters(districtID, pincode, vaccine, date)
+	center.getCenters(getDistrictID(state, district), pincode, vaccine, date)
 
 	center.printCenterData(printInfo, bookable, spAge)
 

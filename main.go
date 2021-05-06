@@ -4,6 +4,8 @@ import (
 	"flag"
 	"fmt"
 	"time"
+
+	"github.com/anoop142/cowin-cli/cowin"
 )
 
 const (
@@ -50,11 +52,11 @@ func main() {
 	}
 	if *pincode != "" || (*state != "" && *district != "") {
 		if *schedule {
-			scheduleVaccine(getDistrictID(*state, *district), *pincode,
+			cowin.ScheduleVaccine(*state, *district, *pincode,
 				*date, *mobileNumber, *name, *centers)
 		} else {
-			printCenters(getDistrictID(
-				*state, *district), *pincode, *vaccine,
+			cowin.PrintCenters(
+				*state, *district, *pincode, *vaccine,
 				*date, *info, *bookable, *mAgeLimit,
 			)
 		}

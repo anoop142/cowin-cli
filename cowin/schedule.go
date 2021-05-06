@@ -1,4 +1,4 @@
-package main
+package cowin
 
 import (
 	"encoding/json"
@@ -241,10 +241,10 @@ func (scheduleData ScheduleData) scheduleVaccineNow() {
 
 }
 
-func scheduleVaccine(districtID, pincode, date, mobileNumber, name, centers string) {
+func ScheduleVaccine(state, district, pincode, date, mobileNumber, name, centers string) {
 	var scheduleData ScheduleData
 
-	scheduleData.getSessionID(districtID, date, centers, mobileNumber)
+	scheduleData.getSessionID(getDistrictID(state, district), date, centers, mobileNumber)
 
 	scheduleData.validateOTP(getOTPprompt())
 
