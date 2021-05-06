@@ -19,7 +19,7 @@ There are two modes of operation
 
 1. ### List vaccine centers
 
-    cowin-cli -s state -d district [-v vaccine] [-m age] [-i] [-b] [-slot slotTime] [-c dd-mm-yyyy]
+    cowin-cli -s state -d district [-v vaccine] [-m age] [-i] [-b]  [-c dd-mm-yyyy]
 
     cowin-cli -p pincode
 
@@ -39,7 +39,7 @@ There are two modes of operation
 2. ### Book vaccine
  
     
-     cowin-cli -sc -state -d district [-no mobileNumber] [-name Name] [-centers center1,cetner2 ]
+     cowin-cli -sc -state -d district [-no mobileNumber] [-name Name] [-centers center1,cetner2 ] [-slot slotTime]
 
 ### Example 1:
 
@@ -105,6 +105,8 @@ There are two modes of operation
                 centers to auto select
         -m int
                 min age limit
+        -slot string
+                slot time (FORENOON default)
         
 * **Misc**
 
