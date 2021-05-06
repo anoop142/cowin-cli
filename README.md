@@ -123,4 +123,5 @@ This is done to prevent waiting for OTP. It  may take some time to generate OTP 
 
 ### Note
 By default we use tomorrow's date like the cowin portal.
+All states are supported.
 
