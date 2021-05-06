@@ -30,6 +30,8 @@ func postReq(URL string, postData []byte, bearerToken string) ([]byte, int) {
 	req, err := http.NewRequest("POST", URL, bytes.NewBuffer(postData))
 	checkError(err)
 
+	req.Header.Add("user-agent", "Mozilla/5.0 (Linux x86_64) Chrome/90.0.4430.93 Safari/537.36")
+
 	if bearerToken != "" {
 		req.Header.Add("authorization", fmt.Sprintf("Bearer %s", bearerToken))
 	}
