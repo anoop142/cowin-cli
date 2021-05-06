@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/url"
+	"os"
 )
 
 type CentreData struct {
@@ -68,6 +69,7 @@ func (center *CentreData) getCenters(districtID string, pincode string, vaccine 
 }
 
 func (center CentreData) printCenterData(printInfo, bookable bool, spAge int) {
+	found := false
 	for _, v := range center.Centers {
 		// skip if the min age limit is greater than specified age
 		if spAge > 0 && spAge < v.Sessions[0].MinAgeLimit {
@@ -83,6 +85,7 @@ func (center CentreData) printCenterData(printInfo, bookable bool, spAge int) {
 				continue
 			}
 		}
+		found = true
 		if !printInfo {
 			fmt.Printf("%v ", v.Name)
 			if v.FeeType != "Free" {
@@ -94,6 +97,9 @@ func (center CentreData) printCenterData(printInfo, bookable bool, spAge int) {
 				fmt.Printf("%v  %v  %v  %v  %v %v+\n", v.Name, v.FeeType, vv.Date, vv.AvailableCapacity, vv.Vaccine, vv.MinAgeLimit)
 			}
 		}
+	}
+	if !found {
+		os.Exit(1)
 	}
 }
 
