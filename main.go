@@ -47,7 +47,7 @@ func main() {
 		help += "\n  cowin-cli -s state -d district [-v vaccine] [-m age] [-i] [-b] [-c dd-mm-yyyy]\n"
 		help += "  cowin-cli -p pincode \n\n"
 		help += "Book Vaccine:"
-		help += "\n  cowin-cli -sc -state -d district [-no mobileNumber] [-name Name] [-centers center1,cetner2 ]\n\n"
+		help += "\n  cowin-cli -sc -state -d district [-no mobileNumber] [-m age] [-name Name] [-centers center1,cetner2 ] [-slot slotTime]\n\n"
 
 		fmt.Print(help)
 		fmt.Println("Options :")
