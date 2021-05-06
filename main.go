@@ -41,12 +41,14 @@ func main() {
 	flag.Parse()
 	flag.Usage = func() {
 		printAbout()
-		fmt.Printf("Usage :\n")
-		fmt.Println("\nList :")
-		fmt.Printf("\n  cowin-cli -s state -d district [-v vaccine] [-m age] [-i] [-b] [-c dd-mm-yyyy]\n")
-		fmt.Printf("  cowin-cli -p pincode \n\n")
-		fmt.Println("Book Vaccine:")
-		fmt.Printf("\n  cowin-cli -sc -state -d district [-no mobileNumber] [-name Name] [-centers center1,cetner2 ]\n\n")
+		help := "Usage :\n"
+		help += "\nList :"
+		help += "\n  cowin-cli -s state -d district [-v vaccine] [-m age] [-i] [-b] [-c dd-mm-yyyy]\n"
+		help += "  cowin-cli -p pincode \n\n"
+		help += "Book Vaccine:"
+		help += "\n  cowin-cli -sc -state -d district [-no mobileNumber] [-name Name] [-centers center1,cetner2 ]\n\n"
+
+		fmt.Print(help)
 		fmt.Println("Options :")
 		flag.PrintDefaults()
 	}
