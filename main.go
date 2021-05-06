@@ -9,7 +9,7 @@ import (
 )
 
 const (
-	version = "0.96"
+	version = "0.97"
 	author  = "Anoop S"
 )
 
