@@ -60,7 +60,7 @@ func getDistrictID(state, district string) string {
 	resp, statusCode := getReqAuth(fmt.Sprintf("%v/%v", districtsURL, stateID), "")
 
 	if statusCode != 200 {
-		log.Fatalln(resp)
+		log.Fatalln(string(resp))
 	}
 
 	json.Unmarshal(resp, &districtsData)
