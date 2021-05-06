@@ -36,6 +36,7 @@ func main() {
 	name := flag.String("name", "", "registered name")
 	centers := flag.String("centers", "", "centers to auto book seperated by ,")
 	mAgeLimit := flag.Int("m", 0, "minimum age limit")
+	slot := flag.String("slot", "FORENOON", "slot time")
 	version := flag.Bool("version", false, "version")
 
 	flag.Parse()
@@ -55,7 +56,7 @@ func main() {
 	if *pincode != "" || (*state != "" && *district != "") {
 		if *schedule {
 			cowin.ScheduleVaccine(*state, *district, *pincode,
-				*date, *mobileNumber, *name, *centers, *mAgeLimit)
+				*date, *mobileNumber, *name, *centers, *slot, *mAgeLimit)
 		} else {
 			cowin.PrintCenters(
 				*state, *district, *pincode, *vaccine,

@@ -28,6 +28,7 @@ type beneficariesData struct {
 }
 
 type ScheduleData struct {
+	slot               string
 	txnId              string
 	bearerToken        string
 	beneficariesRefIDs []string
@@ -229,9 +230,10 @@ func (scheduleData ScheduleData) scheduleVaccineNow() {
 	postData := map[string]interface{}{
 		"dose":          scheduleData.dose,
 		"session_id":    scheduleData.sessionID,
-		"slot":          "FORENOON",
+		"slot":          scheduleData.slot,
 		"beneficiaries": scheduleData.beneficariesRefIDs,
 	}
+
 	jsonBytes, _ := json.Marshal(postData)
 
 	_, statusCode := postReq(appointmentSchedule, jsonBytes, scheduleData.bearerToken)
@@ -254,9 +256,10 @@ func (scheduleData ScheduleData) scheduleVaccineNow() {
 }
 
 func ScheduleVaccine(state, district, pincode, date,
-	mobileNumber, name, centers string, age int) {
+	mobileNumber, name, centers, slot string, age int) {
 	var scheduleData ScheduleData
 
+	scheduleData.slot = slot
 	scheduleData.getSessionID(getDistrictID(state, district),
 		date, centers, mobileNumber, age)
 
