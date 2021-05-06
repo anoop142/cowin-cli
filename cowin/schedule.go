@@ -83,6 +83,7 @@ func getDoseNo(doseDate string) int {
 	return 2
 }
 
+// getAllbId gets all ref id and a common dose date
 func (scheduleData *ScheduleData) getAllbID(b beneficariesData) {
 	for _, v := range b.Beneficiaries {
 		scheduleData.beneficariesRefIDs = append(scheduleData.beneficariesRefIDs, v.BeneficiaryReferenceID)
@@ -171,16 +172,15 @@ func getSpecifiedCenterSessionID(centerBookable []CenterBookable, specifiedCente
 	return ""
 }
 
-// getSessionID gets session ID and generates OTP
-func (scheduleData *ScheduleData) getSessionID(districtID, date, specifiedCenters, mobileNumber string) {
+// getCenterBookable gets centers that are only avaliable for booking
+func getCenterBookable(districtID, date string, age int) []CenterBookable {
 	var center CentreData
 	var centerBookable []CenterBookable
-	var opt int
 	center.getCenters(districtID, "", "", date)
 
 	for _, v := range center.Centers {
 		for _, vv := range v.Sessions {
-			if vv.AvailableCapacity > 0 {
+			if vv.AvailableCapacity > 0 && (age == 0 || age >= vv.MinAgeLimit) {
 				centerBookable = append(centerBookable, CenterBookable{
 					Name:        v.Name,
 					Freetype:    v.FeeType,
@@ -193,6 +193,18 @@ func (scheduleData *ScheduleData) getSessionID(districtID, date, specifiedCenter
 			}
 		}
 	}
+	return centerBookable
+
+}
+
+// getSessionID gets session ID and generates OTP
+func (scheduleData *ScheduleData) getSessionID(
+	districtID, date, specifiedCenters,
+	mobileNumber string, age int) {
+
+	var opt int
+	centerBookable := getCenterBookable(districtID, date, age)
+
 	if len(centerBookable) > 0 {
 		// generate OTP only if there is bookable centers
 		scheduleData.txnId = genOTP(mobileNumber)
@@ -241,10 +253,12 @@ func (scheduleData ScheduleData) scheduleVaccineNow() {
 
 }
 
-func ScheduleVaccine(state, district, pincode, date, mobileNumber, name, centers string) {
+func ScheduleVaccine(state, district, pincode, date,
+	mobileNumber, name, centers string, age int) {
 	var scheduleData ScheduleData
 
-	scheduleData.getSessionID(getDistrictID(state, district), date, centers, mobileNumber)
+	scheduleData.getSessionID(getDistrictID(state, district),
+		date, centers, mobileNumber, age)
 
 	scheduleData.validateOTP(getOTPprompt())
 

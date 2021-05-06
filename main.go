@@ -55,7 +55,7 @@ func main() {
 	if *pincode != "" || (*state != "" && *district != "") {
 		if *schedule {
 			cowin.ScheduleVaccine(*state, *district, *pincode,
-				*date, *mobileNumber, *name, *centers)
+				*date, *mobileNumber, *name, *centers, *mAgeLimit)
 		} else {
 			cowin.PrintCenters(
 				*state, *district, *pincode, *vaccine,
