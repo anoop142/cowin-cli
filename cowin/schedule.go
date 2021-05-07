@@ -174,14 +174,14 @@ func getSpecifiedCenterSessionID(centerBookable []CenterBookable, specifiedCente
 }
 
 // getCenterBookable gets centers that are only avaliable for booking
-func getCenterBookable(districtID, date string, age int) []CenterBookable {
+func getCenterBookable(districtID string, options Options) []CenterBookable {
 	var center CentreData
 	var centerBookable []CenterBookable
-	center.getCenters(districtID, "", "", date)
+	center.getCenters(districtID, options)
 
 	for _, v := range center.Centers {
 		for _, vv := range v.Sessions {
-			if vv.AvailableCapacity > 0 && (age == 0 || age >= vv.MinAgeLimit) {
+			if vv.AvailableCapacity > 0 && (options.Age == 0 || options.Age >= vv.MinAgeLimit) {
 				centerBookable = append(centerBookable, CenterBookable{
 					Name:        v.Name,
 					Freetype:    v.FeeType,
@@ -200,18 +200,17 @@ func getCenterBookable(districtID, date string, age int) []CenterBookable {
 
 // getSessionID gets session ID and generates OTP
 func (scheduleData *ScheduleData) getSessionID(
-	districtID, date, specifiedCenters,
-	mobileNumber string, age int) {
+	districtID string, options Options) {
 
 	var opt int
-	centerBookable := getCenterBookable(districtID, date, age)
+	centerBookable := getCenterBookable(districtID, options)
 
 	if len(centerBookable) > 0 {
 		// generate OTP only if there is bookable centers
-		scheduleData.txnId = genOTP(mobileNumber)
+		scheduleData.txnId = genOTP(options.MobileNumber)
 
-		if specifiedCenters != "" {
-			scheduleData.sessionID = getSpecifiedCenterSessionID(centerBookable, specifiedCenters)
+		if options.Centers != "" {
+			scheduleData.sessionID = getSpecifiedCenterSessionID(centerBookable, options.Centers)
 		}
 
 		if scheduleData.sessionID == "" {
@@ -255,13 +254,11 @@ func (scheduleData ScheduleData) scheduleVaccineNow() {
 
 }
 
-func ScheduleVaccine(state, district, pincode, date,
-	mobileNumber, name, centers, slot string, age int) {
+func ScheduleVaccine(options Options) {
 	var scheduleData ScheduleData
+	scheduleData.slot = options.Slot
 
-	scheduleData.slot = slot
-	scheduleData.getSessionID(getDistrictID(state, district),
-		date, centers, mobileNumber, age)
+	scheduleData.getSessionID(getDistrictID(options.State, options.District), options)
 
 	scheduleData.validateOTP(getOTPprompt())
 	// ask 3 times if otp is incorrect
@@ -271,7 +268,7 @@ func ScheduleVaccine(state, district, pincode, date,
 
 	}
 
-	scheduleData.getBeneficariesID(getBeneficaries(scheduleData.bearerToken), name)
+	scheduleData.getBeneficariesID(getBeneficaries(scheduleData.bearerToken), options.Name)
 
 	scheduleData.scheduleVaccineNow()
 

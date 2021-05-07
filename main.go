@@ -35,7 +35,7 @@ func main() {
 	mobileNumber := flag.String("no", "", "mobile number")
 	name := flag.String("name", "", "registered name")
 	centers := flag.String("centers", "", "centers to auto book seperated by ,")
-	mAgeLimit := flag.Int("m", 0, "minimum age limit")
+	age := flag.Int("m", 0, "minimum age limit")
 	slot := flag.String("slot", "FORENOON", "slot time")
 	version := flag.Bool("version", false, "version")
 
@@ -54,14 +54,25 @@ func main() {
 		flag.PrintDefaults()
 	}
 	if *pincode != "" || (*state != "" && *district != "") {
+		options := cowin.Options{
+			Pincode:      *pincode,
+			State:        *state,
+			District:     *district,
+			Date:         *date,
+			Vaccine:      *vaccine,
+			Info:         *info,
+			Bookable:     *bookable,
+			Schedule:     *schedule,
+			MobileNumber: *mobileNumber,
+			Name:         *name,
+			Centers:      *centers,
+			Age:          *age,
+			Slot:         *slot,
+		}
 		if *schedule {
-			cowin.ScheduleVaccine(*state, *district, *pincode,
-				*date, *mobileNumber, *name, *centers, *slot, *mAgeLimit)
+			cowin.ScheduleVaccine(options)
 		} else {
-			cowin.PrintCenters(
-				*state, *district, *pincode, *vaccine,
-				*date, *info, *bookable, *mAgeLimit,
-			)
+			cowin.PrintCenters(options)
 		}
 	} else if *version {
 		printAbout()

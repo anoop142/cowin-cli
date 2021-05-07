@@ -31,19 +31,19 @@ func getApiURL(pincode string) string {
 	}
 }
 
-func (center *CentreData) getCenters(districtID string, pincode string, vaccine string, date string) {
+func (center *CentreData) getCenters(districtID string, options Options) {
 
-	u, err := url.Parse(getApiURL(pincode))
+	u, err := url.Parse(getApiURL(options.Pincode))
 
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	q := u.Query()
-	q.Set("date", date)
+	q.Set("date", options.Date)
 
-	if vaccine != "" {
-		v, ok := vaccinesList[vaccine]
+	if options.Vaccine != "" {
+		v, ok := vaccinesList[options.Vaccine]
 
 		if !ok {
 			log.Fatal("Invalid vaccine")
@@ -51,8 +51,8 @@ func (center *CentreData) getCenters(districtID string, pincode string, vaccine 
 		q.Add("vaccine", v)
 	}
 
-	if pincode != "" {
-		q.Add("pincode", pincode)
+	if options.Pincode != "" {
+		q.Add("pincode", options.Pincode)
 	} else {
 		q.Add("district_id", districtID)
 	}
@@ -68,15 +68,15 @@ func (center *CentreData) getCenters(districtID string, pincode string, vaccine 
 
 }
 
-func (center CentreData) printCenterData(printInfo, bookable bool, spAge int) {
+func (center CentreData) printCenterData(options Options) {
 	found := false
 	for _, v := range center.Centers {
 		// skip if the min age limit is greater than specified age
-		if spAge > 0 && spAge < v.Sessions[0].MinAgeLimit {
+		if options.Age > 0 && options.Age < v.Sessions[0].MinAgeLimit {
 			continue
 		}
 		// skip if  the center is  not bookable
-		if bookable {
+		if options.Bookable {
 			totalAvailablity := 0
 			for _, vv := range v.Sessions {
 				totalAvailablity += vv.AvailableCapacity
@@ -86,7 +86,7 @@ func (center CentreData) printCenterData(printInfo, bookable bool, spAge int) {
 			}
 		}
 		found = true
-		if !printInfo {
+		if !options.Info {
 			fmt.Printf("%v ", v.Name)
 			if v.FeeType != "Free" {
 				fmt.Printf("Paid")
@@ -103,12 +103,11 @@ func (center CentreData) printCenterData(printInfo, bookable bool, spAge int) {
 	}
 }
 
-func PrintCenters(state, district, pincode, vaccine, date string,
-	printInfo, bookable bool, spAge int) {
+func PrintCenters(options Options) {
 	var center CentreData
 
-	center.getCenters(getDistrictID(state, district), pincode, vaccine, date)
+	center.getCenters(getDistrictID(options.State, options.District), options)
 
-	center.printCenterData(printInfo, bookable, spAge)
+	center.printCenterData(options)
 
 }
