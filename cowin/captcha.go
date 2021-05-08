@@ -56,7 +56,7 @@ func displayCaptchaImageTerminal() {
 func displayCaptchaImageWeb() {
 	var cmd *exec.Cmd
 	if runtime.GOOS == "windows" {
-		cmd = exec.Command("\\." + captchaImageFile)
+		cmd = exec.Command("cmd", "/C "+captchaImageFile)
 	} else {
 		cmd = exec.Command("firefox", captchaImageFile)
 	}
