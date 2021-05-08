@@ -1,3 +1,11 @@
+## Command line  tool to List and Book Vaccine
+
+### UPDATE: 
+**Since captcha is required to book vaccine, booking feature is broken for now.**
+
+**Checkout https://github.com/anoop142/cowin-cli/tree/captcha branch for captcha support.**
+
+
 ### INTRODUCTON
 cowin-cli is a simple cli tool to book vaccines as well as list centres available for scheduling vaccination  in India with their info. It uses the offical  api used by the cowin portal.
 
