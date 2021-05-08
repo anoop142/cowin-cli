@@ -13,6 +13,7 @@ const (
 	captchaImageFile    = "captcha.svg"
 	captchaImageFilePng = "captcha.png"
 	imgViewer           = "pixterm"
+	svg2pngConverter    = "convert"
 )
 
 func writeCaptchaImg(bearerToken string) bool {
@@ -40,17 +41,34 @@ func writeCaptchaImg(bearerToken string) bool {
 
 }
 
+// check for programs installed to render captcha in terminal
+func checkImageTerminalDep() bool {
+	dep := []string{svg2pngConverter, imgViewer}
+	stsf := 0
+
+	for _, v := range dep {
+		_, err := exec.LookPath(v)
+
+		if err != nil {
+			fmt.Printf("%s not found\n", v)
+			break
+		}
+		stsf++
+	}
+	return stsf == len(dep)
+
+}
+
 // Linux Only!
 func displayCaptchaImageTerminal() {
 	imgViewerParams := []string{"-tr", "16", captchaImageFilePng}
 	//convert svg to png
-	cmd := exec.Command("convert", captchaImageFile, captchaImageFilePng)
+	cmd := exec.Command(svg2pngConverter, captchaImageFile, captchaImageFilePng)
 	cmd.Run()
 	// view the captcha image
 	cmd = exec.Command(imgViewer, imgViewerParams...)
 	cmd.Stdout = os.Stdout
 	cmd.Run()
-
 }
 
 // Windows WIP
@@ -63,6 +81,26 @@ func displayCaptchaImageWeb() {
 	}
 	cmd.Start()
 
+}
+
+// platform dependent
+func displayCaptchaImage() {
+	switch runtime.GOOS {
+	case "windows":
+		displayCaptchaImageWeb()
+	case "android":
+		if !checkImageTerminalDep() {
+			fmt.Println("dependencies not installed")
+			os.Exit(1)
+		}
+		displayCaptchaImageTerminal()
+	default:
+		if checkImageTerminalDep() {
+			displayCaptchaImageTerminal()
+		} else {
+			displayCaptchaImageWeb()
+		}
+	}
 }
 
 func userInputCaptcha() string {

@@ -270,9 +270,7 @@ func ScheduleVaccine(options Options) {
 			log.Fatalln("Cannot write captcha image")
 		}
 
-		displayCaptchaImageTerminal()
-
-		//displayCaptchaImageWeb()
+		displayCaptchaImage()
 
 		scheduleData.captcha = userInputCaptcha()
 
