@@ -9,4 +9,5 @@ const (
 	appointmentSchedule = "https://cdn-api.co-vin.in/api/v2/appointment/schedule"
 	statesURL           = "https://cdn-api.co-vin.in/api/v2/admin/location/states"
 	districtsURL        = "https://cdn-api.co-vin.in/api/v2/admin/location/districts"
+	captchaURL          = "https://cdn-api.co-vin.in/api/v2/auth/getRecaptcha"
 )
