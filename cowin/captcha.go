@@ -42,11 +42,12 @@ func writeCaptchaImg(bearerToken string) bool {
 
 // Linux Only!
 func displayCaptchaImageTerminal() {
+	imgViewerParams := []string{"-tc", "16", captchaImageFilePng}
 	//convert svg to png
 	cmd := exec.Command("convert", captchaImageFile, captchaImageFilePng)
 	cmd.Run()
 	// view the captcha image
-	cmd = exec.Command(imgViewer, captchaImageFilePng)
+	cmd = exec.Command(imgViewer, imgViewerParams...)
 	cmd.Stdout = os.Stdout
 	cmd.Run()
 
