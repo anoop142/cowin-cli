@@ -11,6 +11,7 @@ cowin-cli is a simple cli tool to book vaccines and list centers using the COWIN
   - [List vaccine centers](#list-vaccine-centers)
   - [Book Vaccine](#book-vaccine)
   - [Displaying Captcha](#displaying-captcha)
+  - [Termux Auto OTP](#termux-auto-otp)
   - [Options](#options)
     - [List Centers:](#list-center)
     - [Book Vaccine:](#book-vaccine)
@@ -73,8 +74,11 @@ $ cowin-cli -s kerala -d alappuzha -i -m 45
 Thazhakara PHC  Free  10-05-2021  0  COVISHIELD 45+
 Kayamkulam THQH  Free  10-05-2021  0  COVISHIELD 45+
 ```
-
-> Note: you can specify vaccine name by passing -v vaccine. But most of the time api throws error 403.
+  ```console
+  $ pkg i termux-api
+  # To
+  $ termux-list-sms
+  ```the time api throws error 403.
 >
 
 The `-i` option displays all extra info like date, vaccine name, age...
@@ -142,6 +146,21 @@ Enter Captcha :  xxxxx
 * ### Termux
   Without a terminal based image viewer(pixterm) and imagemagick,
   displaying captcha isn't possible in termux.
+
+### Termux Auto OTP
+It's possible to detect OTP message and get OTP in Termux without user input.
+
+You need to first setup termux to read sms.
+
+  1.Install Termux API apk from Fdroid
+
+  2.Install termux-api package 
+
+  ```bash
+  $ pkg i termux-api
+  # To give permisiion
+  $ termux-list-sms
+  ```
 
 
 
