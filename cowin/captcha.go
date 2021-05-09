@@ -6,8 +6,8 @@ import (
 	"log"
 	"os"
 	"os/exec"
+	"regexp"
 	"runtime"
-	"strings"
 )
 
 const (
@@ -18,16 +18,8 @@ const (
 )
 
 func cleanCaptchaImg(img string) []byte {
-	var cleanFile string
-
-	svg_split := strings.SplitAfter(img, "<path")
-	for _, s := range svg_split {
-		if strings.HasSuffix(s, `fill="none"/><path`) {
-			continue
-		}
-		cleanFile += s
-	}
-	return []byte(cleanFile)
+	reg := regexp.MustCompile(`(<path d=)(.*?)(fill=\"none\"/>)`)
+	return []byte(reg.ReplaceAllString(img, ""))
 }
 
 func writeCaptchaImg(bearerToken string) bool {
