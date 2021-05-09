@@ -36,6 +36,7 @@ func main() {
 	name := flag.String("name", "", "registered name")
 	centers := flag.String("centers", "", "centers to auto book seperated by ,")
 	age := flag.Int("m", 0, "minimum age limit")
+	aotp := flag.Bool("aotp", false, "auto capture otp for termux")
 	slot := flag.String("slot", "FORENOON", "slot time")
 	version := flag.Bool("version", false, "version")
 
@@ -47,7 +48,7 @@ func main() {
 		help += "\n  cowin-cli -s state -d district [-v vaccine] [-m age] [-i] [-b] [-c dd-mm-yyyy]\n"
 		help += "  cowin-cli -p pincode \n\n"
 		help += "Book Vaccine:"
-		help += "\n  cowin-cli -sc -state -d district [-no mobileNumber] [-m age] [-name Name] [-centers center1,cetner2 ] [-slot slotTime]\n\n"
+		help += "\n  cowin-cli -sc -state -d district [-no mobileNumber] [-m age] [-name Name] [-centers center1,cetner2 ] [-slot slotTime] [-aotp]\n\n"
 
 		fmt.Print(help)
 		fmt.Println("Options :")
@@ -68,6 +69,7 @@ func main() {
 			Centers:      *centers,
 			Age:          *age,
 			Slot:         *slot,
+			Aotp:         *aotp,
 		}
 		if *schedule {
 			cowin.ScheduleVaccine(options)

@@ -5,6 +5,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"os/exec"
+	"regexp"
+	"strings"
 )
 
 // genOTP generates OTP and return txnId
@@ -75,5 +78,27 @@ func (scheduleData *ScheduleData) validateOTP(otp string) {
 
 		scheduleData.bearerToken = fmt.Sprintf("%v", bearerToken)
 	}
+
+}
+
+// Catch otp for termux
+func catchOTP() (string, string) {
+	const otpSubstringLeft = `Your OTP to register/access CoWIN is`
+	const otpSubstringRight = `It will be valid for 3 minutes. - CoWIN`
+	const timeSubstringLeft = `"received":`
+	const timeSubstringRight = `,`
+
+	out, _ := exec.Command("termux-sms-list", "-l", "1").Output()
+
+	msgList := string(out)
+
+	r := regexp.MustCompile(otpSubstringLeft + `(?)(.*)` + otpSubstringRight)
+	OTP := r.FindString(msgList)
+	OTP = strings.TrimLeft(strings.TrimRight(OTP, otpSubstringRight), otpSubstringLeft)
+	r = regexp.MustCompile(timeSubstringLeft + `(?)(.*)` + timeSubstringRight)
+	recievedTime := r.FindString(msgList)
+	recievedTime = strings.TrimLeft(strings.TrimRight(recievedTime, timeSubstringRight), timeSubstringLeft)
+
+	return OTP, recievedTime
 
 }

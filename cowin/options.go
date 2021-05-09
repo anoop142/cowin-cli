@@ -9,6 +9,7 @@ type Options struct {
 	Info         bool
 	Bookable     bool
 	Schedule     bool
+	Aotp         bool
 	MobileNumber string
 	Name         string
 	Centers      string

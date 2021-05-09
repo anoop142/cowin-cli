@@ -5,7 +5,9 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"runtime"
 	"strings"
+	"time"
 
 	"github.com/olekukonko/tablewriter"
 )
@@ -249,11 +251,30 @@ func (scheduleData ScheduleData) scheduleVaccineNow() ([]byte, int) {
 func ScheduleVaccine(options Options) {
 	var scheduleData ScheduleData
 	var badRequest BadRequest
+	var OTP, lastRecievedTime, recievedTime string
 	scheduleData.slot = options.Slot
+
+	if runtime.GOOS == "android" {
+		_, lastRecievedTime = catchOTP()
+	}
 
 	scheduleData.getSessionID(getDistrictID(options.State, options.District), options)
 
-	scheduleData.validateOTP(getOTPprompt())
+	if runtime.GOOS == "android" && options.Aotp {
+		for {
+			fmt.Println("Waiting for OTP..")
+			OTP, recievedTime = catchOTP()
+			if recievedTime != lastRecievedTime {
+				break
+			}
+			time.Sleep(500 * time.Millisecond)
+		}
+
+	}
+	if OTP == "" {
+		OTP = getOTPprompt()
+	}
+	scheduleData.validateOTP(OTP)
 	// ask 3 times if otp is incorrect
 	for i := 0; scheduleData.bearerToken == "" && i < 3; i++ {
 		fmt.Println("Incorrect OTP")
