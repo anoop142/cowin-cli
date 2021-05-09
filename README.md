@@ -1,68 +1,107 @@
+
 ## Command line  tool to List and Book Vaccine
+cowin-cli is a simple cli tool to book vaccines and list centers using the COWIN API. It's written in go and works on linux, Windows, Mac and in Android using Termux.
 
-### UPDATE: 
-**Since captcha is required to book vaccine, booking feature is broken for now.**
-
-**Checkout https://github.com/anoop142/cowin-cli/tree/captcha branch for captcha support.**
-
-
-### INTRODUCTON
-cowin-cli is a simple cli tool to book vaccines as well as list centres available for scheduling vaccination  in India with their info. It uses the offical  api used by the cowin portal.
-
-### INSTALL
-        go get github.com/anoop142/cowin-cli
-
-
-### BUILD
-
-    go build
-
-### DOWNLOAD
-Download precompiled binaries [here](https://github.com/anoop142/cowin-cli/releases)
+- [Installation](#installation)
+  - [Prerequisites](#prerequisites)
+  - [Install via `go get`](#install-via-go-get)
+  - [Download precompiled binaries](#download-precompiled-binaries)
+  - [Android Termux](#android-termux)
+- [Getting Started](#getting-started)
+  - [List vaccine centers](#list-vaccine-centers)
+  - [Book Vaccine](#book-vaccine)
+  - [Displaying Captcha](#displaying-captcha)
+  - [Options](#options)
+    - [List Centers:](#list-center)
+    - [Book Vaccine:](#book-vaccine)
+- [Known issues](#known-issues)
+- [License](#license)
 
 
-### USAGE
+## Installation
 
-There are two modes of operation
+### Prerequisites
+The following dependencies are 
+required for rendering Captcha inside the terminal.This is **optional** for
+**Linux and Windows**.
+But **required** for android **termux**.
 
-1. ### List vaccine centers
+* **[pixterm](https://github.com/eliukblau/pixterm)**
 
-    cowin-cli -s state -d district [-v vaccine] [-m age] [-i] [-b]  [-c dd-mm-yyyy]
+> **Note**: Other terminal based image viewer can also be used, but you have to modify cowin/captcha.go file.
+* **[imagemagick](https://imagemagick.org/)**
 
-    cowin-cli -p pincode
+### Install via `go get`
+```bash
+$ go get -u github.com/anoop142/cowin-cli
+```
+### Download precompiled binaries.
+Precompiled binaries are avalailable for Windows and linux.
+Download them at 
+**[Releases](https://github.com/anoop142/cowin-cli/releases)** page.
+
+### Android Termux 
+Follow these steps to set up in termux.
+```bash
+# Install packages
+$ pkg i go git imagemagick
+# Add go bin to PATH
+$ echo 'export PATH=$HOME/go/bin/:$PATH' > ~/.bashrc
+$ source ~/.bashrc
+#  Install cowin-cli
+$ go get -u github.com/anoop142/cowin-cli
+# Install pixterm
+$ go get -u github.com/eliukblau/pixterm/cmd/pixterm
+```
 
 
-### Example :
-        
-        cowin-cli -s kerala -d alappuzha -i
+## Getting Started
+There are two modes
 
-        cowin-cli -p 688003 -v covishield -i -m 45
-### Output
-        
-    Aroor FHC
-        03-05-2021 - 0   45+
-    Ala PHC
-        03-05-2021 - 0   45+
-    
-2. ### Book vaccine
- 
-    
-     cowin-cli -sc -state -d district [-no mobileNumber] [-name Name] [-centers center1,cetner2 ] [-slot slotTime]
+* List mode
+* Booking mode
 
-### Example 1:
+### **List vaccine centers**
 
-    cowin-cli -sc -s kerala -d alappuzha -no 9123456780
-### Output
+```
+cowin-cli -s state -d district [-v vaccine] [-m age] [-i] [-b]  [-c dd-mm-yyyy]
+```
+### Example
+```console
+$ cowin-cli -s kerala -d alappuzha -i -m 45 
+
+Thazhakara PHC  Free  10-05-2021  0  COVISHIELD 45+
+Kayamkulam THQH  Free  10-05-2021  0  COVISHIELD 45+
+```
+
+> Note: you can specify vaccine name by passing -v vaccine. But most of the time api throws error 403.
+>
+
+The `-i` option displays all extra info like date, vaccine name, age...
+
+
+
+### **Book Vaccine**
+
+You can specify mobile number, centers to auto book, age, name etc. 
+If not, you will be prompted to enter it appropriately.
+```console
+$  cowin-cli -sc -state -d district [-no mobileNumber] [-name Name] [-centers center1,cetner2 ] [-slot slotTime]
+```
+### Example 1
+```console
+$  cowin-cli -sc -s kerala -d alappuzha -no 9123456780
+
     +----+----------------+-----------+---------+-----------+
-    | ID |   CENTER       | FREE TYPE | MIN AGE |    DATE   |
+    | ID |   CENTER       | FREE TYPE | MIN AGE |  VACCINE  |
     +----+----------------+-----------+---------+-----------+
-    |  0 | Aroor FHC      | Free      |      45 | 03-05-2021|
-    |  1 | Ala PHC        | Free      |      45 | 03-05-2021|
-    |  2 | Chunakkara CHC | Free      |      45 | 03-05-2021|
-    +----+-----------------------------+-----------+--------+
+    |  0 | Aroor FHC      | Free      |      45 | COVISHIELD|
+    |  1 | Ala PHC        | Free      |      45 | COVISHIELD|
+    |  2 | Chunakkara CHC | Free      |      45 | COVISHIELD|
+    +----+----------------+-----------+---------+-----------+
 
-        Enter Center ID : 1
-        Enter OTP : xxxxx
+      Enter Center ID : 1
+      Enter OTP : xxxxx
 
     +----+---------------+
     | ID |     NAME      |
@@ -72,68 +111,89 @@ There are two modes of operation
     |  2 | All           |
     +----+---------------+
 
-        Enter name ID : 1
+     Enter name ID : 1
 
-        Appointment scheduled successfully!
+     Enter Captcha :  xxxxx
 
-### Example 2:
+    Appointment scheduled successfully!
+```
 
-        cowin-cli -sc -s kerala -d alappuzha -no 9123456780 -name "John doe" -centers "Aroor FHC,Ala PHC"
 
-### Options:
- * **Main params**
-        
-        -s string
-                state
-        -d string
-                district
-   
-* **List params**
+you can specify most of the details for booking the vaccine
 
-        -b	print bookable only
-        -c string
-                date dd-mm-yyyy (default tomorrow's date)
-        -i	full info
-        -p string
-                pincode
-        -v string
-                vaccine name
-        -m int
-                min age limit
-   
-* **Booking params**
+### Example 2
+```console
+$  cowin-cli -sc -s kerala -d alappuzha -no 9123456780 -name "John doe" -centers "Aroor FHC,Ala PHC"
 
-        -sc
-                invoke schedule vaccine mode
-        -name string
-                registered name
-        -no string
-                mobile number
-        -centers string seperated by ','
-                centers to auto select
-        -m int
-                min age limit
-        -slot string
-                slot time (FORENOON default)
-        
-* **Misc**
+Center : Aroor FHC
+Enter OTP :  xxxxx
+Enter Captcha :  xxxxx
+```
 
-        -version
-                print version
-        -help 
-                print help
+### Displaying Captcha
 
-you can pass -name with "all" to book all registered under same number.
-if name is not passed user will prompted to select one.
+* ### Windows
+  We use default program to open svg files to display captcha. Usually it's **edge browser**.
 
-### Why cowin-cli generates  OTP first and prompt to input after selecting the Center?
-This is done to prevent waiting for OTP. It  may take some time to generate OTP and receive it, this time can be used for selecting the center and enter OTP after it.
+* ### Linux
+  If **pixterm** and **imagemaick** are installed, captcha is rendered inside the terminal using pixterm.
+  if any one of them isn't available, **firefox** is used to display captcha.
 
-### Bugs with the API
+* ### Termux
+  Without a terminal based image viewer(pixterm) and imagemagick,
+  displaying captcha isn't possible in termux.
+
+
+
+### Options
+
+```
+  -s	state State Name
+  -d district District name
+  -version	Show version
+  -h  Show Help
+```
+
+#### List Center:
+
+```
+  -b	
+        show bookable only
+  -c string
+        date dd-mm-yyyy (default tomorrow's date)
+  -i	
+        full info
+  -p string
+        pincode
+  -v string
+        vaccine name
+  -m int
+        age
+```
+
+#### Book Vaccine:
+
+```
+    -sc
+            invoke schedule vaccine mode
+    -name string
+            registered name
+    -no string
+            mobile number
+    -centers string seperated by ','
+            centers to auto select
+    -m int
+            min age limit
+    -slot string
+            slot time (FORENOON default)
+```
+
+## Known issues
 * API will throw error unauthorized access if specified vaccine is not found at the moment.
 * Random Unauthorized access error for no specific reasons.
 
-### Note
-By default we use tomorrow's date like the cowin portal.
-All states are supported.
+## License
 
+GPL 3.0
+
+Copyright (c) Anoop S
