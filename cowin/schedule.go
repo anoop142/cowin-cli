@@ -34,6 +34,12 @@ type ScheduleData struct {
 	beneficariesRefIDs []string
 	dose               int
 	sessionID          string
+	captcha            string
+}
+
+type BadRequest struct {
+	Errorcode string `json:"errorCode"`
+	Error     string `json:"error"`
 }
 
 func checkError(err error) {
@@ -225,37 +231,24 @@ func (scheduleData *ScheduleData) getSessionID(
 
 }
 
-func (scheduleData ScheduleData) scheduleVaccineNow() {
+func (scheduleData ScheduleData) scheduleVaccineNow() ([]byte, int) {
 	postData := map[string]interface{}{
 		"dose":          scheduleData.dose,
 		"session_id":    scheduleData.sessionID,
 		"slot":          scheduleData.slot,
 		"beneficiaries": scheduleData.beneficariesRefIDs,
+		"captcha":       scheduleData.captcha,
 	}
 
 	jsonBytes, _ := json.Marshal(postData)
 
-	_, statusCode := postReq(appointmentSchedule, jsonBytes, scheduleData.bearerToken)
-
-	switch statusCode {
-	case 200:
-		fmt.Println("Appointment scheduled successfully")
-	case 400:
-		fmt.Println("Bad Request")
-	case 401:
-		fmt.Println("Unauthenticated Access")
-	case 409:
-		fmt.Println("This vaccination center is completely booked for the selected date")
-	case 500:
-		fmt.Println("Internal Server error")
-	default:
-		log.Fatalln("Error ", statusCode)
-	}
+	return postReq(appointmentSchedule, jsonBytes, scheduleData.bearerToken)
 
 }
 
 func ScheduleVaccine(options Options) {
 	var scheduleData ScheduleData
+	var badRequest BadRequest
 	scheduleData.slot = options.Slot
 
 	scheduleData.getSessionID(getDistrictID(options.State, options.District), options)
@@ -270,6 +263,40 @@ func ScheduleVaccine(options Options) {
 
 	scheduleData.getBeneficariesID(getBeneficaries(scheduleData.bearerToken), options.Name)
 
-	scheduleData.scheduleVaccineNow()
+	for {
+		captcha := writeCaptchaImg(scheduleData.bearerToken)
+
+		if !captcha {
+			log.Fatalln("Cannot write captcha image")
+		}
+
+		displayCaptchaImage()
+
+		scheduleData.captcha = userInputCaptcha()
+
+		resp, statusCode := scheduleData.scheduleVaccineNow()
+
+		switch statusCode {
+		case 200:
+			fmt.Println("Appointment scheduled successfully!")
+			os.Exit(0)
+		case 400:
+			json.Unmarshal(resp, &badRequest)
+			if badRequest.Error == "Please provide valid security code" {
+				continue
+			} else {
+				log.Fatalln(badRequest.Error)
+			}
+
+		case 401:
+			log.Fatalln("Unauthenticated Access")
+		case 409:
+			log.Fatalln("This vaccination center is completely booked for the selected date")
+		case 500:
+			log.Fatalln("Internal Server error")
+		default:
+			log.Fatalln("Error ", statusCode)
+		}
+	}
 
 }
