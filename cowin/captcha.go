@@ -7,6 +7,7 @@ import (
 	"os"
 	"os/exec"
 	"runtime"
+	"strings"
 )
 
 const (
@@ -15,6 +16,19 @@ const (
 	imgViewer           = "pixterm"
 	svg2pngConverter    = "convert"
 )
+
+func cleanCaptchaImg(img string) []byte {
+	var cleanFile string
+
+	svg_split := strings.SplitAfter(img, "<path")
+	for _, s := range svg_split {
+		if strings.HasSuffix(s, `fill="none"/><path`) {
+			continue
+		}
+		cleanFile += s
+	}
+	return []byte(cleanFile)
+}
 
 func writeCaptchaImg(bearerToken string) bool {
 	emptyData := map[string]string{}
@@ -35,7 +49,7 @@ func writeCaptchaImg(bearerToken string) bool {
 		log.Fatalln("Cannot get captcha Image")
 	}
 
-	err := os.WriteFile(captchaImageFile, []byte(captchaImg), 0644)
+	err := os.WriteFile(captchaImageFile, cleanCaptchaImg(captchaImg), 0644)
 
 	return err == nil
 
