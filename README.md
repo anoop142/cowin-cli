@@ -148,7 +148,7 @@ Enter Captcha :  xxxxx
   displaying captcha isn't possible in termux.
 
 ### Termux Auto OTP
-It's possible to detect OTP message and get OTP in Termux without user input.
+It's possible to detect OTP message and get OTP in Termux without user input. use -aotp flag to invoke this feature.
 
 You need to first setup termux to read sms.
 
@@ -157,9 +157,12 @@ You need to first setup termux to read sms.
   2.Install termux-api package 
 
   ```bash
+  # Install termux-api package
   $ pkg i termux-api
   # To give permisiion
   $ termux-list-sms
+  # Example
+  $ cowin-cli -s kerala -d alappuzha -sc -no 9123456789 -aotp
   ```
 
 
@@ -168,7 +171,7 @@ You need to first setup termux to read sms.
 
 ```
   -s	state State Name
-  -d district District name
+  -d  district District name
   -version	Show version
   -h  Show Help
 ```
