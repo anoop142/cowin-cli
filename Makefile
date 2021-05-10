@@ -15,7 +15,7 @@ compile:
 
 release: compile
 	mkdir -p release
-	zip -j9 $(REL)/cowin-cli_linux_64.zip "$(BIN)/cowin-cli"
+	zip -j9 $(REL)/cowin-cli_linux_64.zip "$(BIN)/cowin-cli" scripts/linux/*.sh
 	zip -j9 $(REL)/cowin-cli_Windows_64.zip "$(BIN)/cowin-cli.exe"
 	zip -j9 $(REL)/cowin-cli_Windows_i386.zip "$(BIN)/cowin-cli_x86.exe"
 
