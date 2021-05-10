@@ -5,7 +5,7 @@
 
 # Interval in seconds
 T=15
-# centers for gerp matching
+# centers for grep matching
 CENTERS='center1|center2|cnter3'
 
 DISTRICT="district"
