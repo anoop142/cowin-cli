@@ -105,8 +105,11 @@ func (center CentreData) printCenterData(options Options) {
 
 func PrintCenters(options Options) {
 	var center CentreData
-
-	center.getCenters(getDistrictID(options.State, options.District), options)
+	var districtID string
+	if options.Pincode == "" {
+		districtID = getDistrictID(options.State, options.District)
+	}
+	center.getCenters(districtID, options)
 
 	center.printCenterData(options)
 
