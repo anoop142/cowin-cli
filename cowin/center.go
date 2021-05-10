@@ -31,7 +31,7 @@ func getApiURL(pincode string) string {
 	}
 }
 
-func (center *CentreData) getCenters(districtID string, options Options) {
+func (center *CentreData) getCenters(options Options) {
 
 	u, err := url.Parse(getApiURL(options.Pincode))
 
@@ -54,6 +54,7 @@ func (center *CentreData) getCenters(districtID string, options Options) {
 	if options.Pincode != "" {
 		q.Add("pincode", options.Pincode)
 	} else {
+		districtID := getDistrictID(options.State, options.District)
 		q.Add("district_id", districtID)
 	}
 
@@ -105,11 +106,7 @@ func (center CentreData) printCenterData(options Options) {
 
 func PrintCenters(options Options) {
 	var center CentreData
-	var districtID string
-	if options.Pincode == "" {
-		districtID = getDistrictID(options.State, options.District)
-	}
-	center.getCenters(districtID, options)
+	center.getCenters(options)
 
 	center.printCenterData(options)
 

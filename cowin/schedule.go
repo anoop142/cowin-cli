@@ -182,10 +182,10 @@ func getSpecifiedCenterSessionID(centerBookable []CenterBookable, specifiedCente
 }
 
 // getCenterBookable gets centers that are only avaliable for booking
-func getCenterBookable(districtID string, options Options) []CenterBookable {
+func getCenterBookable(options Options) []CenterBookable {
 	var center CentreData
 	var centerBookable []CenterBookable
-	center.getCenters(districtID, options)
+	center.getCenters(options)
 
 	for _, v := range center.Centers {
 		for _, vv := range v.Sessions {
@@ -207,11 +207,10 @@ func getCenterBookable(districtID string, options Options) []CenterBookable {
 }
 
 // getSessionID gets session ID and generates OTP
-func (scheduleData *ScheduleData) getSessionID(
-	districtID string, options Options) {
+func (scheduleData *ScheduleData) getSessionID(options Options) {
 
 	var opt int
-	centerBookable := getCenterBookable(districtID, options)
+	centerBookable := getCenterBookable(options)
 
 	if len(centerBookable) > 0 {
 		// generate OTP only if there is bookable centers
@@ -258,7 +257,7 @@ func ScheduleVaccine(options Options) {
 		_, lastRecievedTime = catchOTP()
 	}
 
-	scheduleData.getSessionID(getDistrictID(options.State, options.District), options)
+	scheduleData.getSessionID(options)
 
 	if runtime.GOOS == "android" && options.Aotp {
 		for {
