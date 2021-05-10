@@ -12,6 +12,7 @@ cowin-cli is a simple cli tool to book vaccines and list centers using the COWIN
   - [Book Vaccine](#book-vaccine)
   - [Displaying Captcha](#displaying-captcha)
   - [Termux Auto OTP](#termux-auto-otp)
+  - [Scripts](#scripts)
   - [Options](#options)
     - [List Centers:](#list-center)
     - [Book Vaccine:](#book-vaccine)
@@ -36,6 +37,9 @@ But **required** for android **termux**.
 ```bash
 $ go get -u github.com/anoop142/cowin-cli
 ```
+> **Note** : go version 1.16+ is required.
+
+
 ### Download precompiled binaries.
 Precompiled binaries are avalailable for Windows and linux.
 Download them at 
@@ -159,7 +163,8 @@ You need to first setup termux to read sms.
   $ cowin-cli -s kerala -d alappuzha -sc -no 9123456789 -aotp
   ```
 
-
+### Scripts
+linux shell scripts are available for notifications and booking using cowin-cli [here](scripts/linux)
 
 ### Options
 
