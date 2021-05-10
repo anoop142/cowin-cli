@@ -74,12 +74,6 @@ $ cowin-cli -s kerala -d alappuzha -i -m 45
 Thazhakara PHC  Free  10-05-2021  0  COVISHIELD 45+
 Kayamkulam THQH  Free  10-05-2021  0  COVISHIELD 45+
 ```
-  ```console
-  $ pkg i termux-api
-  # To
-  $ termux-list-sms
-  ```the time api throws error 403.
->
 
 The `-i` option displays all extra info like date, vaccine name, age...
 
