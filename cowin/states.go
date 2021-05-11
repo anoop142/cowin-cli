@@ -24,7 +24,6 @@ type DistrictsData struct {
 func getStateID(state string) int {
 	var statesData StatesData
 	var stateID int
-	state = strings.Title(state)
 
 	resp, statusCode := getReqAuth(statesURL, "")
 
@@ -35,7 +34,7 @@ func getStateID(state string) int {
 	json.Unmarshal(resp, &statesData)
 
 	for _, v := range statesData.States {
-		if v.StateName == state {
+		if strings.EqualFold(v.StateName, state) {
 			stateID = v.StateID
 			break
 		}
@@ -53,8 +52,6 @@ func getDistrictID(state, district string) string {
 	var districtsData DistrictsData
 	var districtID int
 
-	district = strings.Title(district)
-
 	stateID := getStateID(state)
 
 	resp, statusCode := getReqAuth(fmt.Sprintf("%v/%v", districtsURL, stateID), "")
@@ -66,7 +63,7 @@ func getDistrictID(state, district string) string {
 	json.Unmarshal(resp, &districtsData)
 
 	for _, v := range districtsData.Districts {
-		if v.DistrictName == district {
+		if strings.EqualFold(v.DistrictName, district) {
 			districtID = v.DistrictID
 		}
 	}
