@@ -131,7 +131,8 @@ Center : Aroor FHC
 Enter OTP :  xxxxx
 Enter Captcha :  xxxxx
 ```
-
+>**Note**: -centers "any" to auto select any center.
+>-name "all" to book for all under same mobile no.
 ### Displaying Captcha
 
 * ### Windows
@@ -198,7 +199,7 @@ linux shell scripts are available for notifications and booking using cowin-cli 
     -sc
             invoke schedule vaccine mode
     -name string
-            registered name
+            registered name           
     -no string
             mobile number
     -centers string seperated by ','
