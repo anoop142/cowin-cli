@@ -130,7 +130,7 @@ func (scheduleData *ScheduleData) getBeneficariesID(b beneficariesData, name str
 			scheduleData.getAllbID(b)
 		} else {
 			for _, v := range b.Beneficiaries {
-				if v.Name == name {
+				if strings.EqualFold(v.Name, name) {
 					scheduleData.beneficariesRefIDs = append(scheduleData.beneficariesRefIDs, v.BeneficiaryReferenceID)
 					scheduleData.dose = getDoseNo(v.Dose1Date)
 					break
@@ -179,7 +179,7 @@ func getSpecifiedCenterSessionID(centerBookable []CenterBookable, specifiedCente
 			// remove leading and trailing spaces
 			specifiedCenter = strings.TrimSpace(specifiedCenter)
 			for _, center := range centerBookable {
-				if center.Name == specifiedCenter {
+				if strings.EqualFold(center.Name, specifiedCenter) {
 					sessionId = center.SessionID
 					vaccine = center.Vaccine
 					centerName = center.Name
