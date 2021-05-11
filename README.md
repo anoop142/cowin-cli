@@ -1,6 +1,7 @@
 
 ## Command line  tool to List and Book Vaccine
 cowin-cli is a simple cli tool to book vaccines and list centers using the COWIN API. It's written in go and works on linux, Windows, Mac and in Android using Termux.
+>Note: By default cowin-cli will not run continoulsy and monitor slot changes, use bash / batch scripts for that purpose, which can be found at [here](#scripts).
 
 - [Installation](#installation)
   - [Prerequisites](#prerequisites)
@@ -165,7 +166,7 @@ You need to first setup termux to read sms.
   ```
 
 ### Scripts
-linux shell scripts are available for notifications and booking using cowin-cli [here](scripts/linux)
+Scripts for linux and Windows are available for notifications and booking using cowin-cli [here](scripts)
 
 ### Options
 
