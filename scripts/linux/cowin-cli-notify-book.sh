@@ -24,7 +24,7 @@ schedule(){
 
 while :
 do
-	data=$(./cowin-cli -s $STATE  -d $KERALA -b  | grep -iE "$CENTERS" )
+	data=$(./cowin-cli -s $STATE  -d $DISTRICT -b  | grep -iE "$CENTERS" )
 	(( $? == 0  )) && echo "$data" && notify "$data" &&  schedule
 	sleep $t
 done
