@@ -167,18 +167,30 @@ func printCenterBookable(centerList []CenterBookable) {
 	table.Render()
 }
 func getSpecifiedCenterSessionID(centerBookable []CenterBookable, specifiedCenters string) string {
-	specifiedCentersList := strings.Split(specifiedCenters, ",")
-	for _, specifiedCenter := range specifiedCentersList {
-		// remove leading and trailing spaces
-		specifiedCenter = strings.TrimSpace(specifiedCenter)
-		for _, center := range centerBookable {
-			if center.Name == specifiedCenter {
-				fmt.Println("Center: ", specifiedCenter, center.Vaccine)
-				return center.SessionID
+	var sessionId, centerName, vaccine string
+	if specifiedCenters == "any" {
+		// get first session id
+		sessionId = centerBookable[0].SessionID
+		vaccine = centerBookable[0].Vaccine
+		centerName = centerBookable[0].Name
+	} else {
+		specifiedCentersList := strings.Split(specifiedCenters, ",")
+		for _, specifiedCenter := range specifiedCentersList {
+			// remove leading and trailing spaces
+			specifiedCenter = strings.TrimSpace(specifiedCenter)
+			for _, center := range centerBookable {
+				if center.Name == specifiedCenter {
+					sessionId = center.SessionID
+					vaccine = center.Vaccine
+					centerName = center.Name
+				}
 			}
 		}
 	}
-	return ""
+	if sessionId != "" {
+		fmt.Println("Center: ", centerName, vaccine)
+	}
+	return sessionId
 }
 
 // getCenterBookable gets centers that are only avaliable for booking
