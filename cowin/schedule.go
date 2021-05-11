@@ -253,7 +253,7 @@ func ScheduleVaccine(options Options) {
 	var OTP, lastRecievedTime, recievedTime string
 	scheduleData.slot = options.Slot
 
-	if runtime.GOOS == "android" {
+	if runtime.GOOS == "android" && options.Aotp {
 		_, lastRecievedTime = catchOTP()
 	}
 
