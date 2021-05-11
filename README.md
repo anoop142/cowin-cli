@@ -40,6 +40,7 @@ $ go get -u github.com/anoop142/cowin-cli
 ```
 > **Note** : go version 1.16+ is required.
 
+**OR**
 
 ### Download precompiled binaries.
 Precompiled binaries are avalailable for Windows and linux.
