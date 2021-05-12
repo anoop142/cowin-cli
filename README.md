@@ -51,7 +51,7 @@ Download them at
 Follow these steps to set up in termux.
 ```bash
 # Install packages
-$ pkg i go git imagemagick
+$ pkg i golang git imagemagick
 # Add go bin to PATH
 $ echo 'export PATH=$HOME/go/bin/:$PATH' > ~/.bashrc
 $ source ~/.bashrc
@@ -167,7 +167,7 @@ You need to first setup termux to read sms.
   ```
 
 ### Scripts
-Scripts for linux and Windows are available for notifying and booking using cowin-cli [here](scripts). You need to edit the vaules of the script like district name, mobile number etc..
+Scripts for linux, Windows and termux are available for notifying and booking using cowin-cli [here](scripts). You need to edit the vaules of the script like district name, mobile number etc..
 
 ### Options
 
