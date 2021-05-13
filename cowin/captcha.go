@@ -56,7 +56,6 @@ func checkImageTerminalDep() bool {
 		_, err := exec.LookPath(v)
 
 		if err != nil {
-			fmt.Printf("%s not found\n", v)
 			break
 		}
 		stsf++
@@ -91,21 +90,14 @@ func displayCaptchaImageWeb() {
 
 // platform dependent
 func displayCaptchaImage() {
-	switch runtime.GOOS {
-	case "windows":
-		displayCaptchaImageWeb()
-	case "android":
-		if !checkImageTerminalDep() {
-			fmt.Println("dependencies not installed")
-			os.Exit(1)
-		}
+
+	if checkImageTerminalDep() {
 		displayCaptchaImageTerminal()
-	default:
-		if checkImageTerminalDep() {
-			displayCaptchaImageTerminal()
-		} else {
-			displayCaptchaImageWeb()
-		}
+	} else if runtime.GOOS == "android" {
+		fmt.Println("Captcha rendering dependencies missing")
+		os.Exit(1)
+	} else {
+		displayCaptchaImageWeb()
 	}
 }
 
