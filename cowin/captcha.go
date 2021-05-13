@@ -14,8 +14,21 @@ const (
 	captchaImageFile    = "captcha.svg"
 	captchaImageFilePng = "captcha.png"
 	imgViewer           = "pixterm"
-	svg2pngConverter    = "convert"
 )
+
+// get name of imagemagick converter
+func getSvg2PngConverter() string {
+	var svg2pngConverter string
+
+	if runtime.GOOS == "windows" {
+		svg2pngConverter = "magick"
+
+	} else {
+		svg2pngConverter = "convert"
+	}
+	return svg2pngConverter
+
+}
 
 func cleanCaptchaImg(img string) []byte {
 	reg := regexp.MustCompile(`(<path d=)(.*?)(fill=\"none\"/>)`)
@@ -49,6 +62,7 @@ func writeCaptchaImg(bearerToken string) bool {
 
 // check for programs installed to render captcha in terminal
 func checkImageTerminalDep() bool {
+	svg2pngConverter := getSvg2PngConverter()
 	dep := []string{svg2pngConverter, imgViewer}
 	stsf := 0
 
@@ -64,8 +78,8 @@ func checkImageTerminalDep() bool {
 
 }
 
-// Linux Only!
 func displayCaptchaImageTerminal() {
+	svg2pngConverter := getSvg2PngConverter()
 	imgViewerParams := []string{"-tr", "16", captchaImageFilePng}
 	//convert svg to png
 	cmd := exec.Command(svg2pngConverter, captchaImageFile, captchaImageFilePng)
