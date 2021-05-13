@@ -90,7 +90,7 @@ func displayCaptchaImageTerminal() {
 	cmd.Run()
 }
 
-// Windows WIP
+// dsiplay using default application
 func displayCaptchaImageDefault() {
 	var cmd *exec.Cmd
 	switch runtime.GOOS {
@@ -105,7 +105,7 @@ func displayCaptchaImageDefault() {
 
 }
 
-// platform dependent
+//  main display function
 func displayCaptchaImage() {
 
 	if checkImageTerminalDep() {
