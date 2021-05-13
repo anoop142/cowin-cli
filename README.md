@@ -136,13 +136,16 @@ Enter Captcha :  xxxxx
 >**Note**: -centers "any" to auto select any center.
 >-name "all" to book for all under same mobile no.
 ### Displaying Captcha
+ If **pixterm** and **imagemaick** are installed, captcha is rendered inside the terminal  by default.
+ If any one of them isn't available 
+ we revert to display captcha using other application which depends on the OS.
 
 * ### Windows
-  We use default program to open svg files to display captcha. Usually it's **edge browser**.
+  We use default program to open svg
+  captcha file. Usually it's **edge browser**.
 
 * ### Linux
-  If **pixterm** and **imagemaick** are installed, captcha is rendered inside the terminal using pixterm.
-  if any one of them isn't available, **firefox** is used to display captcha.
+  **firefox** is used to display captcha.
 
 * ### Termux
   Without a terminal based image viewer(pixterm) and imagemagick,
