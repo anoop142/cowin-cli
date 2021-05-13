@@ -1,7 +1,6 @@
 #!/bin/bash
 # Anoop S
 # shell script to notify and book using cowin-cli
-# Install notify-send for notifications
 
 
 COWIN_CLI="./cowin-cli"
