@@ -137,19 +137,14 @@ Enter Captcha :  xxxxx
 >-name "all" to book for all under same mobile no.
 ### Displaying Captcha
  If **pixterm** and **imagemaick** are installed, captcha is rendered inside the terminal  by default.
+ 
  If any one of them isn't available 
- we revert to display captcha using other application which depends on the OS.
-
-* ### Windows
-  We use default program to open svg
-  captcha file. Usually it's **edge browser**.
-
-* ### Linux
-  **firefox** is used to display captcha.
-
+ we revert to display captcha using **default application** which depends on the **OS**.
+ 
 * ### Termux
   Without a terminal based image viewer(pixterm) and imagemagick,
   displaying captcha isn't possible in termux.
+
 
 ### Termux Auto OTP
 It's possible to detect OTP message and get OTP in Termux without user input. use -aotp flag to invoke this feature.
