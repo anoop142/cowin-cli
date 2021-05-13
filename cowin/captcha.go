@@ -91,12 +91,15 @@ func displayCaptchaImageTerminal() {
 }
 
 // Windows WIP
-func displayCaptchaImageWeb() {
+func displayCaptchaImageDefault() {
 	var cmd *exec.Cmd
-	if runtime.GOOS == "windows" {
+	switch runtime.GOOS {
+	case "windows":
 		cmd = exec.Command("cmd", "/C "+captchaImageFile)
-	} else {
-		cmd = exec.Command("firefox", captchaImageFile)
+	case "linux":
+		cmd = exec.Command("xdg-open", captchaImageFile)
+	case "darwin":
+		cmd = exec.Command("open", captchaImageFile)
 	}
 	cmd.Start()
 
@@ -111,7 +114,7 @@ func displayCaptchaImage() {
 		fmt.Println("Captcha rendering dependencies missing")
 		os.Exit(1)
 	} else {
-		displayCaptchaImageWeb()
+		displayCaptchaImageDefault()
 	}
 }
 
