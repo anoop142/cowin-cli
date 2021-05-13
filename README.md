@@ -167,7 +167,7 @@ You need to first setup termux to read sms.
   ```
 
 ### Scripts
-Scripts for linux, Windows and termux are available for notifying and booking using cowin-cli [here](scripts). You need to edit the vaules of the script like district name, mobile number etc..
+Scripts are available for notifying and booking using cowin-cli [here](scripts). You need to edit the vaules of the script like district name, mobile number etc..
 
 ### Options
 
