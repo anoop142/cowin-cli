@@ -190,7 +190,7 @@ Scripts are available for notifying and booking using cowin-cli [here](scripts).
 
 ## Features
 * **Zero dependency** : No neeed to install anything, download precompiled binary and run.
-* **Automatic captcha support**: credits to github.com/ayushchd
+* **Automatic captcha support**: credits to https://github.com/ayushchd
 * **Scripting support** : scripts are available for all platforms.
 * **Cross platform**
 
