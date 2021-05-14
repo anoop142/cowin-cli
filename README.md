@@ -1,38 +1,29 @@
 
 ## Command line  tool to List and Book Vaccine
 cowin-cli is a simple cli tool to book vaccines and list centers using the COWIN API. It's written in go and works on linux, Windows, Mac and in Android using Termux.
+>Captcha is extracted automatically! , no need to enter captcha anymore!
+
+
 >Note: By default cowin-cli will not run continoulsy and monitor slot changes, use bash / batch scripts for that purpose, which can be found [here](#scripts).
 
 - [Installation](#installation)
-  - [Prerequisites](#prerequisites)
   - [Install via `go get`](#install-via-go-get)
   - [Download precompiled binaries](#download-precompiled-binaries)
   - [Android Termux](#android-termux)
 - [Getting Started](#getting-started)
   - [List vaccine centers](#list-vaccine-centers)
   - [Book Vaccine](#book-vaccine)
-  - [Displaying Captcha](#displaying-captcha)
   - [Termux Auto OTP](#termux-auto-otp)
   - [Scripts](#scripts)
   - [Options](#options)
     - [List Centers:](#list-center)
     - [Book Vaccine:](#book-vaccine)
+- [Features](#features)  
 - [Known issues](#known-issues)
 - [License](#license)
 
 
 ## Installation
-
-### Prerequisites
-The following dependencies are 
-required for rendering Captcha inside the terminal.This is **optional** for
-**Linux and Windows**.
-But **required** for android **termux**.
-
-* **[pixterm](https://github.com/eliukblau/pixterm)**
-
-> **Note**: Other terminal based image viewer can also be used, but you have to modify cowin/captcha.go file.
-* **[imagemagick](https://imagemagick.org/)**
 
 ### Install via `go get`
 ```bash
@@ -51,14 +42,12 @@ Download them at
 Follow these steps to set up in termux.
 ```bash
 # Install packages
-$ pkg i golang git imagemagick
+$ pkg i golang git
 # Add go bin to PATH
 $ echo 'export PATH=$HOME/go/bin/:$PATH' > ~/.bashrc
 $ source ~/.bashrc
 #  Install cowin-cli
 $ go get -u github.com/anoop142/cowin-cli
-# Install pixterm
-$ go get -u github.com/eliukblau/pixterm/cmd/pixterm
 ```
 
 
@@ -117,8 +106,6 @@ $  cowin-cli -sc -s kerala -d alappuzha -no 9123456780
 
      Enter name ID : 1
 
-     Enter Captcha :  xxxxx
-
     Appointment scheduled successfully!
 ```
 
@@ -131,19 +118,10 @@ $  cowin-cli -sc -s kerala -d alappuzha -no 9123456780 -name "John doe" -centers
 
 Center : Aroor FHC
 Enter OTP :  xxxxx
-Enter Captcha :  xxxxx
 ```
 >**Note**: -centers "any" to auto select any center.
 >-name "all" to book for all under same mobile no.
-### Displaying Captcha
- If **pixterm** and **imagemaick** are installed, captcha is rendered inside the terminal  by default.
  
- If any one of them isn't available 
- we revert to display captcha using **default application** which depends on the **OS**.
- 
-* ### Termux
-  Without a terminal based image viewer(pixterm) and imagemagick,
-  displaying captcha isn't possible in termux.
 
 
 ### Termux Auto OTP
@@ -209,6 +187,13 @@ Scripts are available for notifying and booking using cowin-cli [here](scripts).
     -slot string
             slot time (FORENOON default)
 ```
+
+## Features
+* **Zero dependency** : No neeed to install anything, download precompiled binary and run.
+* **Automatic captcha support**: credits to github.com/ayushchd
+* **Scripting support** : scripts are available for all platforms.
+* **Cross platform**
+
 
 ## Known issues
 * API will throw error unauthorized access if specified vaccine is not found at the moment.
