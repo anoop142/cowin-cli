@@ -63,7 +63,7 @@ func getCatpchaCode(bearerToken string) string {
 	}
 	// method to sort characters using path values
 	sort.Slice(pathVals, func(i, j int) bool { return pathVals[i] < pathVals[j] })
-	captchaSolution := []string{"", "", "", "", "", ""}
+	captchaSolution := make([]string, 6)
 
 	for _, p := range svgPaths {
 		var pos int
