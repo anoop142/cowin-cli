@@ -295,40 +295,26 @@ func ScheduleVaccine(options Options) {
 
 	scheduleData.getBeneficariesID(getBeneficaries(scheduleData.bearerToken), options.Name)
 
-	for {
-		captcha := writeCaptchaImg(scheduleData.bearerToken)
+	scheduleData.captcha = getCatpchaCode(scheduleData.bearerToken)
 
-		if !captcha {
-			log.Fatalln("Cannot write captcha image")
-		}
+	resp, statusCode := scheduleData.scheduleVaccineNow()
 
-		displayCaptchaImage()
+	switch statusCode {
+	case 200:
+		fmt.Println("Appointment scheduled successfully!")
+		os.Exit(0)
+	case 400:
+		json.Unmarshal(resp, &badRequest)
+		log.Fatalln(badRequest.Error)
 
-		scheduleData.captcha = userInputCaptcha()
-
-		resp, statusCode := scheduleData.scheduleVaccineNow()
-
-		switch statusCode {
-		case 200:
-			fmt.Println("Appointment scheduled successfully!")
-			os.Exit(0)
-		case 400:
-			json.Unmarshal(resp, &badRequest)
-			if badRequest.Error == "Please provide valid security code" {
-				continue
-			} else {
-				log.Fatalln(badRequest.Error)
-			}
-
-		case 401:
-			log.Fatalln("Unauthenticated Access")
-		case 409:
-			log.Fatalln("This vaccination center is completely booked for the selected date")
-		case 500:
-			log.Fatalln("Internal Server error")
-		default:
-			log.Fatalln("Error ", statusCode)
-		}
+	case 401:
+		log.Fatalln("Unauthenticated Access")
+	case 409:
+		log.Fatalln("This vaccination center is completely booked for the selected date")
+	case 500:
+		log.Fatalln("Internal Server error")
+	default:
+		log.Fatalln("Error ", statusCode)
 	}
 
 }
