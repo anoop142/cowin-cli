@@ -9,7 +9,7 @@ import (
 )
 
 const (
-	version = "1.3.1"
+	version = "1.4.0"
 	author  = "Anoop S"
 )
 
@@ -49,7 +49,7 @@ func main() {
 		help += "\n  cowin-cli -s state -d district [-v vaccine] [-m age] [-i] [-b] [-c dd-mm-yyyy]\n"
 		help += "  cowin-cli -p pincode \n\n"
 		help += "Book Vaccine:"
-		help += "\n  cowin-cli -sc -state -d district [-no mobileNumber] [-m age] [-name Name] [-centers center1,cetner2 ] [-slot slotTime] [-aotp]\n\n"
+		help += "\n  cowin-cli -sc -state -d district [-no mobileNumber] [-m age] [-name Name] [-centers center1,cetner2 ] [-slot slotTime] [-aotp] [-ntok]\n\n"
 
 		fmt.Print(help)
 		fmt.Println("Options :")
