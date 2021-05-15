@@ -79,7 +79,7 @@ The `-i` option displays all extra info like date, vaccine name, age...
 You can specify mobile number, centers to auto book, age, name etc. 
 If not, you will be prompted to enter it appropriately.
 ```console
-$  cowin-cli -sc -state -d district [-no mobileNumber] [-name Name] [-centers center1,cetner2 ] [-slot slotTime]
+$  cowin-cli -sc -state -d district [-no mobileNumber] [-name Name] [-centers center1,cetner2 ] [-slot slotTime] [-ntok]
 ```
 ### Example 1
 ```console
@@ -108,7 +108,7 @@ $  cowin-cli -sc -s kerala -d alappuzha -no 9123456780
 
     Appointment scheduled successfully!
 ```
-
+>Note: By default cowin-cli will reuse token, so until the token expires , you don't need to enter otp again.
 
 you can specify most of the details for booking the vaccine
 
@@ -186,12 +186,16 @@ Scripts are available for notifying and booking using cowin-cli [here](scripts).
             min age limit
     -slot string
             slot time (FORENOON default)
+    -ntok
+    	don't reuse token
+
 ```
 
 ## Features
 * **Zero dependency** : No neeed to install anything, download precompiled binary and run.
 * **Automatic captcha support**: credits to https://github.com/ayushchd
 * **Scripting support** : scripts are available for all platforms.
+* **Reuse OTP**
 * **Cross platform**
 
 
