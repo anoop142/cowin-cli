@@ -32,6 +32,7 @@ func getApiURL(pincode string) string {
 }
 
 func (center *CentreData) getCenters(options Options) {
+	auth := false
 
 	u, err := url.Parse(getApiURL(options.Pincode))
 
@@ -59,7 +60,7 @@ func (center *CentreData) getCenters(options Options) {
 	}
 
 	u.RawQuery = q.Encode()
-	resp, statusCode := getReqAuth(u.String(), "")
+	resp, statusCode := getReqAuth(u.String(), "", auth)
 
 	if statusCode != 200 {
 		log.Fatalln(string(resp))

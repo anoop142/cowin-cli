@@ -15,4 +15,5 @@ type Options struct {
 	Centers      string
 	Age          int
 	Slot         string
+	Ntok         bool
 }

@@ -12,7 +12,6 @@ import (
 
 // genOTP generates OTP and return txnId
 func genOTP(mobileNumber string) string {
-
 	if mobileNumber == "" {
 		fmt.Printf("\nEnter Mobile Number : ")
 		fmt.Scanf("%s\n", &mobileNumber)
@@ -54,7 +53,7 @@ func getOTPprompt() string {
 }
 
 // validateOTP validates OTP ans gets bearer token
-func (scheduleData *ScheduleData) validateOTP(otp string) {
+func (scheduleData *ScheduleData) validateOTP(otp string) (statusCode int) {
 	otpSha256 := sha256.Sum256([]byte(otp))
 
 	var loginData map[string]interface{}
@@ -78,6 +77,7 @@ func (scheduleData *ScheduleData) validateOTP(otp string) {
 
 		scheduleData.bearerToken = fmt.Sprintf("%v", bearerToken)
 	}
+	return statusCode
 
 }
 

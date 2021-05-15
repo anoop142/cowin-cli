@@ -25,7 +25,9 @@ func getStateID(state string) int {
 	var statesData StatesData
 	var stateID int
 
-	resp, statusCode := getReqAuth(statesURL, "")
+	auth := false
+
+	resp, statusCode := getReqAuth(statesURL, "", auth)
 
 	if statusCode != 200 {
 		log.Fatalln(string(resp))
@@ -51,10 +53,11 @@ func getStateID(state string) int {
 func getDistrictID(state, district string) string {
 	var districtsData DistrictsData
 	var districtID int
+	auth := false
 
 	stateID := getStateID(state)
 
-	resp, statusCode := getReqAuth(fmt.Sprintf("%v/%v", districtsURL, stateID), "")
+	resp, statusCode := getReqAuth(fmt.Sprintf("%v/%v", districtsURL, stateID), "", auth)
 
 	if statusCode != 200 {
 		log.Fatalln(string(resp))

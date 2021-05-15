@@ -44,23 +44,15 @@ type BadRequest struct {
 	Error     string `json:"error"`
 }
 
-func checkError(err error) {
-	if err != nil {
-		log.Fatalln(err.Error())
-	}
-}
+func getBeneficaries(bearerToken string) (responseCode int, b beneficariesData) {
+	auth := true
+	resp, statusCode := getReqAuth(beneficiariesURL, bearerToken, auth)
 
-func getBeneficaries(bearerToken string) beneficariesData {
-	var b beneficariesData
-	resp, statusCode := getReqAuth(beneficiariesURL, bearerToken)
-
-	if statusCode != 200 {
-		log.Fatalln("Cannot get beneficaries")
+	if statusCode == 200 {
+		json.Unmarshal(resp, &b)
 	}
 
-	json.Unmarshal(resp, &b)
-
-	return b
+	return statusCode, b
 
 }
 
@@ -219,14 +211,16 @@ func getCenterBookable(options Options) []CenterBookable {
 }
 
 // getSessionID gets session ID and generates OTP
-func (scheduleData *ScheduleData) getSessionID(options Options) {
+func (scheduleData *ScheduleData) getSessionID(options Options, tokenValid bool) {
 
 	var opt int
 	centerBookable := getCenterBookable(options)
 
 	if len(centerBookable) > 0 {
-		// generate OTP only if there is bookable centers
-		scheduleData.txnId = genOTP(options.MobileNumber)
+		// generate OTP only if there is bookable centers && invalid token
+		if !tokenValid {
+			scheduleData.txnId = genOTP(options.MobileNumber)
+		}
 
 		if options.Centers != "" {
 			scheduleData.sessionID = getSpecifiedCenterSessionID(centerBookable, options.Centers)
@@ -262,38 +256,66 @@ func (scheduleData ScheduleData) scheduleVaccineNow() ([]byte, int) {
 func ScheduleVaccine(options Options) {
 	var scheduleData ScheduleData
 	var badRequest BadRequest
+	var beneficaries beneficariesData
 	var OTP, lastRecievedTime, recievedTime string
+	var tokenValid = false
+	var respCode int
 	scheduleData.slot = options.Slot
 
 	if runtime.GOOS == "android" && options.Aotp {
 		_, lastRecievedTime = catchOTP()
 	}
 
-	scheduleData.getSessionID(options)
-
-	if runtime.GOOS == "android" && options.Aotp {
-		for {
-			fmt.Println("Waiting for OTP..")
-			OTP, recievedTime = catchOTP()
-			if recievedTime != lastRecievedTime {
-				break
+	if !options.Ntok {
+		var ok bool
+		scheduleData.bearerToken, ok = loadTokenFromFile()
+		if ok {
+			respCode, beneficaries = getBeneficaries(scheduleData.bearerToken)
+			if respCode == 200 {
+				tokenValid = true
 			}
-			time.Sleep(500 * time.Millisecond)
 		}
 
 	}
-	if OTP == "" {
-		OTP = getOTPprompt()
-	}
-	scheduleData.validateOTP(OTP)
-	// ask 3 times if otp is incorrect
-	for i := 0; scheduleData.bearerToken == "" && i < 3; i++ {
-		fmt.Println("Incorrect OTP")
-		scheduleData.validateOTP(getOTPprompt())
 
+	scheduleData.getSessionID(options, tokenValid)
+
+	if !tokenValid {
+		if runtime.GOOS == "android" && options.Aotp {
+			for {
+				fmt.Println("Waiting for OTP..")
+				OTP, recievedTime = catchOTP()
+				if recievedTime != lastRecievedTime {
+					break
+				}
+				time.Sleep(500 * time.Millisecond)
+			}
+
+		}
+		if OTP == "" {
+			OTP = getOTPprompt()
+		}
+
+		respCode = scheduleData.validateOTP(OTP)
+		// ask 3 times if otp is incorrect
+		for i := 0; respCode != 200 && i < 3; i++ {
+			fmt.Println("Incorrect OTP")
+			respCode = scheduleData.validateOTP(getOTPprompt())
+
+		}
+
+		// write token to file
+		if respCode == 200 {
+			writeTokenToFile(scheduleData.bearerToken)
+		}
+
+		respCode, beneficaries = getBeneficaries(scheduleData.bearerToken)
+		if respCode != 200 {
+			log.Fatalln("Cannot get beneficaries")
+		}
 	}
 
-	scheduleData.getBeneficariesID(getBeneficaries(scheduleData.bearerToken), options.Name)
+	scheduleData.getBeneficariesID(beneficaries, options.Name)
 
 	for i := 0; i < 5; i++ {
 

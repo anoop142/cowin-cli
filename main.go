@@ -37,6 +37,7 @@ func main() {
 	centers := flag.String("centers", "", "centers to auto book seperated by ,")
 	age := flag.Int("m", 0, "minimum age limit")
 	aotp := flag.Bool("aotp", false, "auto capture otp for termux")
+	ntok := flag.Bool("ntok", false, "don't reuse token")
 	slot := flag.String("slot", "FORENOON", "slot time")
 	version := flag.Bool("version", false, "version")
 
@@ -70,6 +71,7 @@ func main() {
 			Age:          *age,
 			Slot:         *slot,
 			Aotp:         *aotp,
+			Ntok:         *ntok,
 		}
 		if *schedule {
 			cowin.ScheduleVaccine(options)
