@@ -44,7 +44,7 @@ Follow these steps to set up in termux.
 # Install packages
 $ pkg i golang git
 # Add go bin to PATH
-$ echo 'export PATH=$HOME/go/bin/:$PATH' > ~/.bashrc
+$ echo "export GOPATH=$HOME/go\nexport PATH=$PATH:$GOROOT/bin:$GOPATH/bin" >> ~/.bashrc
 $ source ~/.bashrc
 #  Install cowin-cli
 $ go get -u github.com/anoop142/cowin-cli
