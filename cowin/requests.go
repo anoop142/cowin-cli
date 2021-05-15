@@ -16,7 +16,7 @@ func getReqAuth(URL, bearerToken string, auth bool) ([]byte, int) {
 	req, err := http.NewRequest("GET", URL, nil)
 
 	if err != nil {
-		log.Fatalln(err.Error())
+		log.Println(err)
 	}
 
 	req.Header.Add("user-agent", "Mozilla/5.0 (Linux x86_64) Chrome/90.0.4430.93 Safari/537.36")
@@ -24,10 +24,13 @@ func getReqAuth(URL, bearerToken string, auth bool) ([]byte, int) {
 		req.Header.Add("authorization", fmt.Sprintf("Bearer %s", bearerToken))
 	}
 	resp, err := client.Do(req)
+	
 	if err == nil {
 		defer resp.Body.Close()
 		body, _ = io.ReadAll(resp.Body)
 		respCode = resp.StatusCode
+	}else{
+		log.Println(err)
 	}
 
 	return body, respCode
@@ -42,7 +45,7 @@ func postReq(URL string, postData []byte, bearerToken string) ([]byte, int) {
 
 	req, err := http.NewRequest("POST", URL, bytes.NewBuffer(postData))
 	if err != nil {
-		log.Fatalln(err.Error())
+		log.Println(err)
 	}
 
 	req.Header.Add("user-agent", "Mozilla/5.0 (Linux x86_64) Chrome/90.0.4430.93 Safari/537.36")
@@ -56,6 +59,8 @@ func postReq(URL string, postData []byte, bearerToken string) ([]byte, int) {
 		defer resp.Body.Close()
 		body, _ = io.ReadAll(resp.Body)
 		respCode = resp.StatusCode
+	}else{
+		log.Println(err)
 	}
 
 	return body, respCode
