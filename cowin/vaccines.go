@@ -7,10 +7,14 @@ var vaccinesList = map[string]string{
 	"covishield": "COVISHIELD",
 }
 
-func GetVaccineName(vaccine string) string {
-	vaccineName, ok := vaccinesList[vaccine]
-	if !ok {
-		log.Fatalln("Invalid vaccine")
+func getVaccineName(vaccine string) string {
+	var vaccineName string
+	var ok bool
+	if vaccine != "" {
+		vaccineName, ok = vaccinesList[vaccine]
+		if !ok {
+			log.Fatalln("Invalid vaccine")
+		}
 	}
 	return vaccineName
 }

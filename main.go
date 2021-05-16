@@ -56,10 +56,7 @@ func main() {
 		flag.PrintDefaults()
 	}
 	if *pincode != "" || (*state != "" && *district != "") {
-		if *vaccine != "" {
-			*vaccine = cowin.GetVaccineName(*vaccine)
-		}
-
+		
 		options := cowin.Options{
 			Pincode:      *pincode,
 			State:        *state,

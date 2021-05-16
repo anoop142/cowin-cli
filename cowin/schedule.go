@@ -191,6 +191,7 @@ func getCenterBookable(options Options) []CenterBookable {
 	var center CentreData
 	var centerBookable []CenterBookable
 	center.getCenters(options)
+	options.Vaccine = getVaccineName(options.Vaccine)
 
 	for _, v := range center.Centers {
 		for _, vv := range v.Sessions {
