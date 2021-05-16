@@ -43,15 +43,6 @@ func (center *CentreData) getCenters(options Options) {
 	q := u.Query()
 	q.Set("date", options.Date)
 
-	if options.Vaccine != "" {
-		v, ok := vaccinesList[options.Vaccine]
-
-		if !ok {
-			log.Fatal("Invalid vaccine")
-		}
-		q.Add("vaccine", v)
-	}
-
 	if options.Pincode != "" {
 		q.Add("pincode", options.Pincode)
 	} else {
@@ -70,45 +61,23 @@ func (center *CentreData) getCenters(options Options) {
 
 }
 
-func (center CentreData) printCenterData(options Options) {
-	found := false
-	for _, v := range center.Centers {
-		// skip if the min age limit is greater than specified age
-		if options.Age > 0 && options.Age < v.Sessions[0].MinAgeLimit {
-			continue
+func PrintCenters(options Options) {
+	center := getCenterBookable(options)
+	if len(center) > 0 {
+		for _, v := range center {
+			if options.Info {
+				fmt.Printf("%v  %v  %v  %v %v %v\n", v.Name, v.Freetype, v.Date, v.AvailableCapacity, v.Vaccine, v.MinAgeLimit)
+			} else {
+				fmt.Printf("%s ", v.Name)
+				if v.Freetype != "Free" {
+					fmt.Print("Paid")
+				}
+				fmt.Println()
+			}
+
 		}
-		// skip if  the center is  not bookable
-		if options.Bookable {
-			totalAvailablity := 0
-			for _, vv := range v.Sessions {
-				totalAvailablity += vv.AvailableCapacity
-			}
-			if totalAvailablity < 1 {
-				continue
-			}
-		}
-		found = true
-		if !options.Info {
-			fmt.Printf("%v ", v.Name)
-			if v.FeeType != "Free" {
-				fmt.Printf("Paid")
-			}
-			fmt.Println()
-		} else {
-			for _, vv := range v.Sessions {
-				fmt.Printf("%v  %v  %v  %v  %v %v+\n", v.Name, v.FeeType, vv.Date, vv.AvailableCapacity, vv.Vaccine, vv.MinAgeLimit)
-			}
-		}
-	}
-	if !found {
+	} else {
 		os.Exit(1)
 	}
-}
-
-func PrintCenters(options Options) {
-	var center CentreData
-	center.getCenters(options)
-
-	center.printCenterData(options)
 
 }

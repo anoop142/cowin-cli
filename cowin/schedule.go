@@ -13,12 +13,13 @@ import (
 )
 
 type CenterBookable struct {
-	Name        string
-	Freetype    string
-	SessionID   string
-	MinAgeLimit int
-	Date        string
-	Vaccine     string
+	Name              string
+	Freetype          string
+	SessionID         string
+	MinAgeLimit       int
+	Date              string
+	Vaccine           string
+	AvailableCapacity int
 }
 
 type beneficariesData struct {
@@ -193,14 +194,15 @@ func getCenterBookable(options Options) []CenterBookable {
 
 	for _, v := range center.Centers {
 		for _, vv := range v.Sessions {
-			if vv.AvailableCapacity > 0 && (options.Age == 0 || options.Age >= vv.MinAgeLimit) {
+			if (!options.Bookable || vv.AvailableCapacity > 0) && (options.Age == 0 || options.Age >= vv.MinAgeLimit) && (options.Vaccine == "" || options.Vaccine == vv.Vaccine) {
 				centerBookable = append(centerBookable, CenterBookable{
-					Name:        v.Name,
-					Freetype:    v.FeeType,
-					SessionID:   vv.SessionID,
-					Vaccine:     vv.Vaccine,
-					MinAgeLimit: vv.MinAgeLimit,
-					Date:        vv.Date,
+					Name:              v.Name,
+					Freetype:          v.FeeType,
+					SessionID:         vv.SessionID,
+					Vaccine:           vv.Vaccine,
+					MinAgeLimit:       vv.MinAgeLimit,
+					Date:              vv.Date,
+					AvailableCapacity: vv.AvailableCapacity,
 				})
 
 			}
@@ -261,6 +263,7 @@ func ScheduleVaccine(options Options) {
 	var tokenValid = false
 	var respCode int
 	scheduleData.slot = options.Slot
+	options.Bookable = true
 
 	if runtime.GOOS == "android" && options.Aotp {
 		_, lastRecievedTime = catchOTP()
