@@ -201,8 +201,7 @@ Scripts are available for notifying and booking using cowin-cli [here](scripts).
 
 
 ## Known issues
-* API will throw error unauthorized access if specified vaccine is not found at the moment.
-* Random Unauthorized access error for no specific reasons.
+* Random Unauthenticated access error for no reasons.
 
 ## License
 
