@@ -23,6 +23,8 @@ set NO=""
 set CENTERS_MATCH=""
 :: centers name to auto select, should be accurate, seperated by ',' . 
 set CENTERS=""
+:: vaccine name in all lower case
+set VACCINE=""
 
 ::END OF EDITABLE VALUES
 
@@ -38,16 +40,16 @@ goto loop
 
 :: Booking function
 :book
-%COWIN-CLI% -s %STATE% -d %DISTRICT% -sc -no %NO% -name %NAME% -centers %CENTERS%
+%COWIN-CLI% -s %STATE% -d %DISTRICT% -sc -no %NO% -name %NAME% -centers %CENTERS% -v %VACCINE%
 pause
 exit
 
 :: Listing function
 :list
 IF [%CENTERS_MATCH%]==[""] (
-   %COWIN-CLI% -s %STATE% -d %DISTRICT% -m %AGE% -b
+   %COWIN-CLI% -s %STATE% -d %DISTRICT% -m %AGE% -b -v %VACCINE%
  ) ELSE ( 
-    %COWIN-CLI% -s %STATE% -d %DISTRICT% -m %AGE% -b | findstr /I %CENTERS_MATCH%
+    %COWIN-CLI% -s %STATE% -d %DISTRICT% -m %AGE% -b -v %VACCINE% | findstr /I %CENTERS_MATCH%
  )
 goto:eof
 
