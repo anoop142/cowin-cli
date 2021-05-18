@@ -28,7 +28,7 @@ func main() {
 	state := flag.String("s", "", "state")
 	district := flag.String("d", "", "district")
 	date := flag.String("c", getDate(), "date dd-mm-yyyy")
-	vaccine := flag.String("v", "", "vaccine name")
+	vaccine := flag.String("v", "", "vaccines seperated by ,")
 	info := flag.Bool("i", false, "full info")
 	bookable := flag.Bool("b", false, "bookable only")
 	schedule := flag.Bool("sc", false, "schedule vaccine ")
