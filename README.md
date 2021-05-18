@@ -67,7 +67,7 @@ There are two modes
 ### **List vaccine centers**
 
 ```
-cowin-cli -s state -d district [-v vaccine] [-m age] [-i] [-b]  [-c dd-mm-yyyy]
+cowin-cli -s state -d district [-v vaccine1,vaccine2] [-m age] [-i] [-b]  [-c dd-mm-yyyy]
 ```
 ### Example 1
 ```console
@@ -79,7 +79,7 @@ Kayamkulam THQH
 
 ### Example 2
 ```console
-$ cowin-cli -s kerala -d alappuzha -i -m 45 -v "covaxin" -b
+$ cowin-cli -s kerala -d alappuzha -i -m 45 -v "covaxin,covishield" -b
 
 Kalavoor PHC  Free  18-05-2021  11 COVAXIN 45
 Vandanam MCH  Free  18-05-2021  4 COVISHIELD 45
@@ -96,7 +96,7 @@ The `-i` option displays all extra info like date, vaccine name, age...
 You can specify mobile number, centers to auto book, age, name etc. 
 If not, you will be prompted to enter it appropriately.
 ```console
-$  cowin-cli -sc -state -d district [-no mobileNumber] [-v vaccine] [-name Name] [-centers center1,cetner2 ] [-slot slotTime] [-ntok]
+$  cowin-cli -sc -state -d district [-no mobileNumber] [-v vaccine1,vaccine2] [-name Name] [-centers center1,cetner2 ] [-slot slotTime] [-ntok]
 ```
 ### Example 1
 ```console
@@ -131,7 +131,7 @@ you can specify most of the details for booking the vaccine
 
 ### Example 2
 ```console
-$  cowin-cli -sc -s kerala -d alappuzha -no 9123456780 -name "John doe" -centers "Aroor FHC,Ala PHC" -v "covaxin"
+$  cowin-cli -sc -s kerala -d alappuzha -no 9123456780 -name "John doe" -centers "Aroor FHC,Ala PHC" -v "covaxin,sputnik v"
 
 Center : Aroor FHC COVAXIN
 Enter OTP :  xxxxx
@@ -183,7 +183,7 @@ Scripts are available for notifying and booking using cowin-cli [here](scripts).
   -p string
         pincode
   -v string
-        vaccine name
+        vaccine names seperated by ','
   -m int
         age
 ```
@@ -204,9 +204,9 @@ Scripts are available for notifying and booking using cowin-cli [here](scripts).
     -slot string
             slot time (FORENOON default)
     -v string
-        vaccine name
+            vaccine names seperated by ','
     -ntok
-    	don't reuse token
+            don't reuse token
 
 ```
 
