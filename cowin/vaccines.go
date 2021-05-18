@@ -1,20 +1,24 @@
 package cowin
 
-import "log"
+import (
+	"log"
+	"strings"
+)
 
-var vaccinesList = map[string]string{
-	"covaxin":    "COVAXIN",
-	"covishield": "COVISHIELD",
+var vaccinesList = map[string]bool{
+	"COVAXIN":    true,
+	"COVISHIELD": true,
+	"SPUTNIK V":  true,
 }
 
 func getVaccineName(vaccine string) string {
-	var vaccineName string
-	var ok bool
 	if vaccine != "" {
-		vaccineName, ok = vaccinesList[vaccine]
+		vaccine = strings.ToUpper(vaccine)
+		_, ok := vaccinesList[vaccine]
 		if !ok {
-			log.Fatalln("Invalid vaccine")
+			log.Fatalln("Invalid vaccine!")
 		}
 	}
-	return vaccineName
+
+	return vaccine
 }
