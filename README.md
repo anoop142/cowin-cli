@@ -102,28 +102,28 @@ $  cowin-cli -sc -state -d district [-no mobileNumber] [-v vaccine1,vaccine2] [-
 ```console
 $  cowin-cli -sc -s kerala -d alappuzha -no 9123456780
 
-    +----+----------------+-----------+---------+-----------+
-    | ID |   CENTER       | FREE TYPE | MIN AGE |  VACCINE  |
-    +----+----------------+-----------+---------+-----------+
-    |  0 | Aroor FHC      | Free      |      45 | COVISHIELD|
-    |  1 | Ala PHC        | Free      |      45 | COVISHIELD|
-    |  2 | Chunakkara CHC | Free      |      45 | COVISHIELD|
-    +----+----------------+-----------+---------+-----------+
++----+---------------+-----------+---------+-----------+------+
+| ID | CENTER        | FREE TYPE | MIN AGE | VACCINE   | DOSE |
++----+---------------+-----------+---------+-----------+------+
+|  0 | Aroor FHC     | Free      |      45 | COVISHIELD|   1  |
+|  1 | Ala PHC       | Free      |      45 | COVISHIELD|   1  |
+|  2 | Kalavoor PHC  | Free      |      45 | COVISHIELD|   2  |
++----+---------------+-----------+---------+-----------+------+
 
-      Enter Center ID : 1
-      Enter OTP : xxxxx
+Enter Center ID : 1
+Enter OTP : xxxxx
 
-    +----+---------------+
-    | ID |     NAME      |
-    +----+---------------+
-    |  0 | John doe      |
-    |  1 | Jane doe      |
-    |  2 | All           |
-    +----+---------------+
++----+---------------+
+| ID |     NAME      |
++----+---------------+
+|  0 | John doe      |
+|  1 | Jane doe      |
+|  2 | All           |
++----+---------------+
 
-     Enter name ID : 1
+Enter name ID : 1
 
-    Appointment scheduled successfully!
+Appointment scheduled successfully!
 ```
 >Note: By default cowin-cli will reuse token, so until the token expires , you don't need to enter otp again.
 
