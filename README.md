@@ -183,7 +183,7 @@ Scripts are available for notifying and booking using cowin-cli [here](scripts).
   -p string
         pincode
   -v string
-        vaccine names seperated by ','
+        vaccine names separated by ','
   -m int
         age
 ```
@@ -197,14 +197,14 @@ Scripts are available for notifying and booking using cowin-cli [here](scripts).
             registered name           
     -no string
             mobile number
-    -centers string seperated by ','
+    -centers string separated by ','
             centers to auto select
     -m int
             min age limit
     -slot string
             slot time (FORENOON default)
     -v string
-            vaccine names seperated by ','
+            vaccine names separated by ','
     -ntok
             don't reuse token
 
