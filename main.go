@@ -9,7 +9,7 @@ import (
 )
 
 const (
-	version = "1.4.3"
+	version = "1.4.4"
 	author  = "Anoop S"
 )
 
@@ -56,7 +56,7 @@ func main() {
 		flag.PrintDefaults()
 	}
 	if *pincode != "" || (*state != "" && *district != "") {
-		
+
 		options := cowin.Options{
 			Pincode:      *pincode,
 			State:        *state,
