@@ -96,7 +96,7 @@ The `-i` option displays all extra info like date, vaccine name, age...
 You can specify mobile number, centers to auto book, age, name etc. 
 If not, you will be prompted to enter it appropriately.
 ```console
-$  cowin-cli -sc -state -d district [-no mobileNumber] [-name Name] [-centers center1,cetner2 ] [-slot slotTime] [-ntok]
+$  cowin-cli -sc -state -d district [-no mobileNumber] [-v vaccine] [-name Name] [-centers center1,cetner2 ] [-slot slotTime] [-ntok]
 ```
 ### Example 1
 ```console
