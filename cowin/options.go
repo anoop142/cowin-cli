@@ -16,4 +16,5 @@ type Options struct {
 	Age          int
 	Slot         string
 	Ntok         bool
+	Dose         int
 }

@@ -13,12 +13,14 @@ type CentreData struct {
 		Name     string `json:"name"`
 		FeeType  string `json:"fee_type"`
 		Sessions []struct {
-			SessionID         string   `json:"session_id"`
-			Date              string   `json:"date"`
-			AvailableCapacity int      `json:"available_capacity"`
-			MinAgeLimit       int      `json:"min_age_limit"`
-			Vaccine           string   `json:"vaccine"`
-			Slots             []string `json:"slots"`
+			SessionID              string   `json:"session_id"`
+			Date                   string   `json:"date"`
+			AvailableCapacity      int      `json:"available_capacity"`
+			MinAgeLimit            int      `json:"min_age_limit"`
+			Vaccine                string   `json:"vaccine"`
+			Slots                  []string `json:"slots"`
+			AvailableCapacityDose1 int      `json:"available_capacity_dose1"`
+			AvailableCapacityDose2 int      `json:"available_capacity_dose2"`
 		} `json:"sessions"`
 	} `json:"centers"`
 }
@@ -60,13 +62,36 @@ func (center *CentreData) getCenters(options Options) {
 	json.Unmarshal(resp, center)
 
 }
+func getDoseType(availablity, dose1, dose2 int) string {
+	var doseType string
+	if availablity == dose1 {
+		doseType = "1"
+	} else if availablity == dose2 {
+		doseType = "2"
+	} else if availablity == 0 {
+		doseType = "none"
+	} else {
+		doseType = "both"
+	}
+	return fmt.Sprint(doseType)
+}
+func checkDoseType(dosType string, specifiedDose int) bool {
+	ok := false
+	switch dosType {
+	case "both":
+		ok = true
+	case fmt.Sprint(specifiedDose):
+		ok = true
+	}
+	return ok
+}
 
 func PrintCenters(options Options) {
 	center := getCenterBookable(options)
 	if len(center) > 0 {
 		for _, v := range center {
 			if options.Info {
-				fmt.Printf("%v  %v  %v  %v %v %v\n", v.Name, v.Freetype, v.Date, v.AvailableCapacity, v.Vaccine, v.MinAgeLimit)
+				fmt.Printf("%v  %v  %v  %v %v %v Dose-%v\n", v.Name, v.Freetype, v.Date, v.AvailableCapacity, v.Vaccine, v.MinAgeLimit, v.DoseType)
 			} else {
 				fmt.Printf("%s ", v.Name)
 				if v.Freetype != "Free" {

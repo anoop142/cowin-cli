@@ -20,6 +20,7 @@ type CenterBookable struct {
 	Date              string
 	Vaccine           string
 	AvailableCapacity int
+	DoseType          string
 }
 
 type beneficariesData struct {
@@ -153,9 +154,9 @@ func (scheduleData *ScheduleData) getBeneficariesID(b beneficariesData, name str
 // printCenterBookable prints centers avaliable for booking
 func printCenterBookable(centerList []CenterBookable) {
 	table := tablewriter.NewWriter(os.Stdout)
-	table.SetHeader([]string{"ID", "Center", "Free type", "Min Age", "Vaccine"})
+	table.SetHeader([]string{"ID", "Center", "Free type", "Min Age", "Vaccine", "Dose"})
 	for i, v := range centerList {
-		table.Append([]string{fmt.Sprint(i), v.Name, v.Freetype, fmt.Sprint(v.MinAgeLimit), v.Vaccine})
+		table.Append([]string{fmt.Sprint(i), v.Name, v.Freetype, fmt.Sprint(v.MinAgeLimit), v.Vaccine, v.DoseType})
 	}
 	table.Render()
 }
@@ -199,8 +200,11 @@ func getCenterBookable(options Options) []CenterBookable {
 
 	for _, v := range center.Centers {
 		for _, vv := range v.Sessions {
+			doseType := getDoseType(vv.AvailableCapacity, vv.AvailableCapacityDose1, vv.AvailableCapacityDose2)
+
 			if (!options.Bookable || vv.AvailableCapacity > 0) && (options.Age == 0 || options.Age >= vv.MinAgeLimit) &&
-				(options.Vaccine == "" || checkVaccine(options.Vaccine, vv.Vaccine)) {
+				(options.Vaccine == "" || checkVaccine(options.Vaccine, vv.Vaccine)) &&
+				(options.Dose == 0 || checkDoseType(doseType, options.Dose)) {
 				centerBookable = append(centerBookable, CenterBookable{
 					Name:              v.Name,
 					Freetype:          v.FeeType,
@@ -209,6 +213,7 @@ func getCenterBookable(options Options) []CenterBookable {
 					MinAgeLimit:       vv.MinAgeLimit,
 					Date:              vv.Date,
 					AvailableCapacity: vv.AvailableCapacity,
+					DoseType:          doseType,
 				})
 
 			}
