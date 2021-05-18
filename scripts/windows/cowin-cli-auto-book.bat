@@ -25,6 +25,8 @@ set CENTERS_MATCH=""
 set CENTERS=""
 :: vaccines seperated by ','
 set VACCINE=""
+:: dose, 0 means all
+set /A DOSE=0
 
 ::END OF EDITABLE VALUES
 
@@ -40,16 +42,16 @@ goto loop
 
 :: Booking function
 :book
-%COWIN-CLI% -s %STATE% -d %DISTRICT% -sc -no %NO% -name %NAME% -centers %CENTERS% -v %VACCINE%
+%COWIN-CLI% -s %STATE% -d %DISTRICT% -sc -no %NO% -name %NAME% -centers %CENTERS% -v %VACCINE% -dose %DOSE%
 pause
 exit
 
 :: Listing function
 :list
 IF [%CENTERS_MATCH%]==[""] (
-   %COWIN-CLI% -s %STATE% -d %DISTRICT% -m %AGE% -b -v %VACCINE%
+   %COWIN-CLI% -s %STATE% -d %DISTRICT% -m %AGE% -b -v %VACCINE% -dose %DOSE%
  ) ELSE ( 
-    %COWIN-CLI% -s %STATE% -d %DISTRICT% -m %AGE% -b -v %VACCINE% | findstr /I %CENTERS_MATCH%
+    %COWIN-CLI% -s %STATE% -d %DISTRICT% -m %AGE% -b -v %VACCINE% -dose %DOSE% | findstr /I %CENTERS_MATCH%
  )
 goto:eof
 
