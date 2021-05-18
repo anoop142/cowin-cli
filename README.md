@@ -69,15 +69,25 @@ There are two modes
 ```
 cowin-cli -s state -d district [-v vaccine] [-m age] [-i] [-b]  [-c dd-mm-yyyy]
 ```
-### Example
+### Example 1
 ```console
-$ cowin-cli -s kerala -d alappuzha -i -m 45 
+$ cowin-cli -s kerala -d alappuzha 
 
-Thazhakara PHC  Free  10-05-2021  0  COVISHIELD 45+
-Kayamkulam THQH  Free  10-05-2021  0  COVISHIELD 45+
+Thazhakara PHC
+Kayamkulam THQH  
+```
+
+### Example 2
+```console
+$ cowin-cli -s kerala -d alappuzha -i -m 45 -v "covaxin" -b
+
+Kalavoor PHC  Free  18-05-2021  11 COVAXIN 45
+Vandanam MCH  Free  18-05-2021  4 COVISHIELD 45
+Mannanchery PHC  Free  18-05-2021  7 COVISHIELD 45
 ```
 
 The `-i` option displays all extra info like date, vaccine name, age...
+`-b'` prints only bookable centers.
 
 
 
@@ -121,9 +131,9 @@ you can specify most of the details for booking the vaccine
 
 ### Example 2
 ```console
-$  cowin-cli -sc -s kerala -d alappuzha -no 9123456780 -name "John doe" -centers "Aroor FHC,Ala PHC"
+$  cowin-cli -sc -s kerala -d alappuzha -no 9123456780 -name "John doe" -centers "Aroor FHC,Ala PHC" -v "covaxin"
 
-Center : Aroor FHC
+Center : Aroor FHC COVAXIN
 Enter OTP :  xxxxx
 ```
 >**Note**: -centers "any" to auto select any center.
@@ -193,6 +203,8 @@ Scripts are available for notifying and booking using cowin-cli [here](scripts).
             min age limit
     -slot string
             slot time (FORENOON default)
+    -v string
+        vaccine name
     -ntok
     	don't reuse token
 
