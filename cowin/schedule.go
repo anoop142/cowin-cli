@@ -190,13 +190,17 @@ func getSpecifiedCenterSessionID(centerBookable []CenterBookable, specifiedCente
 func getCenterBookable(options Options) []CenterBookable {
 	var center CentreData
 	var centerBookable []CenterBookable
-	vaccine := getVaccineName(options.Vaccine)
+
+	if options.Vaccine != "" {
+		checkVaccineKnown(options.Vaccine)
+	}
 
 	center.getCenters(options)
 
 	for _, v := range center.Centers {
 		for _, vv := range v.Sessions {
-			if (!options.Bookable || vv.AvailableCapacity > 0) && (options.Age == 0 || options.Age >= vv.MinAgeLimit) && (vaccine == "" || vaccine == vv.Vaccine) {
+			if (!options.Bookable || vv.AvailableCapacity > 0) && (options.Age == 0 || options.Age >= vv.MinAgeLimit) &&
+				(options.Vaccine == "" || checkVaccine(options.Vaccine, vv.Vaccine)) {
 				centerBookable = append(centerBookable, CenterBookable{
 					Name:              v.Name,
 					Freetype:          v.FeeType,
