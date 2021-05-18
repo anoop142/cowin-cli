@@ -236,7 +236,7 @@ func (scheduleData *ScheduleData) getSessionID(options Options, tokenValid bool)
 
 		if scheduleData.sessionID == "" {
 			printCenterBookable(centerBookable)
-			opt = getUserSelection("Enter Center ID :", len(centerBookable), false)
+			opt = getUserSelection("Enter Center ID :", len(centerBookable)-1, false)
 
 			scheduleData.sessionID = centerBookable[opt].SessionID
 		}
