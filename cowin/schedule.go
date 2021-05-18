@@ -161,12 +161,13 @@ func printCenterBookable(centerList []CenterBookable) {
 	table.Render()
 }
 func getSpecifiedCenterSessionID(centerBookable []CenterBookable, specifiedCenters string) string {
-	var sessionId, centerName, vaccine string
+	var sessionId, centerName, vaccine, dose string
 	if specifiedCenters == "any" {
 		// get first session id
 		sessionId = centerBookable[0].SessionID
 		vaccine = centerBookable[0].Vaccine
 		centerName = centerBookable[0].Name
+		dose = centerBookable[0].DoseType
 	} else {
 		specifiedCentersList := strings.Split(specifiedCenters, ",")
 		for _, specifiedCenter := range specifiedCentersList {
@@ -177,12 +178,13 @@ func getSpecifiedCenterSessionID(centerBookable []CenterBookable, specifiedCente
 					sessionId = center.SessionID
 					vaccine = center.Vaccine
 					centerName = center.Name
+					dose = center.DoseType
 				}
 			}
 		}
 	}
 	if sessionId != "" {
-		fmt.Println("Center: ", centerName, vaccine)
+		fmt.Printf("Center: %v %v Dose-%v\n", centerName, vaccine, dose)
 	}
 	return sessionId
 }
