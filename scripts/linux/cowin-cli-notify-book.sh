@@ -10,14 +10,14 @@ COWIN_CLI="./cowin-cli"
 T=15
 # centers for grep matching
 CENTERS_MATCH='center1|center2|cnter3'
-# centers to auto select
+# centers to auto select seperated by ','
 CENTERS=""
 DISTRICT="district"
 STATE="state"
 AGE=45
 NAME=""
 NO=""
-# vaccine name in all lower case
+# vaccines seperated by ','
 VACCINE=""
 
 

@@ -23,7 +23,7 @@ set NO=""
 set CENTERS_MATCH=""
 :: centers name to auto select, should be accurate, seperated by ',' . 
 set CENTERS=""
-:: vaccine name in all lower case
+:: vaccines seperated by ','
 set VACCINE=""
 
 ::END OF EDITABLE VALUES

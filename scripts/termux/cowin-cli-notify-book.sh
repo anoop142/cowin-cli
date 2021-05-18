@@ -17,6 +17,7 @@ STATE="state"
 AGE=45
 NAME=""
 NO=""
+# vaccines seperated by ','
 VACCINE=""
 
 
