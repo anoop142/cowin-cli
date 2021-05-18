@@ -67,7 +67,7 @@ There are two modes
 ### **List vaccine centers**
 
 ```
-cowin-cli -s state -d district [-v vaccine1,vaccine2] [-m age] [-i] [-b]  [-c dd-mm-yyyy]
+cowin-cli -s state -d district [-v vaccine1,vaccine2] [-m age] [-i] [-b]  [-c dd-mm-yyyy] [-dose dose]
 ```
 ### Example 1
 ```console
@@ -79,11 +79,11 @@ Kayamkulam THQH
 
 ### Example 2
 ```console
-$ cowin-cli -s kerala -d alappuzha -i -m 45 -v "covaxin,covishield" -b
+$ cowin-cli -s kerala -d alappuzha -i -m 45 -v "covaxin,covishield" -b -dose 1
 
-Kalavoor PHC  Free  18-05-2021  11 COVAXIN 45
-Vandanam MCH  Free  18-05-2021  4 COVISHIELD 45
-Mannanchery PHC  Free  18-05-2021  7 COVISHIELD 45
+Kalavoor PHC  Free  18-05-2021  11 COVAXIN 45 Dose-1
+Vandanam MCH  Free  18-05-2021  4 COVISHIELD 45 Dose-1
+Mannanchery PHC  Free  18-05-2021  7 COVISHIELD 45 Dose-1
 ```
 
 The `-i` option displays all extra info like date, vaccine name, age...
@@ -96,7 +96,7 @@ The `-i` option displays all extra info like date, vaccine name, age...
 You can specify mobile number, centers to auto book, age, name etc. 
 If not, you will be prompted to enter it appropriately.
 ```console
-$  cowin-cli -sc -state -d district [-no mobileNumber] [-v vaccine1,vaccine2] [-name Name] [-centers center1,cetner2 ] [-slot slotTime] [-ntok]
+$  cowin-cli -sc -state -d district [-no mobileNumber] [-v vaccine1,vaccine2] [-name Name] [-centers center1,cetner2 ] [-slot slotTime] [-ntok]  [-dose dose]
 ```
 ### Example 1
 ```console
@@ -131,9 +131,9 @@ you can specify most of the details for booking the vaccine
 
 ### Example 2
 ```console
-$  cowin-cli -sc -s kerala -d alappuzha -no 9123456780 -name "John doe" -centers "Aroor FHC,Ala PHC" -v "covaxin,sputnik v"
+$  cowin-cli -sc -s kerala -d alappuzha -no 9123456780 -name "John doe" -centers "Aroor FHC,Ala PHC" -v "covaxin,sputnik v" -dose 2
 
-Center : Aroor FHC COVAXIN
+Center : Aroor FHC COVAXIN Dose-2
 Enter OTP :  xxxxx
 ```
 >**Note**: -centers "any" to auto select any center.
@@ -186,6 +186,8 @@ Scripts are available for notifying and booking using cowin-cli [here](scripts).
         vaccine names separated by ','
   -m int
         age
+  -dose int
+            dose type
 ```
 
 #### Book Vaccine:
@@ -207,6 +209,8 @@ Scripts are available for notifying and booking using cowin-cli [here](scripts).
             vaccine names separated by ','
     -ntok
             don't reuse token
+    -dose int
+            dose type
 
 ```
 
