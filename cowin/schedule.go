@@ -346,6 +346,7 @@ func ScheduleVaccine(options Options) {
 		case 400:
 			json.Unmarshal(resp, &badRequest)
 			if badRequest.Error == "Your transaction didn't go through. Please try again later" {
+				log.Println("Captcha failed, trying again..")
 				continue
 			}
 			log.Fatalln(badRequest.Error)
