@@ -36,7 +36,7 @@ func getStateID(state string) int {
 	json.Unmarshal(resp, &statesData)
 
 	for _, v := range statesData.States {
-		if strings.EqualFold(v.StateName, state) {
+		if strings.EqualFold(strings.TrimSpace(v.StateName), state) {
 			stateID = v.StateID
 			break
 		}
@@ -66,7 +66,7 @@ func getDistrictID(state, district string) string {
 	json.Unmarshal(resp, &districtsData)
 
 	for _, v := range districtsData.Districts {
-		if strings.EqualFold(v.DistrictName, district) {
+		if strings.EqualFold(strings.TrimSpace(v.DistrictName), district) {
 			districtID = v.DistrictID
 		}
 	}
