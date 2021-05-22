@@ -25,18 +25,10 @@ type CentreData struct {
 	} `json:"centers"`
 }
 
-func getApiURL(pincode string) string {
-	if pincode != "" {
-		return apiPincodeURL
-	} else {
-		return apiDistrictURL
-	}
-}
-
 func (center *CentreData) getCenters(options Options) {
 	auth := false
 
-	u, err := url.Parse(getApiURL(options.Pincode))
+	u, err := url.Parse(calenderDistrictURL)
 
 	if err != nil {
 		log.Fatal(err)
@@ -45,12 +37,8 @@ func (center *CentreData) getCenters(options Options) {
 	q := u.Query()
 	q.Set("date", options.Date)
 
-	if options.Pincode != "" {
-		q.Add("pincode", options.Pincode)
-	} else {
-		districtID := getDistrictID(options.State, options.District)
-		q.Add("district_id", districtID)
-	}
+	districtID := getDistrictID(options.State, options.District)
+	q.Add("district_id", districtID)
 
 	u.RawQuery = q.Encode()
 	resp, statusCode := getReqAuth(u.String(), "", auth)

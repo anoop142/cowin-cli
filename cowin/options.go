@@ -1,7 +1,6 @@
 package cowin
 
 type Options struct {
-	Pincode      string
 	State        string
 	District     string
 	Date         string

@@ -24,7 +24,6 @@ func getDate() string {
 }
 
 func main() {
-	pincode := flag.String("p", "", "pincode")
 	state := flag.String("s", "", "state")
 	district := flag.String("d", "", "district")
 	date := flag.String("c", getDate(), "date dd-mm-yyyy")
@@ -47,8 +46,7 @@ func main() {
 		printAbout()
 		help := "Usage :\n"
 		help += "\nList :"
-		help += "\n  cowin-cli -s state -d district [-v vaccine] [-m age] [-i] [-b] [-c dd-mm-yyyy][-dose dose]\n"
-		help += "  cowin-cli -p pincode \n\n"
+		help += "\n  cowin-cli -s state -d district [-v vaccine] [-m age] [-i] [-b] [-c dd-mm-yyyy][-dose dose]\n\n"
 		help += "Book Vaccine:"
 		help += "\n  cowin-cli -sc -state -d district [-no mobileNumber] [-v vaccine] [-m age] [-name Name] [-centers center1,cetner2 ] [-slot slotTime] [-aotp] [-ntok] [-dose dose]\n\n"
 
@@ -56,10 +54,9 @@ func main() {
 		fmt.Println("Options :")
 		flag.PrintDefaults()
 	}
-	if *pincode != "" || (*state != "" && *district != "") {
+	if *state != "" && *district != "" {
 
 		options := cowin.Options{
-			Pincode:      *pincode,
 			State:        *state,
 			District:     *district,
 			Date:         *date,
