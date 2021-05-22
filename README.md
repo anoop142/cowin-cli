@@ -180,8 +180,6 @@ Scripts are available for notifying and booking using cowin-cli [here](scripts).
         date dd-mm-yyyy (default tomorrow's date)
   -i	
         full info
-  -p string
-        pincode
   -v string
         vaccine names separated by ','
   -m int
