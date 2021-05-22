@@ -21,9 +21,12 @@ cowin-cli is a simple cli tool to book vaccines and list centers using the COWIN
 - [Getting Started](#getting-started)
   - [List vaccine centers](#list-vaccine-centers)
   - [Book Vaccine](#book-vaccine)
+- [Scripts](#scripts)
+- [Advanced](#advanced)  
   - [Termux Auto OTP](#termux-auto-otp)
-  - [Scripts](#scripts)
-  - [Options](#options)
+  - [Generating Token](#generating-token)
+
+- [Options](#options)
     - [List Centers:](#list-center)
     - [Book Vaccine:](#book-vaccine)
 - [Known issues](#known-issues)
@@ -59,7 +62,7 @@ $ go get -u github.com/anoop142/cowin-cli
 
 
 ## Getting Started
-There are two modes
+There are two main modes
 
 * List mode
 * Booking mode
@@ -138,8 +141,14 @@ Enter OTP :  xxxxx
 ```
 >**Note**: -centers "any" to auto select any center.
 >-name "all" to book for all under same mobile no.
- 
 
+
+## Scripts
+Scripts are available for notifying and booking using cowin-cli [here](scripts). You need to edit the vaules of the script like district name, mobile number etc..
+
+
+## Advanced
+ >**Note**: This is meant for advanced users.
 
 ### Termux Auto OTP
 It's possible to detect OTP message and get OTP in Termux without user input. use -aotp flag to invoke this feature.
@@ -159,10 +168,25 @@ You need to first setup termux to read sms.
   $ cowin-cli -s kerala -d alappuzha -sc -no 9123456789 -aotp
   ```
 
-### Scripts
-Scripts are available for notifying and booking using cowin-cli [here](scripts). You need to edit the vaules of the script like district name, mobile number etc..
+ ### Generating Token
 
-### Options
+ Tokens are always written to "token.txt" after successfully validating OTP while booking to re-use later.
+
+You can generate token manually using the token generation mode.
+
+```
+cowin-cli -gen [-no MobileNumber] [-token tokenFile]
+```
+### Example
+```console
+$ cowin-cli -gen -no 9123456789
+
+Enter OTP :xxxxxx
+Written to token.txt
+```
+
+
+### **Options**
 
 ```
   -s	state State Name
@@ -209,7 +233,20 @@ Scripts are available for notifying and booking using cowin-cli [here](scripts).
             don't reuse token
     -dose int
             dose type
+    -token string
+            file to write token (default "token.txt")
 
+```
+
+### Generate Token:
+
+```
+     -gen
+        invoke token generation mode
+    -token string
+            file to write token (default "token.txt")
+     -no int       
+            mobile number
 ```
 
 ## Known issues
