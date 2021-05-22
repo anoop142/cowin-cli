@@ -6,11 +6,7 @@ install_api(){
 }
 
 install_dependency(){
-	pkg i golang git imagemagick
-}
-
-install_pixterm(){
-	go get -u github.com/eliukblau/pixterm/cmd/pixterm
+	pkg i golang git
 }
 
 install_cowin_cli(){
@@ -19,5 +15,5 @@ install_cowin_cli(){
 }
 
 
-install_dependency && install_pixterm && install_cowin_cli 
+install_dependency && install_cowin_cli 
 install_api
