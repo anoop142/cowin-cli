@@ -284,7 +284,7 @@ func ScheduleVaccine(options Options) {
 
 	if !options.Ntok {
 		var ok bool
-		scheduleData.bearerToken, ok = loadTokenFromFile()
+		scheduleData.bearerToken, ok = loadTokenFromFile(options.TokenFile)
 		if ok {
 			respCode, beneficaries = getBeneficaries(scheduleData.bearerToken)
 			if respCode == 200 {
@@ -322,7 +322,7 @@ func ScheduleVaccine(options Options) {
 
 		// write token to file
 		if respCode == 200 {
-			writeTokenToFile(scheduleData.bearerToken)
+			writeTokenToFile(scheduleData.bearerToken, options.TokenFile)
 		}
 
 		respCode, beneficaries = getBeneficaries(scheduleData.bearerToken)

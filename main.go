@@ -31,6 +31,7 @@ func main() {
 	info := flag.Bool("i", false, "full info")
 	bookable := flag.Bool("b", false, "bookable only")
 	schedule := flag.Bool("sc", false, "schedule vaccine ")
+	gen := flag.Bool("gen", false, "generate token text file.")
 	mobileNumber := flag.String("no", "", "mobile number")
 	name := flag.String("name", "", "registered name")
 	centers := flag.String("centers", "", "centers to auto book separated by ,")
@@ -38,6 +39,7 @@ func main() {
 	dose := flag.Int("dose", 0, "dose type")
 	aotp := flag.Bool("aotp", false, "auto capture otp for termux")
 	ntok := flag.Bool("ntok", false, "don't reuse token")
+	token := flag.String("token", "token.txt", "file to write token")
 	slot := flag.String("slot", "FORENOON", "slot time")
 	version := flag.Bool("version", false, "version")
 
@@ -72,12 +74,16 @@ func main() {
 			Aotp:         *aotp,
 			Ntok:         *ntok,
 			Dose:         *dose,
+			TokenFile:    *token,
 		}
 		if *schedule {
 			cowin.ScheduleVaccine(options)
 		} else {
 			cowin.PrintCenters(options)
 		}
+
+	} else if *gen {
+		cowin.GenerateToken(*mobileNumber, *token)
 	} else if *version {
 		printAbout()
 	} else {

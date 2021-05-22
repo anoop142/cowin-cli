@@ -16,4 +16,5 @@ type Options struct {
 	Slot         string
 	Ntok         bool
 	Dose         int
+	TokenFile    string
 }
