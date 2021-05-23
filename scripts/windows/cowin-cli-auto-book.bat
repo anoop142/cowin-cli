@@ -15,8 +15,8 @@ set /A AGE=45
 set STATE="tamil nadu"
 :: District name
 set DISTRICT="chennai"
-:: Name should be accurate , cases should be correct
-set NAME=""
+:: beneficiaries names separated by ','
+set NAMES=""
 :: Mobile number
 set NO=""
 :: 	centers name pattern seperated by space, name is not required to be accurate, eg: ala kayam 
@@ -42,7 +42,7 @@ goto loop
 
 :: Booking function
 :book
-%COWIN-CLI% -s %STATE% -d %DISTRICT% -sc -no %NO% -name %NAME% -centers %CENTERS% -v %VACCINE% -dose %DOSE%
+%COWIN-CLI% -s %STATE% -d %DISTRICT% -sc -no %NO% -names %NAMES% -centers %CENTERS% -v %VACCINE% -dose %DOSE%
 pause
 exit
 

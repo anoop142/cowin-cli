@@ -15,7 +15,8 @@ CENTERS=""
 DISTRICT="district"
 STATE="state"
 AGE=45
-NAME=""
+# beneficiaries names separated by ,
+NAMES=""
 NO=""
 # vaccines seperated by ','
 VACCINE=""
@@ -23,7 +24,7 @@ DOSE=0
 
 
 schedule(){
-	"$COWIN_CLI" -s "$STATE" -d "$DISTRICT" -sc -no "$NO" -name "$NAME" -centers "$CENTERS" -v "$VACCINE" -dose $DOSE -aotp && exit 0 
+	"$COWIN_CLI" -s "$STATE" -d "$DISTRICT" -sc -no "$NO" -names "$NAMES" -centers "$CENTERS" -v "$VACCINE" -dose $DOSE -aotp && exit 0 
 }
 
 

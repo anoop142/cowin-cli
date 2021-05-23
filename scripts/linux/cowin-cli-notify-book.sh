@@ -15,7 +15,8 @@ CENTERS=""
 DISTRICT="district"
 STATE="state"
 AGE=45
-NAME=""
+# beneficiaries names seperated by ','
+NAMES=""
 NO=""
 # vaccines seperated by ','
 VACCINE=""
@@ -30,7 +31,7 @@ notify(){
 }
 
 schedule(){
-	"$COWIN_CLI" -s "$STATE" -d "$DISTRICT" -sc -no "$NO" -name "$NAME" -centers "$CENTERS" -v "$VACCINE" -dose $DOSE && exit 0 
+	"$COWIN_CLI" -s "$STATE" -d "$DISTRICT" -sc -no "$NO" -names "$NAMES" -centers "$CENTERS" -v "$VACCINE" -dose $DOSE && exit 0 
 }
 
 
