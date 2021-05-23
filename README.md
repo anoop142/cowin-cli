@@ -99,8 +99,8 @@ The `-i` option displays all extra info like date, vaccine name, age...
 
 You can specify mobile number, centers to auto book, age, name etc. 
 If not, you will be prompted to enter it appropriately.
-```console
-$  cowin-cli -sc -state -d district [-no mobileNumber] [-v vaccine1,vaccine2] [-name Name] [-centers center1,cetner2 ] [-slot slotTime] [-ntok]  [-dose dose]
+```
+$  cowin-cli -sc -state -d district [-no mobileNumber] [-v vaccine1,vaccine2] [-names name1,name2] [-centers center1,cetner2 ] [-slot slotTime] [-ntok]  [-dose dose]
 ```
 ### Example 1
 ```console
@@ -122,10 +122,11 @@ Enter OTP : xxxxx
 +----+---------------+
 |  0 | John doe      |
 |  1 | Jane doe      |
-|  2 | All           |
+|  2 | Somebody
+|  3 | All           |
 +----+---------------+
 
-Enter name ID : 1
+Enter name ID : 1,2
 
 Appointment scheduled successfully!
 ```
@@ -135,7 +136,7 @@ you can specify most of the details for booking the vaccine
 
 ### Example 2
 ```console
-$  cowin-cli -sc -s kerala -d alappuzha -no 9123456780 -name "John doe" -centers "Aroor FHC,Ala PHC" -v "covaxin,sputnik v" -dose 2
+$  cowin-cli -sc -s kerala -d alappuzha -no 9123456780 -names "John doe, Jane doe" -centers "Aroor FHC,Ala PHC" -v "covaxin,sputnik v" -dose 2
 
 Center : Aroor FHC COVAXIN Dose-2
 Enter OTP :  xxxxx
@@ -218,8 +219,8 @@ Written to token.txt
 ```
     -sc
             invoke schedule vaccine mode
-    -name string
-            registered name           
+    -names string separated by ','
+            beneficiaries name           
     -no string
             mobile number
     -centers string separated by ','
