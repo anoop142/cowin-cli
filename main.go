@@ -33,7 +33,7 @@ func main() {
 	schedule := flag.Bool("sc", false, "schedule vaccine ")
 	gen := flag.Bool("gen", false, "generate token text file.")
 	mobileNumber := flag.String("no", "", "mobile number")
-	name := flag.String("name", "", "registered name")
+	names := flag.String("names", "", "beneficiaries name separated by ,")
 	centers := flag.String("centers", "", "centers to auto book separated by ,")
 	age := flag.Int("m", 0, "minimum age limit")
 	dose := flag.Int("dose", 0, "dose type")
@@ -50,7 +50,7 @@ func main() {
 		help += "\nList :"
 		help += "\n  cowin-cli -s state -d district [-v vaccine] [-m age] [-i] [-b] [-c dd-mm-yyyy][-dose dose]\n\n"
 		help += "Book Vaccine:"
-		help += "\n  cowin-cli -sc -s state -d district [-no mobileNumber] [-v vaccine] [-m age] [-name Name] [-centers center1,cetner2 ] [-slot slotTime] [-aotp] [-ntok] [-token tokenFile] [-dose dose]\n\n"
+		help += "\n  cowin-cli -sc -s state -d district [-no mobileNumber] [-v vaccine] [-m age] [-names name1,name2] [-centers center1,cetner2 ] [-slot slotTime] [-aotp] [-ntok] [-token tokenFile] [-dose dose]\n\n"
 		help += "Generate Token:"
 		help += "\n	cowin-cli -gen [-no mobileNumber] [-token tokenFile]  \n\n"
 		fmt.Print(help)
@@ -68,7 +68,7 @@ func main() {
 			Bookable:     *bookable,
 			Schedule:     *schedule,
 			MobileNumber: *mobileNumber,
-			Name:         *name,
+			Names:        *names,
 			Centers:      *centers,
 			Age:          *age,
 			Slot:         *slot,

@@ -10,7 +10,7 @@ type Options struct {
 	Schedule     bool
 	Aotp         bool
 	MobileNumber string
-	Name         string
+	Names        string
 	Centers      string
 	Age          int
 	Slot         string

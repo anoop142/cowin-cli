@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"runtime"
+	"strconv"
 	"strings"
 	"time"
 
@@ -110,24 +111,26 @@ func printBeneficaries(b beneficariesData) {
 }
 
 // getBeneficariesID gets list of beneficaries id and dose
-func (scheduleData *ScheduleData) getBeneficariesID(b beneficariesData, name string) {
-	var opt int
+func (scheduleData *ScheduleData) getBeneficariesID(b beneficariesData, names string) {
 
 	IDtotalCount := len(b.Beneficiaries)
 	if IDtotalCount == 1 {
 		scheduleData.beneficariesRefIDs = append(scheduleData.beneficariesRefIDs, b.Beneficiaries[0].BeneficiaryReferenceID)
 		scheduleData.dose = getDoseNo(b.Beneficiaries[0].Dose1Date)
 		// name specified
-	} else if name != "" {
+	} else if names != "" {
 		// get all beneficaries
-		if name == "all" {
+		if names == "all" {
 			scheduleData.getAllbID(b)
 		} else {
-			for _, v := range b.Beneficiaries {
-				if strings.EqualFold(v.Name, name) {
-					scheduleData.beneficariesRefIDs = append(scheduleData.beneficariesRefIDs, v.BeneficiaryReferenceID)
-					scheduleData.dose = getDoseNo(v.Dose1Date)
-					break
+			nameList := strings.Split(names, ",")
+			for _, name := range nameList {
+				for _, v := range b.Beneficiaries {
+					if strings.EqualFold(v.Name, strings.TrimSpace(name)) {
+						scheduleData.beneficariesRefIDs = append(scheduleData.beneficariesRefIDs, v.BeneficiaryReferenceID)
+						scheduleData.dose = getDoseNo(v.Dose1Date)
+						break
+					}
 				}
 			}
 
@@ -135,17 +138,34 @@ func (scheduleData *ScheduleData) getBeneficariesID(b beneficariesData, name str
 
 	}
 	if len(scheduleData.beneficariesRefIDs) == 0 {
-		//print beneficaries and prompt user
 		printBeneficaries(b)
-		opt = getUserSelection("Enter name ID : ", IDtotalCount, true)
+		fmt.Println("use ',' to seperate multiple id")
+		for {
+			var opt string
+			//print beneficaries and prompt user
+			fmt.Print("\nEnter Name ID: ")
+			fmt.Scanf("%s\n", &opt)
 
-		// get all beneficaries
-		if opt == IDtotalCount {
-			scheduleData.getAllbID(b)
-			// append chosen one
-		} else {
-			scheduleData.beneficariesRefIDs = append(scheduleData.beneficariesRefIDs, b.Beneficiaries[opt].BeneficiaryReferenceID)
-			scheduleData.dose = getDoseNo(b.Beneficiaries[opt].Dose1Date)
+			userIDs := strings.Split(opt, ",")
+
+			for _, v := range userIDs {
+				id, _ := strconv.Atoi(v)
+				// all mode
+				if id == IDtotalCount {
+					scheduleData.beneficariesRefIDs = nil
+					scheduleData.getAllbID(b)
+					break
+				}
+				if id < IDtotalCount {
+					scheduleData.beneficariesRefIDs = append(scheduleData.beneficariesRefIDs, b.Beneficiaries[id].BeneficiaryReferenceID)
+					scheduleData.dose = getDoseNo(b.Beneficiaries[id].Dose1Date)
+				} else {
+					break
+				}
+			}
+			if len(scheduleData.beneficariesRefIDs) != 0 {
+				break
+			}
 		}
 	}
 
@@ -331,7 +351,7 @@ func ScheduleVaccine(options Options) {
 		}
 	}
 
-	scheduleData.getBeneficariesID(beneficaries, options.Name)
+	scheduleData.getBeneficariesID(beneficaries, options.Names)
 
 	for i := 0; i < 5; i++ {
 
