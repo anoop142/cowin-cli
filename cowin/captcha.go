@@ -46,11 +46,11 @@ func getCatpchaCode(bearerToken string) string {
 
 	svgString := getCaptchaImg(bearerToken)
 	// drop xml tags
-	svgString = strings.TrimPrefix(svgString, `<svg xmlns="http://www.w3.org/2000/svg" width="150" height="50" viewBox="0,0,150,50">`)
-	svgString = strings.TrimRight(svgString, "</svg>")
+	svgString = strings.TrimLeft(svgString, ">")
 	// clean image
 	reg := regexp.MustCompile(`(<path d=)(.*?)(fill=\"none\"/>)`)
 	svgString = reg.ReplaceAllString(svgString, "")
+	svgString = strings.TrimRight(svgString, "</svg>")
 
 	// split  path
 	svgPaths := strings.Split(svgString, "<path")
@@ -63,7 +63,7 @@ func getCatpchaCode(bearerToken string) string {
 	}
 	// method to sort characters using path values
 	sort.Slice(pathVals, func(i, j int) bool { return pathVals[i] < pathVals[j] })
-	captchaSolution := make([]string, 6)
+	captchaSolution := make([]string, 5)
 
 	for _, p := range svgPaths {
 		var pos int
@@ -82,5 +82,4 @@ func getCatpchaCode(bearerToken string) string {
 	}
 
 	return strings.Join(captchaSolution, "")
-
 }
