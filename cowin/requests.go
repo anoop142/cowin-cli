@@ -20,6 +20,8 @@ func getReqAuth(URL, bearerToken string, auth bool) ([]byte, int) {
 	}
 
 	req.Header.Add("user-agent", "Mozilla/5.0 (Linux x86_64) Chrome/90.0.4430.93 Safari/537.36")
+	req.Header.Add("origin", "https://selfregistration.cowin.gov.in/")
+	req.Header.Add("referer", "https://selfregistration.cowin.gov.in/")
 	if auth {
 		req.Header.Add("authorization", fmt.Sprintf("Bearer %s", bearerToken))
 	}
@@ -49,6 +51,8 @@ func postReq(URL string, postData []byte, bearerToken string) ([]byte, int) {
 	}
 
 	req.Header.Add("user-agent", "Mozilla/5.0 (Linux x86_64) Chrome/90.0.4430.93 Safari/537.36")
+	req.Header.Add("origin", "https://selfregistration.cowin.gov.in/")
+	req.Header.Add("referer", "https://selfregistration.cowin.gov.in/")
 
 	if bearerToken != "" {
 		req.Header.Add("authorization", fmt.Sprintf("Bearer %s", bearerToken))
