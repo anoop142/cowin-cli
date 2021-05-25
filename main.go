@@ -42,18 +42,19 @@ func main() {
 	token := flag.String("token", "token.txt", "file to write token")
 	slot := flag.String("slot", "FORENOON", "slot time")
 	version := flag.Bool("version", false, "version")
+	help := flag.Bool("help", false, "help")
 
 	flag.Parse()
 	flag.Usage = func() {
 		printAbout()
-		help := "Usage :\n"
-		help += "\nList :"
-		help += "\n  cowin-cli -s state -d district [-v vaccine] [-m age] [-i] [-b] [-c dd-mm-yyyy][-dose dose]\n\n"
-		help += "Book Vaccine:"
-		help += "\n  cowin-cli -sc -s state -d district [-no mobileNumber] [-v vaccine] [-m age] [-names name1,name2] [-centers center1,cetner2 ] [-slot slotTime] [-aotp] [-ntok] [-token tokenFile] [-dose dose]\n\n"
-		help += "Generate Token:"
-		help += "\n	cowin-cli -gen [-no mobileNumber] [-token tokenFile]  \n\n"
-		fmt.Print(help)
+		helpMsg := "Usage :\n"
+		helpMsg += "\nList :"
+		helpMsg += "\n  cowin-cli -s state -d district [-v vaccine] [-m age] [-i] [-b] [-c dd-mm-yyyy][-dose dose]\n\n"
+		helpMsg += "Book Vaccine:"
+		helpMsg += "\n  cowin-cli -sc -s state -d district [-no mobileNumber] [-v vaccine] [-m age] [-names name1,name2] [-centers center1,cetner2 ] [-slot slotTime] [-aotp] [-ntok] [-token tokenFile] [-dose dose]\n\n"
+		helpMsg += "Generate Token:"
+		helpMsg += "\n	cowin-cli -gen [-no mobileNumber] [-token tokenFile]  \n\n"
+		fmt.Print(helpMsg)
 		fmt.Println("Options :")
 		flag.PrintDefaults()
 	}
@@ -87,6 +88,8 @@ func main() {
 		cowin.GenerateToken(*mobileNumber, *token)
 	} else if *version {
 		printAbout()
+	} else if *help {
+		flag.Usage()
 	} else {
 		flag.Usage()
 	}
