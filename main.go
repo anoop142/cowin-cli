@@ -40,7 +40,7 @@ func main() {
 	aotp := flag.Bool("aotp", false, "auto capture otp for termux")
 	ntok := flag.Bool("ntok", false, "don't reuse token")
 	token := flag.String("token", "token.txt", "file to write token")
-	slot := flag.String("slot", "09:00AM-11:00AM", "slot time")
+	slot := flag.String("slot", "", "slot time")
 	version := flag.Bool("version", false, "version")
 	help := flag.Bool("help", false, "help")
 

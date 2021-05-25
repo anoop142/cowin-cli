@@ -22,6 +22,7 @@ type CenterBookable struct {
 	Vaccine           string
 	AvailableCapacity int
 	DoseType          string
+	Slots             []string
 }
 
 type beneficariesData struct {
@@ -180,14 +181,11 @@ func printCenterBookable(centerList []CenterBookable) {
 	}
 	table.Render()
 }
-func getSpecifiedCenterSessionID(centerBookable []CenterBookable, specifiedCenters string) string {
-	var sessionId, centerName, vaccine, dose string
+func getSpecifiedCenterSessionID(centerBookable []CenterBookable, specifiedCenters string) CenterBookable {
+	var selectedCenter CenterBookable
 	if specifiedCenters == "any" {
 		// get first session id
-		sessionId = centerBookable[0].SessionID
-		vaccine = centerBookable[0].Vaccine
-		centerName = centerBookable[0].Name
-		dose = centerBookable[0].DoseType
+		selectedCenter = centerBookable[0]
 	} else {
 		specifiedCentersList := strings.Split(specifiedCenters, ",")
 		for _, specifiedCenter := range specifiedCentersList {
@@ -195,18 +193,12 @@ func getSpecifiedCenterSessionID(centerBookable []CenterBookable, specifiedCente
 			specifiedCenter = strings.TrimSpace(specifiedCenter)
 			for _, center := range centerBookable {
 				if strings.EqualFold(center.Name, specifiedCenter) {
-					sessionId = center.SessionID
-					vaccine = center.Vaccine
-					centerName = center.Name
-					dose = center.DoseType
+					selectedCenter = center
 				}
 			}
 		}
 	}
-	if sessionId != "" {
-		fmt.Printf("Center: %v %v Dose-%v\n", centerName, vaccine, dose)
-	}
-	return sessionId
+	return selectedCenter
 }
 
 // getCenterBookable gets centers that are only avaliable for booking
@@ -236,6 +228,7 @@ func getCenterBookable(options Options) []CenterBookable {
 					Date:              vv.Date,
 					AvailableCapacity: vv.AvailableCapacity,
 					DoseType:          doseType,
+					Slots:             vv.Slots,
 				})
 
 			}
@@ -249,6 +242,7 @@ func getCenterBookable(options Options) []CenterBookable {
 func (scheduleData *ScheduleData) getSessionID(options Options, tokenValid bool) {
 
 	var opt int
+	var selectedCenter CenterBookable
 	centerBookable := getCenterBookable(options)
 
 	if len(centerBookable) > 0 {
@@ -258,15 +252,26 @@ func (scheduleData *ScheduleData) getSessionID(options Options, tokenValid bool)
 		}
 
 		if options.Centers != "" {
-			scheduleData.sessionID = getSpecifiedCenterSessionID(centerBookable, options.Centers)
+			selectedCenter = getSpecifiedCenterSessionID(centerBookable, options.Centers)
 		}
+		// set session id
+		scheduleData.sessionID = selectedCenter.SessionID
 
 		if scheduleData.sessionID == "" {
 			printCenterBookable(centerBookable)
 			opt = getUserSelection("Enter Center ID :", len(centerBookable)-1, false)
 
-			scheduleData.sessionID = centerBookable[opt].SessionID
+			selectedCenter = centerBookable[opt]
+			scheduleData.sessionID = selectedCenter.SessionID
 		}
+		// Set slot
+		if options.Slot == "" {
+			scheduleData.slot = selectedCenter.Slots[0]
+		} else {
+			scheduleData.slot = options.Slot
+		}
+
+		fmt.Printf("Center: %v %v Dose-%v\n", selectedCenter.Name, selectedCenter.Vaccine, selectedCenter.DoseType)
 	} else {
 		log.Fatalln("No Centers available for booking")
 	}
@@ -295,7 +300,6 @@ func ScheduleVaccine(options Options) {
 	var OTP, lastRecievedTime, recievedTime string
 	var tokenValid = false
 	var respCode int
-	scheduleData.slot = options.Slot
 	options.Bookable = true
 
 	if runtime.GOOS == "android" && options.Aotp {
