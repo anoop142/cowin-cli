@@ -8,6 +8,12 @@ import (
 	"net/http"
 )
 
+func reqAddHeaders(req *http.Request) {
+	req.Header.Add("user-agent", "Mozilla/5.0 (Linux x86_64) Chrome/90.0.4430.93 Safari/537.36")
+	req.Header.Add("origin", "https://selfregistration.cowin.gov.in/")
+	req.Header.Add("referer", "https://selfregistration.cowin.gov.in/")
+}
+
 func getReqAuth(URL, bearerToken string, auth bool) ([]byte, int) {
 	var body []byte
 	var respCode int
@@ -19,19 +25,17 @@ func getReqAuth(URL, bearerToken string, auth bool) ([]byte, int) {
 		log.Println(err)
 	}
 
-	req.Header.Add("user-agent", "Mozilla/5.0 (Linux x86_64) Chrome/90.0.4430.93 Safari/537.36")
-	req.Header.Add("origin", "https://selfregistration.cowin.gov.in/")
-	req.Header.Add("referer", "https://selfregistration.cowin.gov.in/")
+	reqAddHeaders(req)
 	if auth {
 		req.Header.Add("authorization", fmt.Sprintf("Bearer %s", bearerToken))
 	}
 	resp, err := client.Do(req)
-	
+
 	if err == nil {
 		defer resp.Body.Close()
 		body, _ = io.ReadAll(resp.Body)
 		respCode = resp.StatusCode
-	}else{
+	} else {
 		log.Println(err)
 	}
 
@@ -50,9 +54,7 @@ func postReq(URL string, postData []byte, bearerToken string) ([]byte, int) {
 		log.Println(err)
 	}
 
-	req.Header.Add("user-agent", "Mozilla/5.0 (Linux x86_64) Chrome/90.0.4430.93 Safari/537.36")
-	req.Header.Add("origin", "https://selfregistration.cowin.gov.in/")
-	req.Header.Add("referer", "https://selfregistration.cowin.gov.in/")
+	reqAddHeaders(req)
 
 	if bearerToken != "" {
 		req.Header.Add("authorization", fmt.Sprintf("Bearer %s", bearerToken))
@@ -63,7 +65,7 @@ func postReq(URL string, postData []byte, bearerToken string) ([]byte, int) {
 		defer resp.Body.Close()
 		body, _ = io.ReadAll(resp.Body)
 		respCode = resp.StatusCode
-	}else{
+	} else {
 		log.Println(err)
 	}
 
