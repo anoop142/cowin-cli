@@ -11,13 +11,11 @@ compile:
 	mkdir -p $(BIN)
 	env CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o $(BIN)/cowin-cli -ldflags $(BUILD_FLAGS)
 	env GOOS=windows GOARCH=amd64 go build -o $(BIN)/cowin-cli.exe -ldflags $(BUILD_FLAGS)
-	env GOOS=windows GOARCH=386 go build -o $(BIN)/cowin-cli_x86.exe -ldflags $(BUILD_FLAGS)
 
 release: compile
 	mkdir -p release
 	zip -j9 $(REL)/cowin-cli_linux_64.zip "$(BIN)/cowin-cli" scripts/linux/*.sh
 	zip -j9 $(REL)/cowin-cli_Windows_64.zip "$(BIN)/cowin-cli.exe" scripts/windows/*.bat
-	zip -j9 $(REL)/cowin-cli_Windows_i386.zip "$(BIN)/cowin-cli_x86.exe"
 
 clean:
 	rm -rf bin release
