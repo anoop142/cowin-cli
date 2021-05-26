@@ -13,7 +13,7 @@ PLATFORMS="$PLATFORMS darwin/arm64"
 PLATFORMS="$PLATFORMS windows/amd64"
 PLATFORMS="$PLATFORMS windows/386" 
 PLATFORMS="$PLATFORMS linux/amd64"
-
+BUILD_FLAGS="'-s -w'"
 
 build(){
 
@@ -24,7 +24,7 @@ build(){
     mkdir -p "$BIN_DIRECTORY"
     BIN_FILENAME="${OUTPUT}"
     if [[ "${GOOS}" == "windows" ]]; then BIN_FILENAME="${BIN_FILENAME}.exe"; fi
-    CMD="env CGO_ENABLED=0 GOOS=${GOOS} GOARCH=${GOARCH} go build -o ${BIN_DIRECTORY/BIN_FILENAME} $@"
+    CMD="env CGO_ENABLED=0 GOOS=${GOOS} GOARCH=${GOARCH} go build -o ${BIN_DIRECTORY/BIN_FILENAME} -ldflags ${BUILD_FLAGS}  $@"
     echo "${CMD}"
     eval $CMD
   done
@@ -58,6 +58,7 @@ case "$1" in
       build
       ;;
     "release")
+      clean 
       build && release
       ;;
     "clean")
