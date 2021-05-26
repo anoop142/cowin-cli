@@ -230,7 +230,7 @@ Written to token.txt
     -m int
             min age limit
     -slot string
-            slot time (FORENOON default)
+            slot time 
     -v string
             vaccine names separated by ','
     -ntok
