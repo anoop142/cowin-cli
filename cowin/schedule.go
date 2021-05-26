@@ -213,7 +213,7 @@ func getCenterBookable(options Options) []CenterBookable {
 
 	for _, v := range center.Centers {
 		for _, vv := range v.Sessions {
-			doseType := getDoseType(vv.AvailableCapacity, vv.AvailableCapacityDose1, vv.AvailableCapacityDose2)
+			doseType := getDoseType(vv.AvailableCapacityDose1, vv.AvailableCapacityDose2)
 
 			if (!options.Bookable || vv.AvailableCapacity > 0) && (options.Age == 0 || options.Age >= vv.MinAgeLimit) &&
 				(options.Vaccine == "" || checkVaccine(options.Vaccine, vv.Vaccine)) &&

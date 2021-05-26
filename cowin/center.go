@@ -50,18 +50,18 @@ func (center *CentreData) getCenters(options Options) {
 	json.Unmarshal(resp, center)
 
 }
-func getDoseType(availablity, dose1, dose2 int) string {
+func getDoseType(dose1, dose2 int) string {
 	var doseType string
-	if availablity == dose1 {
-		doseType = "1"
-	} else if availablity == dose2 {
-		doseType = "2"
-	} else if availablity == 0 {
-		doseType = "none"
-	} else {
+	if dose1 > 1 && dose2 > 1 {
 		doseType = "both"
+	} else if dose1 > 1 {
+		doseType = "1"
+	} else if dose2 > 1 {
+		doseType = "2"
+	} else {
+		doseType = "none"
 	}
-	return fmt.Sprint(doseType)
+	return doseType
 }
 func checkDoseType(dosType string, specifiedDose int) bool {
 	ok := false
