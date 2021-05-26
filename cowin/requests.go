@@ -16,6 +16,7 @@ func reqAddHeaders(req *http.Request) {
 	req.Header.Add("sec-fetch-mode", "cors")
 	req.Header.Add("sec-ch-ua-mobile", "?0")
 	req.Header.Add("sec-ch-ua", `" Not A;Brand";v="99", "Chromium";v="90", "Google Chrome";v="90"`)
+	req.Header.Add("authority", "cdn-api.co-vin.in")
 
 }
 
