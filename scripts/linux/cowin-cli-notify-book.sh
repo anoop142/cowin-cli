@@ -21,7 +21,7 @@ NO=""
 # vaccines seperated by ','
 VACCINE=""
 DOSE=0
-
+DATE=""
 
 
 
@@ -31,7 +31,7 @@ notify(){
 }
 
 schedule(){
-	"$COWIN_CLI" -s "$STATE" -d "$DISTRICT" -sc -no "$NO" -names "$NAMES" -centers "$CENTERS" -v "$VACCINE" -dose $DOSE && exit 0 
+	"$COWIN_CLI" -s "$STATE" -d "$DISTRICT" -sc -no "$NO" -names "$NAMES" -centers "$CENTERS" -v "$VACCINE" -dose $DOSE   -c "$DATE"  && exit 0 
 }
 
 
@@ -39,7 +39,7 @@ while :
 do
 	echo "looking for centers.."
 
-	"$COWIN_CLI" -s "$STATE"  -d "$DISTRICT" -m "$AGE" -b -v "$VACCINE" -dose $DOSE
+	"$COWIN_CLI" -s "$STATE"  -d "$DISTRICT" -m "$AGE" -b -v "$VACCINE" -dose $DOSE -c "$DATE"
 
 	if (( $? == 0  )) 
 	then

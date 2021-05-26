@@ -17,6 +17,7 @@ func printAbout() {
 	fmt.Printf("cowin-cli v%v %v\n", version, author)
 }
 
+// get tomorrow's date
 func getDate() string {
 	dateNow := time.Now()
 	dateTommorrow := dateNow.AddDate(0, 0, 1)
@@ -26,7 +27,7 @@ func getDate() string {
 func main() {
 	state := flag.String("s", "", "state")
 	district := flag.String("d", "", "district")
-	date := flag.String("c", getDate(), "date dd-mm-yyyy")
+	date := flag.String("c", "", "date dd-mm-yyyy")
 	vaccine := flag.String("v", "", "vaccines separated by ,")
 	info := flag.Bool("i", false, "full info")
 	bookable := flag.Bool("b", false, "bookable only")
@@ -59,6 +60,10 @@ func main() {
 		flag.PrintDefaults()
 	}
 	if *state != "" && *district != "" {
+		// set date if not specified
+		if *date == "" {
+			*date = getDate()
+		}
 
 		options := cowin.Options{
 			State:        *state,
