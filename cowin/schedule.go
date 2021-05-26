@@ -77,7 +77,6 @@ func getUserSelection(message string, limit int, all bool) int {
 			again = true
 		}
 	}
-	fmt.Println()
 	return opt
 }
 
@@ -271,7 +270,7 @@ func (scheduleData *ScheduleData) getSessionID(options Options, tokenValid bool)
 			scheduleData.slot = options.Slot
 		}
 
-		fmt.Printf("Center: %v %v Dose-%v\n", selectedCenter.Name, selectedCenter.Vaccine, selectedCenter.DoseType)
+		fmt.Printf("Center: %v %v Dose-%v\n\n", selectedCenter.Name, selectedCenter.Vaccine, selectedCenter.DoseType)
 	} else {
 		log.Fatalln("No Centers available for booking")
 	}
