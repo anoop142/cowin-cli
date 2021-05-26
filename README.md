@@ -15,7 +15,7 @@ cowin-cli is a simple cli tool to book vaccines and list centers using the COWIN
 * **Cross platform** : Windows, Linux, macOS, Termux.
 * **Automatic OTP support for Termux** 
 
-![Demo](https://user-images.githubusercontent.com/40671157/119601114-1b2dce00-be06-11eb-923b-3889a24c6ba2.mp4)
+https://user-images.githubusercontent.com/40671157/119601114-1b2dce00-be06-11eb-923b-3889a24c6ba2.mp4
 
 - [Installation](#installation)
   - [Install via `go get`](#install-via-go-get)
