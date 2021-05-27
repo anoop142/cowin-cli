@@ -47,7 +47,7 @@ $ go get -u github.com/anoop142/cowin-cli
 **OR**
 
 ### Download precompiled binaries.
-Precompiled binaries are avalailable for Windows and linux.
+Precompiled binaries are avalailable for Windows, macOS and linux.
 Download them at 
 **[Releases](https://github.com/anoop142/cowin-cli/releases)** page.
 
@@ -57,7 +57,7 @@ Follow these steps to set up in termux.
 # Install packages
 $ pkg i golang git
 # Add go bin to PATH
-$ echo "export GOPATH=$HOME/go\nexport PATH=$PATH:$GOROOT/bin:$GOPATH/bin" >> ~/.bashrc
+$ echo -e "export GOPATH=$HOME/go\nexport PATH=$PATH:$GOROOT/bin:$GOPATH/bin" >> ~/.bashrc
 $ source ~/.bashrc
 #  Install cowin-cli
 $ go get -u github.com/anoop142/cowin-cli
