@@ -17,4 +17,5 @@ type Options struct {
 	Ntok         bool
 	Dose         int
 	TokenFile    string
+	FreeType     string
 }
