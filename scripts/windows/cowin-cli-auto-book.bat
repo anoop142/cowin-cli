@@ -19,7 +19,7 @@ set DISTRICT="chennai"
 set NAMES=""
 :: Mobile number
 set NO=""
-:: 	centers name pattern seperated by space, name is not required to be accurate, eg: ala kayam 
+:: centers name pattern seperated by space, name is not required to be accurate, eg: ala kayam 
 set CENTERS_MATCH=""
 :: centers name to auto select, should be accurate, seperated by ',' . 
 set CENTERS=""
@@ -29,6 +29,8 @@ set VACCINE=""
 set /A DOSE=0
 :: date, no need to edit this by default, dd-mm-yyyy format
 set DATE=""
+:: center type, free or paid, empty means all
+set TYPE=""
 ::END OF EDITABLE VALUES
 
 
@@ -43,16 +45,16 @@ goto loop
 
 :: Booking function
 :book
-%COWIN-CLI% -s %STATE% -d %DISTRICT% -sc -no %NO% -names %NAMES% -centers %CENTERS% -v %VACCINE% -dose %DOSE% -c %DATE%
+%COWIN-CLI% -s %STATE% -d %DISTRICT% -sc -no %NO% -names %NAMES% -centers %CENTERS% -v %VACCINE% -dose %DOSE% -c %DATE% -t %TYPE%
 pause
 exit
 
 :: Listing function
 :list
 IF [%CENTERS_MATCH%]==[""] (
-   %COWIN-CLI% -s %STATE% -d %DISTRICT% -m %AGE% -b -v %VACCINE% -dose %DOSE% -c %DATE%
+   %COWIN-CLI% -s %STATE% -d %DISTRICT% -m %AGE% -b -v %VACCINE% -dose %DOSE% -c %DATE% -t %TYPE%
  ) ELSE ( 
-    %COWIN-CLI% -s %STATE% -d %DISTRICT% -m %AGE% -b -v %VACCINE% -dose %DOSE% -c %DATE% | findstr /I %CENTERS_MATCH%
+    %COWIN-CLI% -s %STATE% -d %DISTRICT% -m %AGE% -b -v %VACCINE% -dose %DOSE% -c %DATE% -t %TYPE%  | findstr /I %CENTERS_MATCH%
  )
 goto:eof
 

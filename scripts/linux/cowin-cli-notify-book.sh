@@ -22,7 +22,8 @@ NO=""
 VACCINE=""
 DOSE=0
 DATE=""
-
+# free type, free or paid, default all
+TYPE=""
 
 
 notify(){
@@ -31,7 +32,8 @@ notify(){
 }
 
 schedule(){
-	"$COWIN_CLI" -s "$STATE" -d "$DISTRICT" -sc -no "$NO" -names "$NAMES" -centers "$CENTERS" -v "$VACCINE" -dose $DOSE   -c "$DATE"  && exit 0 
+	"$COWIN_CLI" -s "$STATE" -d "$DISTRICT" -sc -no "$NO" -names "$NAMES" -m "$AGE" \
+	-centers "$CENTERS" -v "$VACCINE" -dose $DOSE   -c "$DATE" -t "$TYPE"  && exit 0 
 }
 
 
@@ -39,7 +41,7 @@ while :
 do
 	echo "looking for centers.."
 
-	"$COWIN_CLI" -s "$STATE"  -d "$DISTRICT" -m "$AGE" -b -v "$VACCINE" -dose $DOSE -c "$DATE"
+	"$COWIN_CLI" -s "$STATE"  -d "$DISTRICT" -m "$AGE" -b -v "$VACCINE" -dose $DOSE -c "$DATE" -t "$TYPE"
 
 	if (( $? == 0  )) 
 	then
