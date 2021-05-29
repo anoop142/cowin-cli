@@ -8,15 +8,21 @@ import (
 	"net/http"
 )
 
+var headersToAdd = map[string]string{
+	"user-agent":       "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36",
+	"origin":           "https://selfregistration.cowin.gov.in/",
+	"referer":          "https://selfregistration.cowin.gov.in/",
+	"sec-fetch-site":   "cross-site",
+	"sec-fetch-mode":   "cors",
+	"sec-ch-ua-mobile": "?0",
+	"sec-ch-ua":        `" Not A;Brand";v="99", "Chromium";v="90", "Google Chrome";v="90"`,
+	"authority":        "cdn-api.co-vin.in",
+}
+
 func reqAddHeaders(req *http.Request) {
-	req.Header.Add("user-agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36")
-	req.Header.Add("origin", "https://selfregistration.cowin.gov.in/")
-	req.Header.Add("referer", "https://selfregistration.cowin.gov.in/")
-	req.Header.Add("sec-fetch-site", "cross-site")
-	req.Header.Add("sec-fetch-mode", "cors")
-	req.Header.Add("sec-ch-ua-mobile", "?0")
-	req.Header.Add("sec-ch-ua", `" Not A;Brand";v="99", "Chromium";v="90", "Google Chrome";v="90"`)
-	req.Header.Add("authority", "cdn-api.co-vin.in")
+	for k, v := range headersToAdd {
+		req.Header.Add(k, v)
+	}
 
 }
 
