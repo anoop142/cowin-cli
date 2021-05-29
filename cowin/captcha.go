@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
-	"os"
 	"regexp"
 	"sort"
 	"strconv"
@@ -29,8 +28,6 @@ func getCaptchaImg(bearerToken string) string {
 	json.Unmarshal(resp, &captchaData)
 
 	captchaImg, ok := captchaData["captcha"]
-
-	os.WriteFile("captcha.svg", []byte(captchaImg), 0644)
 
 	if !ok {
 		log.Fatalln("Cannot get captcha Image")
