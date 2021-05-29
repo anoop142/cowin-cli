@@ -243,6 +243,8 @@ Written to token.txt
             file to write token (default "token.txt")
     -t string
             free type
+    -aotp
+            auto capture otp for termux
 
 ```
 
