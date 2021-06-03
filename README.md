@@ -73,6 +73,8 @@ There are two main modes
 
 ### **List vaccine centers**
 
+Its possible to list centers without login, however it's recommended to generate token.txt first using generating mode. More details [here](#generating-token)
+
 ```
 cowin-cli -s state -d district [-v vaccine1,vaccine2] [-m age] [-i] [-b]  [-c dd-mm-yyyy] [-dose dose] [-t freeType] [-ntok]
 ```
@@ -96,7 +98,7 @@ Mannanchery PHC  Free  18-05-2021  7 COVISHIELD 45 Dose-1
 The `-i` option displays all extra info like date, vaccine name, age...
 `-b'` prints only bookable centers.
 
-> **Note** : use gen mode(-gen) to generate  token first ,if you are facing unathenticated error.
+> **Note** : use gen mode(-gen) to generate  token first ,if you are facing unathenticated error. See here
 
 > Do not alter token.txt. If you did, delete token.txt and gen again.
 
@@ -177,7 +179,7 @@ You need to first setup termux to read sms.
 
  ### Generating Token
 
- Tokens are always written to "token.txt" after successfully validating OTP while booking to re-use later.
+ Tokens are always written to "token.txt" after successfully validating OTP to use it for listing or booking.
 
 You can generate token manually using the token generation mode.
 
