@@ -4,27 +4,33 @@
 # Install notify-send for notifications
 
 
-COWIN_CLI="./cowin-cli"
+COWIN_CLI="cowin-cli"
 
 # Interval in seconds
 T=15
 # centers for grep matching
 CENTERS_MATCH='center1|center2|cnter3'
-# centers to auto select
+# centers to auto select seperated by ','
 CENTERS=""
 DISTRICT="district"
 STATE="state"
 AGE=45
-# beneficiaries names separated by ,
+# beneficiaries names seperated by ','
 NAMES=""
 NO=""
 # vaccines seperated by ','
 VACCINE=""
 DOSE=0
 DATE=""
+# free type, free or paid, default all
+TYPE=""
+
+
 
 schedule(){
-	"$COWIN_CLI" -s "$STATE" -d "$DISTRICT" -sc -no "$NO" -names "$NAMES" -centers "$CENTERS" -v "$VACCINE" -dose $DOSE -aotp  -c "$DATE" && exit 0 
+	# pass -aotp if you have setup auto OTP  
+	"$COWIN_CLI" -s "$STATE" -d "$DISTRICT" -sc -no "$NO" -names "$NAMES" -m "$AGE" \
+	-centers "$CENTERS" -v "$VACCINE" -dose $DOSE   -c "$DATE" -t "$TYPE"  && exit 0 
 }
 
 
@@ -32,11 +38,10 @@ while :
 do
 	echo "looking for centers.."
 
-	"$COWIN_CLI" -s "$STATE"  -d "$DISTRICT" -m "$AGE" -b -v "$VACCINE" -dose $DOSE -c "$DATE"
+	"$COWIN_CLI" -s "$STATE"  -d "$DISTRICT" -m "$AGE" -b -v "$VACCINE" -dose $DOSE -c "$DATE" -t "$TYPE"
 
 	if (( $? == 0  )) 
 	then
-		notify
 		schedule
 	fi
 
