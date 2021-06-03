@@ -9,5 +9,6 @@ set NO=""
 
 
 %COWIN-CLI% -gen -no %NO%
+pause
 exit
 
