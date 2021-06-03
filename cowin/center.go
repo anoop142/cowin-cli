@@ -26,8 +26,19 @@ type CentreData struct {
 }
 
 func (center *CentreData) getCenters(options Options) {
-	auth := false
+	var (
+		bearerToken = ""
+		auth        = false
+	)
 
+	// load bearer token, always use token from file
+	if !options.Ntok {
+		var ok bool
+		bearerToken, ok = loadTokenFromFile(options.TokenFile)
+		if ok {
+			auth = true
+		}
+	}
 	u, err := url.Parse(calenderDistrictURL)
 
 	if err != nil {
@@ -41,7 +52,7 @@ func (center *CentreData) getCenters(options Options) {
 	q.Add("district_id", districtID)
 
 	u.RawQuery = q.Encode()
-	resp, statusCode := getReqAuth(u.String(), "", auth)
+	resp, statusCode := getReqAuth(u.String(), bearerToken, auth)
 
 	if statusCode != 200 {
 		log.Fatalln(string(resp))
