@@ -74,7 +74,7 @@ There are two main modes
 ### **List vaccine centers**
 
 ```
-cowin-cli -s state -d district [-v vaccine1,vaccine2] [-m age] [-i] [-b]  [-c dd-mm-yyyy] [-dose dose] [-t freeType]
+cowin-cli -s state -d district [-v vaccine1,vaccine2] [-m age] [-i] [-b]  [-c dd-mm-yyyy] [-dose dose] [-t freeType] [-ntok]
 ```
 ### Example 1
 ```console
@@ -96,7 +96,9 @@ Mannanchery PHC  Free  18-05-2021  7 COVISHIELD 45 Dose-1
 The `-i` option displays all extra info like date, vaccine name, age...
 `-b'` prints only bookable centers.
 
+> **Note** : use gen mode(-gen) to generate  token, if you are facing unathenticated error.
 
+> Do not alter token.txt. If you did, delete token.txt and gen again.
 
 ### **Book Vaccine**
 
@@ -217,6 +219,8 @@ Written to token.txt
             dose type
   -t string
             free type
+  -ntok
+           don't reuse token
 ```
 
 #### Book Vaccine:
