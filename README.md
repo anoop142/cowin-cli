@@ -267,8 +267,7 @@ Written to token.txt
 ```
 
 ## Known issues
-* Random Unauthenticated access error for no reasons.
-
+* API limits request per ip mysteriously.
 ## License
 
 GPL 3.0
