@@ -65,6 +65,7 @@ case "$1" in
       clean
       ;;
       *)
-      build
+      	clean && build
+	release
       ;;
   esac
