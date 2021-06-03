@@ -96,7 +96,7 @@ Mannanchery PHC  Free  18-05-2021  7 COVISHIELD 45 Dose-1
 The `-i` option displays all extra info like date, vaccine name, age...
 `-b'` prints only bookable centers.
 
-> **Note** : use gen mode(-gen) to generate  token, if you are facing unathenticated error.
+> **Note** : use gen mode(-gen) to generate  token first ,if you are facing unathenticated error.
 
 > Do not alter token.txt. If you did, delete token.txt and gen again.
 
