@@ -40,7 +40,6 @@ type ScheduleData struct {
 	beneficariesRefIDs []string
 	dose               int
 	sessionID          string
-	captcha            string
 }
 
 type BadRequest struct {
@@ -282,7 +281,6 @@ func (scheduleData ScheduleData) scheduleVaccineNow() ([]byte, int) {
 		"session_id":    scheduleData.sessionID,
 		"slot":          scheduleData.slot,
 		"beneficiaries": scheduleData.beneficariesRefIDs,
-		"captcha":       scheduleData.captcha,
 	}
 
 	jsonBytes, _ := json.Marshal(postData)
@@ -357,34 +355,24 @@ func ScheduleVaccine(options Options) {
 
 	scheduleData.getBeneficariesID(beneficaries, options.Names)
 
-	for i := 0; i < 5; i++ {
+	resp, statusCode := scheduleData.scheduleVaccineNow()
 
-		scheduleData.captcha = getCatpchaCode(scheduleData.bearerToken)
+	switch statusCode {
+	case 200:
+		fmt.Println("Appointment scheduled successfully!")
+		os.Exit(0)
+	case 400:
+		json.Unmarshal(resp, &badRequest)
+		log.Fatalln(badRequest.Error)
 
-		resp, statusCode := scheduleData.scheduleVaccineNow()
-
-		switch statusCode {
-		case 200:
-			fmt.Println("Appointment scheduled successfully!")
-			os.Exit(0)
-		case 400:
-			json.Unmarshal(resp, &badRequest)
-			if badRequest.Error == "Your transaction didn't go through. Please try again later" {
-				log.Println("Captcha failed, trying again..")
-				continue
-			}
-			log.Fatalln(badRequest.Error)
-
-		case 401:
-			log.Fatalln("Unauthenticated Access")
-		case 409:
-			log.Fatalln("This vaccination center is completely booked for the selected date")
-		case 500:
-			log.Fatalln("Internal Server error")
-		default:
-			log.Fatalln("Error ", statusCode)
-
-		}
+	case 401:
+		log.Fatalln("Unauthenticated Access")
+	case 409:
+		log.Fatalln("This vaccination center is completely booked for the selected date")
+	case 500:
+		log.Fatalln("Internal Server error")
+	default:
+		log.Fatalln("Error ", statusCode)
 	}
 
 }
