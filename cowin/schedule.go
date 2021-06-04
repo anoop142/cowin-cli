@@ -240,7 +240,7 @@ func getCenterBookable(options Options) []CenterBookable {
 }
 
 // getSessionID gets session ID and generates OTP
-func (scheduleData *ScheduleData) getSessionID(options Options, tokenValid bool) {
+func (scheduleData *ScheduleData) getSessionID(options Options) {
 
 	var opt int
 	var selectedCenter CenterBookable
@@ -248,9 +248,6 @@ func (scheduleData *ScheduleData) getSessionID(options Options, tokenValid bool)
 
 	if len(centerBookable) > 0 {
 		// generate OTP only if there is bookable centers && invalid token
-		if !tokenValid {
-			scheduleData.txnId = genOTP(options.MobileNumber)
-		}
 
 		if options.Centers != "" {
 			selectedCenter = getSpecifiedCenterSessionID(centerBookable, options.Centers)
@@ -319,9 +316,9 @@ func ScheduleVaccine(options Options) {
 
 	}
 
-	scheduleData.getSessionID(options, tokenValid)
-
 	if !tokenValid {
+		scheduleData.txnId = genOTP(options.MobileNumber)
+
 		if runtime.GOOS == "android" && options.Aotp {
 			for {
 				fmt.Println("Waiting for OTP..")
@@ -355,6 +352,8 @@ func ScheduleVaccine(options Options) {
 			log.Fatalln("Cannot get beneficaries")
 		}
 	}
+
+	scheduleData.getSessionID(options)
 
 	scheduleData.getBeneficariesID(beneficaries, options.Names)
 
