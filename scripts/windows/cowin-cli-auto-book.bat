@@ -38,7 +38,7 @@ set TYPE=""
 :: Main looping  function
 :loop
 echo looking for centers...
-call:book
+call:book && pause && exit
 timeout /t %INTERVAL% >nul
 goto loop
 
@@ -46,7 +46,6 @@ goto loop
 :: Booking function
 :book
 %COWIN-CLI% -s %STATE% -d %DISTRICT% -sc -no %NO% -names %NAMES% -centers %CENTERS% -v %VACCINE% -dose %DOSE% -c %DATE% -t %TYPE%
-pause
-exit
+goto:eof
 
 
