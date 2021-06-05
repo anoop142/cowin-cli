@@ -57,8 +57,6 @@ func main() {
 		helpMsg += "Generate Token:"
 		helpMsg += "\n	cowin-cli -gen [-no mobileNumber] [-token tokenFile]  \n\n"
 		fmt.Print(helpMsg)
-		fmt.Println("Options :")
-		flag.PrintDefaults()
 	}
 	if *state != "" && *district != "" {
 		// set date if not specified
@@ -97,6 +95,8 @@ func main() {
 		printAbout()
 	} else if *help {
 		flag.Usage()
+		fmt.Println("Options :")
+		flag.PrintDefaults()
 	} else {
 		flag.Usage()
 	}
