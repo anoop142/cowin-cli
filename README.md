@@ -164,9 +164,11 @@ It's possible to detect OTP message and get OTP in Termux without user input. us
 
 You need to first setup termux to read sms.
 
-  1.Install Termux API apk from Fdroid
+  1.Install Termux API apk from Fdroid [here](https://f-droid.org/en/packages/com.termux.api/)
 
   2.Install termux-api package 
+  
+  3.Pass flag **-aotp**
 
   ```bash
   # Install termux-api package
