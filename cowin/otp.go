@@ -10,6 +10,8 @@ import (
 	"strings"
 )
 
+const termuxSmsApi = "termux-sms-list"
+
 // genOTP generates OTP and return txnId
 func genOTP(mobileNumber string) string {
 	if mobileNumber == "" {
@@ -81,14 +83,21 @@ func (scheduleData *ScheduleData) validateOTP(otp string) (statusCode int) {
 
 }
 
+func checkTermuxAPI() bool {
+	_, err := exec.LookPath(termuxSmsApi)
+
+	return err == nil
+}
+
 // Catch otp for termux
 func catchOTP() (string, string) {
+	// Extraction needs refactoring
 	const otpSubstringLeft = `Your OTP to register/access CoWIN is`
 	const otpSubstringRight = `It will be valid for 3 minutes. - CoWIN`
 	const timeSubstringLeft = `"received":`
 	const timeSubstringRight = `,`
 
-	out, _ := exec.Command("termux-sms-list", "-l", "1").Output()
+	out, _ := exec.Command(termuxSmsApi, "-l", "1").Output()
 
 	msgList := string(out)
 

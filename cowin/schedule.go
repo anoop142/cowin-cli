@@ -317,7 +317,7 @@ func ScheduleVaccine(options Options) {
 	if !tokenValid {
 		scheduleData.txnId = genOTP(options.MobileNumber)
 
-		if runtime.GOOS == "android" && options.Aotp {
+		if runtime.GOOS == "android" && options.Aotp && checkTermuxAPI() {
 			for {
 				fmt.Println("Waiting for OTP..")
 				OTP, recievedTime = catchOTP()
