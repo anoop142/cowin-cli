@@ -73,10 +73,10 @@ There are two main modes
 
 ### **List vaccine centers**
 
-Its possible to list centers without login, however it's recommended to generate token.txt first using generating mode. More details [here](#generating-token)
+Its possible to list centers without login(-public) but the data is cached, to get latest data otp is required, use gen mode for that. [here](#generating-token)
 
 ```
-cowin-cli -s state -d district [-v vaccine1,vaccine2] [-m age] [-i] [-b]  [-c dd-mm-yyyy] [-dose dose] [-t freeType] [-ntok]
+cowin-cli -s state -d district [-v vaccine1,vaccine2] [-m age] [-i] [-b]  [-c dd-mm-yyyy] [-dose dose] [-t freeType] [-ntok] [-public]
 ```
 ### Example 1
 ```console
@@ -223,6 +223,9 @@ Written to token.txt
             free type
   -ntok
            don't reuse token
+  -public
+    	use public data
+
 ```
 
 #### Book Vaccine:
