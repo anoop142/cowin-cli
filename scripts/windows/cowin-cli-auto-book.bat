@@ -38,7 +38,7 @@ set TYPE=""
 :: Main looping  function
 :loop
 echo looking for centers...
-call:book && pause && exit
+call:list && call:book
 timeout /t %INTERVAL% >nul
 goto loop
 
@@ -46,6 +46,15 @@ goto loop
 :: Booking function
 :book
 %COWIN-CLI% -s %STATE% -d %DISTRICT% -sc -no %NO% -names %NAMES% -centers %CENTERS% -v %VACCINE% -dose %DOSE% -c %DATE% -t %TYPE%
+goto:eof
+
+:: Listing function
+:list
+IF [%CENTERS_MATCH%]==[""] (
+   %COWIN-CLI% -s %STATE% -d %DISTRICT% -m %AGE% -b -v %VACCINE% -dose %DOSE% -c %DATE% -t %TYPE%
+ ) ELSE ( 
+    %COWIN-CLI% -s %STATE% -d %DISTRICT% -m %AGE% -b -v %VACCINE% -dose %DOSE% -c %DATE% -t %TYPE%  | findstr /I %CENTERS_MATCH%
+ )
 goto:eof
 
 

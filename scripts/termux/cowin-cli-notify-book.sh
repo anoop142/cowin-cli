@@ -37,6 +37,13 @@ schedule(){
 while :
 do
 	echo "looking for centers.."
-	schedule
+
+	"$COWIN_CLI" -s "$STATE"  -d "$DISTRICT" -m "$AGE" -b -v "$VACCINE" -dose $DOSE -c "$DATE" -t "$TYPE"
+
+	if (( $? == 0  )) 
+	then
+		schedule
+	fi
+
 	sleep $T
 done
