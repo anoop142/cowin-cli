@@ -88,7 +88,7 @@ Kayamkulam THQH
 
 ### Example 2
 ```console
-$ cowin-cli -s kerala -d alappuzha -i -m 45 -v "covaxin,covishield" -b -dose 1 -t free
+$ cowin-cli -s kerala -d alappuzha -i -m 45 -v "covaxin,covishield" -b -dose 1 -t free -public
 
 Kalavoor PHC  Free  18-05-2021  11 COVAXIN 45 Dose-1
 Vandanam MCH  Free  18-05-2021  4 COVISHIELD 45 Dose-1
@@ -97,6 +97,7 @@ Mannanchery PHC  Free  18-05-2021  7 COVISHIELD 45 Dose-1
 
 The `-i` option displays all extra info like date, vaccine name, age...
 `-b'` prints only bookable centers.
+`-public` make use the public url to list.
 
 > **Note** : use gen mode(-gen) to generate  token first ,if you are facing unathenticated error. See here
 
