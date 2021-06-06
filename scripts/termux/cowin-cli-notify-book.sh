@@ -28,9 +28,8 @@ TYPE=""
 
 
 schedule(){
-	# pass -aotp if you have setup auto OTP  
 	"$COWIN_CLI" -s "$STATE" -d "$DISTRICT" -sc -no "$NO" -names "$NAMES" -m "$AGE" \
-	-centers "$CENTERS" -v "$VACCINE" -dose $DOSE   -c "$DATE" -t "$TYPE"  && exit 0 
+	-centers "$CENTERS" -v "$VACCINE" -dose $DOSE   -c "$DATE" -t "$TYPE" -aotp  && exit 0 
 }
 
 
