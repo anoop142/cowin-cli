@@ -18,4 +18,5 @@ type Options struct {
 	Dose         int
 	TokenFile    string
 	FreeType     string
+	Public       bool
 }

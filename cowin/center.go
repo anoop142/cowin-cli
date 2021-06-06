@@ -27,7 +27,8 @@ type CentreData struct {
 
 func (center *CentreData) getCenters(options Options) {
 	var (
-		bearerToken = ""
+		URL         string
+		bearerToken string
 		auth        = false
 	)
 
@@ -39,7 +40,12 @@ func (center *CentreData) getCenters(options Options) {
 			auth = true
 		}
 	}
-	u, err := url.Parse(calenderDistrictURL)
+	if options.Public {
+		URL = calendarDistrictPublicURL
+	} else {
+		URL = calenderDistrictURL
+	}
+	u, err := url.Parse(URL)
 
 	if err != nil {
 		log.Fatal(err)
