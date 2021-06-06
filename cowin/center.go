@@ -40,7 +40,7 @@ func (center *CentreData) getCenters(options Options) {
 			auth = true
 		}
 	}
-	if options.Public {
+	if options.Public && !options.Schedule {
 		URL = calendarDistrictPublicURL
 	} else {
 		URL = calenderDistrictURL
