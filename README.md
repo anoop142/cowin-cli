@@ -73,10 +73,8 @@ There are two main modes
 
 ### **List vaccine centers**
 
-Its possible to list centers without login(-public) but the data is cached, to get latest data otp is required, use gen mode for that. [here](#generating-token)
-
 ```
-cowin-cli -s state -d district [-v vaccine1,vaccine2] [-m age] [-i] [-b]  [-c dd-mm-yyyy] [-dose dose] [-t freeType] [-ntok] [-public]
+cowin-cli -s state -d district [-v vaccine1,vaccine2] [-m age] [-i] [-b]  [-c dd-mm-yyyy] [-dose dose] [-t freeType] [-ntok] [-p]
 ```
 ### Example 1
 ```console
@@ -88,7 +86,7 @@ Kayamkulam THQH
 
 ### Example 2
 ```console
-$ cowin-cli -s kerala -d alappuzha -i -m 45 -v "covaxin,covishield" -b -dose 1 -t free -public
+$ cowin-cli -s kerala -d alappuzha -i -m 45 -v "covaxin,covishield" -b -dose 1 -t free -p
 
 Kalavoor PHC  Free  18-05-2021  11 COVAXIN 45 Dose-1
 Vandanam MCH  Free  18-05-2021  4 COVISHIELD 45 Dose-1
@@ -97,11 +95,9 @@ Mannanchery PHC  Free  18-05-2021  7 COVISHIELD 45 Dose-1
 
 The `-i` option displays all extra info like date, vaccine name, age...
 `-b'` prints only bookable centers.
-`-public` make use the public url to list.
+`-p` make use the protected URL to list.
 
-> **Note** : use gen mode(-gen) to generate  token first ,if you are facing unathenticated error. See here
 
-> Do not alter token.txt. If you did, delete token.txt and gen again.
 
 ### **Book Vaccine**
 
@@ -226,8 +222,8 @@ Written to token.txt
             free type
   -ntok
            don't reuse token
-  -public
-    	use public data
+  -p
+    	use protected URL to list
 
 ```
 
