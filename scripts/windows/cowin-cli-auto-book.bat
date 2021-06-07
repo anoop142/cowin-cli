@@ -51,9 +51,9 @@ goto:eof
 :: Listing function
 :list
 IF [%CENTERS_MATCH%]==[""] (
-   %COWIN-CLI% -s %STATE% -d %DISTRICT% -m %AGE% -b -v %VACCINE% -dose %DOSE% -c %DATE% -t %TYPE% -public
+   %COWIN-CLI% -s %STATE% -d %DISTRICT% -m %AGE% -b -v %VACCINE% -dose %DOSE% -c %DATE% -t %TYPE%
  ) ELSE ( 
-    %COWIN-CLI% -s %STATE% -d %DISTRICT% -m %AGE% -b -v %VACCINE% -dose %DOSE% -c %DATE% -t %TYPE% -public  | findstr /I %CENTERS_MATCH%
+    %COWIN-CLI% -s %STATE% -d %DISTRICT% -m %AGE% -b -v %VACCINE% -dose %DOSE% -c %DATE% -t %TYPE% | findstr /I %CENTERS_MATCH%
  )
 goto:eof
 

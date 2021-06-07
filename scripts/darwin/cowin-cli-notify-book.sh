@@ -38,7 +38,7 @@ while :
 do
 	echo "looking for centers.."
 
-	"$COWIN_CLI" -s "$STATE"  -d "$DISTRICT" -m "$AGE" -b -v "$VACCINE" -dose $DOSE -c "$DATE" -t "$TYPE" -public
+	"$COWIN_CLI" -s "$STATE"  -d "$DISTRICT" -m "$AGE" -b -v "$VACCINE" -dose $DOSE -c "$DATE" -t "$TYPE"
 
 	if (( $? == 0  )) 
 	then
