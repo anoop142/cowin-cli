@@ -1,50 +1,77 @@
 #!/bin/bash
 # Anoop S
 # shell script to notify and book using cowin-cli
+# Install notify-send for notifications
 
 
 COWIN_CLI="./cowin-cli"
 
-# Interval in seconds
-T=15
-# centers for grep matching
-CENTERS_MATCH='center1|center2|cnter3'
-# centers to auto select
-CENTERS=""
-DISTRICT="district"
-STATE="state"
-AGE=45
-NAMES=""
-NO=""
-VACCINE=""
-DOSE=0
-DATE=""
-# center type, free or paid, all by default
-TYPE=""
+#-------------------------------------------
+# NEED EDITING
+#--------------------------------------------
+STATE="tamil nadu"
 
+DISTRICT="chennai"
+
+AGE=45
+
+# 0 means both dose 1 and 2
+DOSE=0
+
+# mobile number
+NO=""
+
+# beneficiaries names seperated by ','
+NAMES=""
+#--------------------------------------------
+
+
+#-------------------------------------------
+# OPTIONAL
+#-------------------------------------------
+# Loop Interval in seconds
+T=15
+
+# centers to auto select seperated by ','
+CENTERS=""
+
+# vaccines seperated by ',', default all
+VACCINE=""
+
+# no need to edit this, defaults to tomorrow's date 
+DATE=""
+
+# free type, free or paid, default all
+TYPE=""
+#-------------------------------------------
+
+
+
+list(){
+	"$COWIN_CLI" -s "$STATE"  -d "$DISTRICT" -m "$AGE" -b \
+	 -v "$VACCINE" -dose "$DOSE" -c "$DATE" -t "$TYPE"
+
+}
 
 
 notify(){
 	osascript -e 'display notification "Center found!" with title "COWIN Update" sound name "Submarine"'
 }
 
+
 schedule(){
-	"$COWIN_CLI" -s "$STATE" -d "$DISTRICT" -sc -no "$NO" -m "$AGE" \
-	-names "$NAMES" -centers "$CENTERS" -v "$VACCINE" -dose $DOSE   -c "$DATE" -t "$TYPE"   && exit 0 
+	"$COWIN_CLI" -s "$STATE" -d "$DISTRICT" -sc -no "$NO" -names "$NAMES" -m "$AGE" \
+	-centers "$CENTERS" -v "$VACCINE" -dose "$DOSE"   -c "$DATE" -t "$TYPE"
 }
 
 
+
+# main function
 while :
 do
 	echo "looking for centers.."
 
-	"$COWIN_CLI" -s "$STATE"  -d "$DISTRICT" -m "$AGE" -b -v "$VACCINE" -dose $DOSE -c "$DATE" -t "$TYPE"
-
-	if (( $? == 0  )) 
-	then
-		notify
-		schedule
-	fi
+	list && notify; schedule && exit 
 
 	sleep $T
 done
