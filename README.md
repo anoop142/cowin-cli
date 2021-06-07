@@ -171,7 +171,7 @@ You need to first setup termux to read sms.
   # Install termux-api package
   $ pkg i termux-api
   # To give permisiion
-  $ termux-list-sms
+  $ termux-sms-list
   # Example
   $ cowin-cli -s kerala -d alappuzha -sc -no 9123456789 -aotp
   ```
