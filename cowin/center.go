@@ -40,10 +40,10 @@ func (center *CentreData) getCenters(options Options) {
 			auth = true
 		}
 	}
-	if options.Public && !options.Schedule {
-		URL = calendarDistrictPublicURL
-	} else {
+	if options.Protected || options.Schedule {
 		URL = calenderDistrictURL
+	} else {
+		URL = calendarDistrictPublicURL
 	}
 	u, err := url.Parse(URL)
 
