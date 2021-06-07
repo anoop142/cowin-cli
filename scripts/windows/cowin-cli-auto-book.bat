@@ -5,8 +5,11 @@
 
 set COWIN-CLI=.\cowin-cli.exe 
 
-:: EDIT VAULES 
+:: set this to 1 to use protected API
+set /A PROTECTED_API=0
 
+
+:: EDIT VAULES 
 :: time interval to check in seconds ,DO NOT  SET IT LESS THAN 10S
 set /A INTERVAL=15
 :: Age limit of centers
@@ -38,7 +41,7 @@ set TYPE=""
 :: Main looping  function
 :loop
 echo looking for centers...
-call:list && call:book
+IF NOT %PROTECTED_API%==0 (call:book) ELSE (call:list && call:book)
 timeout /t %INTERVAL% >nul
 goto loop
 

@@ -5,6 +5,9 @@
 
 COWIN_CLI="cowin-cli"
 
+# set this to 1 for protected API
+PROTECTED_API=1
+
 #--------------------------------------------
 # NEED EDITING
 #--------------------------------------------
@@ -63,9 +66,13 @@ schedule(){
 # main function
 while :
 do
-	echo "looking for centers.."
-
-	list && schedule && exit
+	if [[ $PROTECTED_API  -ne 0 ]]
+	then
+		schedule
+	else
+		echo "looking for centers.."
+		list && schedule && exit
+	fi
 
 	sleep $T
 done
