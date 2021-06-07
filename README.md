@@ -74,7 +74,7 @@ There are two main modes
 ### **List vaccine centers**
 
 ```
-cowin-cli -s state -d district [-v vaccine1,vaccine2] [-m age] [-i] [-b]  [-c dd-mm-yyyy] [-dose dose] [-t freeType] [-ntok] [-p]
+cowin-cli -s state -d district [-v vaccine1,vaccine2] [-m age] [-i] [-b]  [-c dd-mm-yyyy] [-dose dose] [-t freeType] [-p]
 ```
 ### Example 1
 ```console
@@ -220,8 +220,6 @@ Written to token.txt
             dose type
   -t string
             free type
-  -ntok
-           don't reuse token
   -p
     	use protected URL to list
 
