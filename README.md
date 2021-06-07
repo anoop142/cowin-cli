@@ -86,7 +86,7 @@ Kayamkulam THQH
 
 ### Example 2
 ```console
-$ cowin-cli -s kerala -d alappuzha -i -m 45 -v "covaxin,covishield" -b -dose 1 -t free -p
+$ cowin-cli -s kerala -d alappuzha -i -m 45 -v "covaxin,covishield" -b -dose 1 -t free
 
 Kalavoor PHC  Free  18-05-2021  11 COVAXIN 45 Dose-1
 Vandanam MCH  Free  18-05-2021  4 COVISHIELD 45 Dose-1
