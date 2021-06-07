@@ -7,7 +7,7 @@
 COWIN_CLI="./cowin-cli"
 
 # set this to 1 for protected API
-PROTECTED_API=1
+PROTECTED_API=0
 
 #-------------------------------------------
 # NEED EDITING
