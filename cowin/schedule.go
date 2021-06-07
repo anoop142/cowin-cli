@@ -200,7 +200,7 @@ func getSpecifiedCenterSessionID(centerBookable []CenterBookable, specifiedCente
 }
 
 // getCenterBookable gets centers that are only avaliable for booking
-func getCenterBookable(options Options) []CenterBookable {
+func getCenterBookable(options Options, bearerToken string) []CenterBookable {
 	var center CentreData
 	var centerBookable []CenterBookable
 
@@ -208,7 +208,7 @@ func getCenterBookable(options Options) []CenterBookable {
 		checkVaccineKnown(options.Vaccine)
 	}
 
-	center.getCenters(options)
+	center.getCenters(options, bearerToken)
 
 	for _, v := range center.Centers {
 		for _, vv := range v.Sessions {
@@ -243,7 +243,7 @@ func (scheduleData *ScheduleData) getSessionID(options Options) {
 
 	var opt int
 	var selectedCenter CenterBookable
-	centerBookable := getCenterBookable(options)
+	centerBookable := getCenterBookable(options, scheduleData.bearerToken)
 
 	if len(centerBookable) > 0 {
 		// generate OTP only if there is bookable centers && invalid token

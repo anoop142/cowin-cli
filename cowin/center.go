@@ -25,23 +25,15 @@ type CentreData struct {
 	} `json:"centers"`
 }
 
-func (center *CentreData) getCenters(options Options) {
+func (center *CentreData) getCenters(options Options, bearerToken string) {
 	var (
-		URL         string
-		bearerToken string
-		auth        = false
+		URL  string
+		auth = false
 	)
 
-	// load bearer token, always use token from file
-	if !options.Ntok {
-		var ok bool
-		bearerToken, ok = loadTokenFromFile(options.TokenFile)
-		if ok {
-			auth = true
-		}
-	}
 	if options.Protected || options.Schedule {
 		URL = calenderDistrictURL
+		auth = true
 	} else {
 		URL = calendarDistrictPublicURL
 	}
@@ -92,7 +84,18 @@ func checkDoseType(dosType string, specifiedDose int) bool {
 }
 
 func PrintCenters(options Options) {
-	center := getCenterBookable(options)
+	var (
+		bearerToken string
+		ok          bool
+	)
+
+	if options.Protected {
+		bearerToken, ok = loadTokenFromFile(options.TokenFile)
+		if !ok {
+			log.Fatalln(options.TokenFile, "not found!")
+		}
+	}
+	center := getCenterBookable(options, bearerToken)
 	if len(center) > 0 {
 		for _, v := range center {
 			if options.Info {
