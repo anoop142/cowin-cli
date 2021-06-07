@@ -52,7 +52,7 @@ func main() {
 		printAbout()
 		helpMsg := "Usage :\n"
 		helpMsg += "\nList :"
-		helpMsg += "\n  cowin-cli -s state -d district [-v vaccine] [-m age] [-i] [-b] [-c dd-mm-yyyy][-dose dose] [-t freeType] [-ntok] [-p]\n\n"
+		helpMsg += "\n  cowin-cli -s state -d district [-v vaccine] [-m age] [-i] [-b] [-c dd-mm-yyyy][-dose dose] [-t freeType] [-p]\n\n"
 		helpMsg += "Book Vaccine:"
 		helpMsg += "\n  cowin-cli -sc -s state -d district [-no mobileNumber] [-v vaccine] [-m age] [-names name1,name2] [-centers center1,cetner2 ] [-slot slotTime] [-aotp] [-ntok] [-token tokenFile] [-dose dose] [-t freeType]\n\n"
 		helpMsg += "Generate Token:"
