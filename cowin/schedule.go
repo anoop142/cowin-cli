@@ -214,7 +214,7 @@ func getCenterBookable(options Options, bearerToken string) []CenterBookable {
 		for _, vv := range v.Sessions {
 			doseType := getDoseType(vv.AvailableCapacityDose1, vv.AvailableCapacityDose2)
 			/*This is becoming a clusterfuck  */
-			if (!options.Bookable || vv.AvailableCapacity > 0) && (options.Age == 0 || options.Age >= vv.MinAgeLimit) &&
+			if (!options.Bookable || vv.AvailableCapacity >= options.Mslot) && (options.Age == 0 || options.Age >= vv.MinAgeLimit) &&
 				(options.Vaccine == "" || checkVaccine(options.Vaccine, vv.Vaccine)) &&
 				(options.Dose == 0 || checkDoseType(doseType, options.Dose)) &&
 				(options.FreeType == "" || strings.EqualFold(options.FreeType, v.FeeType)) {

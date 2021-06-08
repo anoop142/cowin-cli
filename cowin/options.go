@@ -19,4 +19,5 @@ type Options struct {
 	TokenFile    string
 	FreeType     string
 	Protected    bool
+	Mslot        int
 }
