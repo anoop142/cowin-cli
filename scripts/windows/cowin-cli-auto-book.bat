@@ -70,14 +70,12 @@ goto loop
 
 :: Booking function
 :book
-%COWIN-CLI% -s %STATE% -d %DISTRICT% -sc -no %NO% -names %NAMES% ^ 
- -centers %CENTERS% -v %VACCINE% -dose %DOSE% -c %DATE% -t %TYPE% -ms %MIN_SLOT%
+%COWIN-CLI% -s %STATE% -d %DISTRICT% -sc -no %NO% -names %NAMES% -centers %CENTERS% -v %VACCINE% -dose %DOSE% -c %DATE% -t %TYPE% -ms %MIN_SLOT%
 goto:eof
 
 :: Listing function
 :list
-%COWIN-CLI% -s %STATE% -d %DISTRICT% -m %AGE% -b ^
- -v %VACCINE% -dose %DOSE% -c %DATE% -t %TYPE% -ms %MIN_SLOT%
+%COWIN-CLI% -s %STATE% -d %DISTRICT% -m %AGE% -b -v %VACCINE% -dose %DOSE% -c %DATE% -t %TYPE% -ms %MIN_SLOT%
 goto:eof
 
 
