@@ -80,7 +80,11 @@ do
 		schedule
 	else
 		echo "looking for centers.."
-		list && notify; schedule && exit 
+		list
+		if (( $? == 0 ));then
+			notify
+			schedule && exit
+		fi
 	fi
 
 	sleep $T

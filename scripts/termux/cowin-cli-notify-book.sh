@@ -69,13 +69,17 @@ schedule(){
 # main function
 while :
 do
-	if [[ $PROTECTED_API  -ne 0 ]]
+	if [[ $PROTECTED_API -ne 0 ]]
 	then
 		schedule
 	else
 		echo "looking for centers.."
-		list && schedule && exit
+		list
+		if (( $? == 0 ));then
+			schedule && exit
+		fi
 	fi
 
 	sleep $T
 done
+
