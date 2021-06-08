@@ -1,6 +1,6 @@
 
 ## Command line  tool to List and Book Vaccine
-cowin-cli is a simple cli tool to book vaccines and list centers using the COWIN API. It also supports **auto captcha completion** .
+cowin-cli is a simple cli tool to book vaccines and list centers using the COWIN API.
 
 
 >Note: By default cowin-cli will not run continoulsy and monitor slot changes, use bash / batch scripts for that purpose, which can be found [here](#scripts).
@@ -8,7 +8,6 @@ cowin-cli is a simple cli tool to book vaccines and list centers using the COWIN
 
 ## Features
 * **Zero dependency** : No neeed to install anything, download precompiled binary and run.
-* **Automatic captcha support**: credits to https://github.com/ayushchd
 * **Scripting support** : scripts are available for all platforms providing additional features.
 * **Command chaining** : outputs text stream with proper exit code.
 * **Reuse OTP** : session token is written to a text file to reuse it later.
