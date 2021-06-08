@@ -30,7 +30,7 @@ set NAMES=""
 :: Mobile number
 set NO=""
 
-:: date, no need to edit this by default, dd-mm-yyyy format
+:: dose, 0 means both doses 1 & 2
 set /A DOSE=0
 ::------------------------------------------------
 
@@ -45,9 +45,6 @@ set CENTERS=""
 
 :: vaccines seperated by ','
 set VACCINE=""
-
-:: dose, 0 means all
-set /A DOSE=0
 
 :: no need to edit this, auto defaults to tomorrow's date
 set DATE=""
