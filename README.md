@@ -73,7 +73,7 @@ There are two main modes
 ### **List vaccine centers**
 
 ```
-cowin-cli -s state -d district [-v vaccine1,vaccine2] [-m age] [-i] [-b]  [-c dd-mm-yyyy] [-dose dose] [-t freeType] [-ms minimumSlot] [-p]
+cowin-cli -s state -d district [-v vaccine1,vaccine2] [-m age] [-i] [-b]  [-c dd-mm-yyyy] [-dose dose] [-t freeType] [-ms minimumSlot] [-p] [-ncb]
 ```
 ### Example 1
 ```console
@@ -104,7 +104,7 @@ The `-i` option displays all extra info like date, vaccine name, age...
 You can specify mobile number, centers to auto book, age, name etc. 
 If not, you will be prompted to enter it appropriately.
 ```
-$  cowin-cli -sc -s state -d district [-no mobileNumber] [-v vaccine1,vaccine2] [-names name1,name2] [-centers center1,cetner2 ] [-slot slotTime] [-ntok]  [-dose dose] [-t freeType] [-ms minimumSlot]
+$  cowin-cli -sc -s state -d district [-no mobileNumber] [-v vaccine1,vaccine2] [-names name1,name2] [-centers center1,cetner2 ] [-slot slotTime] [-ntok]  [-dose dose] [-t freeType] [-ms minimumSlot] [-ncb]
 ```
 ### Example 1
 ```console
@@ -224,6 +224,8 @@ Written to token.txt
     	use protected URL to list
   -ms int
     	minimum slots (default 1)
+  -ncb
+    	don't use cache bypass
 
 ```
 
@@ -256,6 +258,8 @@ Written to token.txt
             auto capture otp for termux
   -ms int
     	minimum slots (default 1)
+  -ncb
+    	don't use cache bypass
 
 ```
 
