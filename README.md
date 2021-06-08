@@ -74,7 +74,7 @@ There are two main modes
 ### **List vaccine centers**
 
 ```
-cowin-cli -s state -d district [-v vaccine1,vaccine2] [-m age] [-i] [-b]  [-c dd-mm-yyyy] [-dose dose] [-t freeType] [-p]
+cowin-cli -s state -d district [-v vaccine1,vaccine2] [-m age] [-i] [-b]  [-c dd-mm-yyyy] [-dose dose] [-t freeType] [-ms minimumSlot] [-p]
 ```
 ### Example 1
 ```console
@@ -86,7 +86,7 @@ Kayamkulam THQH
 
 ### Example 2
 ```console
-$ cowin-cli -s kerala -d alappuzha -i -m 45 -v "covaxin,covishield" -b -dose 1 -t free
+$ cowin-cli -s kerala -d alappuzha -i -m 45 -v "covaxin,covishield" -b -dose 1 -t free -ms 2
 
 Kalavoor PHC  Free  18-05-2021  11 COVAXIN 45 Dose-1
 Vandanam MCH  Free  18-05-2021  4 COVISHIELD 45 Dose-1
@@ -96,6 +96,7 @@ Mannanchery PHC  Free  18-05-2021  7 COVISHIELD 45 Dose-1
 The `-i` option displays all extra info like date, vaccine name, age...
 `-b'` prints only bookable centers.
 `-p` make use the protected URL to list.
+`-ms` sets minimum slot , here show centers having min 2 slots available for booking.
 
 
 
@@ -104,7 +105,7 @@ The `-i` option displays all extra info like date, vaccine name, age...
 You can specify mobile number, centers to auto book, age, name etc. 
 If not, you will be prompted to enter it appropriately.
 ```
-$  cowin-cli -sc -s state -d district [-no mobileNumber] [-v vaccine1,vaccine2] [-names name1,name2] [-centers center1,cetner2 ] [-slot slotTime] [-ntok]  [-dose dose] [-t freeType]
+$  cowin-cli -sc -s state -d district [-no mobileNumber] [-v vaccine1,vaccine2] [-names name1,name2] [-centers center1,cetner2 ] [-slot slotTime] [-ntok]  [-dose dose] [-t freeType] [-ms minimumSlot]
 ```
 ### Example 1
 ```console
@@ -140,7 +141,7 @@ you can specify most of the details for booking the vaccine
 
 ### Example 2
 ```console
-$  cowin-cli -sc -s kerala -d alappuzha -no 9123456780 -names "John doe, Jane doe" -centers "Aroor FHC,Ala PHC" -v "covaxin,sputnik v" -dose 2 -t free
+$  cowin-cli -sc -s kerala -d alappuzha -no 9123456780 -names "John doe, Jane doe" -centers "Aroor FHC,Ala PHC" -v "covaxin,sputnik v" -dose 2 -t free -ms 2
 
 Center : Aroor FHC COVAXIN Dose-2
 Enter OTP :  xxxxx
@@ -222,6 +223,8 @@ Written to token.txt
             free type
   -p
     	use protected URL to list
+  -ms int
+    	minimum slots (default 1)
 
 ```
 
@@ -252,6 +255,8 @@ Written to token.txt
             free type
     -aotp
             auto capture otp for termux
+  -ms int
+    	minimum slots (default 1)
 
 ```
 
