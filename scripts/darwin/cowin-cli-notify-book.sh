@@ -46,13 +46,16 @@ DATE=""
 
 # free type, free or paid, default all
 TYPE=""
+
+# minimum slot 
+MIN_SLOT=1
 #-------------------------------------------
 
 
 
 list(){
 	"$COWIN_CLI" -s "$STATE"  -d "$DISTRICT" -m "$AGE" -b \
-	 -v "$VACCINE" -dose "$DOSE" -c "$DATE" -t "$TYPE"
+	 -v "$VACCINE" -dose "$DOSE" -c "$DATE" -t "$TYPE" -ms "$MIN_SLOT"
 
 }
 
@@ -64,7 +67,7 @@ notify(){
 
 schedule(){
 	"$COWIN_CLI" -s "$STATE" -d "$DISTRICT" -sc -no "$NO" -names "$NAMES" -m "$AGE" \
-	-centers "$CENTERS" -v "$VACCINE" -dose "$DOSE"   -c "$DATE" -t "$TYPE"
+	-centers "$CENTERS" -v "$VACCINE" -dose "$DOSE"   -c "$DATE" -t "$TYPE" -ms "$MIN_SLOT"
 }
 
 
