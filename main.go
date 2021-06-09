@@ -17,15 +17,16 @@ func printAbout() {
 	fmt.Printf("cowin-cli v%v %v\n", version, author)
 }
 
-// get today's date
+// get tomorrow's date
 func getDate(noCacheBypass bool) string {
 	dateNow := time.Now()
+	dateTommorrow := dateNow.AddDate(0, 0, 1)
 
 	if noCacheBypass {
-		return dateNow.Format("02-01-2006")
+		return dateTommorrow.Format("02-01-2006")
 	} else {
 		// hack to bypass cache
-		return dateNow.Format("02-01-06")
+		return dateTommorrow.Format("02-01-06")
 	}
 }
 
