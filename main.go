@@ -45,7 +45,7 @@ func main() {
 	dose := flag.Int("dose", 0, "dose type")
 	aotp := flag.Bool("aotp", false, "auto capture otp for termux")
 	ntok := flag.Bool("ntok", false, "don't reuse token")
-	token := flag.String("token", "token.txt", "file to write token")
+	token := flag.String("token", "token.txt", "file to read/write token")
 	freeType := flag.String("t", "", "free type")
 	slot := flag.String("slot", "", "slot time")
 	minSlot := flag.Int("ms", 1, "minimum slots")
@@ -61,7 +61,7 @@ func main() {
 		helpMsg += "\nList :"
 		helpMsg += "\n  cowin-cli -s state -d district [-v vaccine] [-m age] [-i] [-b] [-c dd-mm-yyyy][-dose dose] [-t freeType] [-ms minimumSlot] [-p] [-ncb]\n\n"
 		helpMsg += "Book Vaccine:"
-		helpMsg += "\n  cowin-cli -sc -s state -d district [-no mobileNumber] [-v vaccine] [-m age] [-names name1,name2] [-centers center1,cetner2 ] [-slot slotTime] [-aotp] [-ntok] [-token tokenFile] [-dose dose] [-t freeType] [-ms minimumSlot] [-ncb] \n\n"
+		helpMsg += "\n  cowin-cli -sc -s state -d district [-no mobileNumber] [-v vaccine] [-m age] [-names name1,name2] [-centers center1,cetner2 ] [-slot slotTime] [-aotp] [-ntok] [-token tokenFile] [-dose dose] [-c dd-mm-yyyy] [-t freeType] [-ms minimumSlot] [-ncb] \n\n"
 		helpMsg += "Generate Token:"
 		helpMsg += "\n	cowin-cli -gen [-no mobileNumber] [-token tokenFile]  \n\n"
 		fmt.Print(helpMsg)
