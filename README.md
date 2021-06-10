@@ -11,9 +11,10 @@ cowin-cli is a simple cli tool to book vaccines and list centers using the COWIN
 * **Scripting support** : scripts are available for all platforms providing additional features.
 * **Command chaining** : outputs text stream with proper exit code.
 * **Reuse OTP** : session token is written to a text file to reuse it later.
-* **Advanced Filters**: built-in filter by age, dose, vaccines..etc.
+* **Advanced Filters**: built-in filter by age, dose, vaccines, min slot, free type.. etc.
 * **Cross platform** : Windows, Linux, macOS, Termux.
-* **Automatic OTP support for Termux** 
+* **Automatic OTP support for Termux**
+* **Bypass Caching, gets latest data.**
 
 https://user-images.githubusercontent.com/40671157/119601114-1b2dce00-be06-11eb-923b-3889a24c6ba2.mp4
 
@@ -251,7 +252,7 @@ Written to token.txt
     -dose int
             dose type
     -token string
-            file to write token (default "token.txt")
+            file to read/write token (default "token.txt")
     -t string
             free type
     -aotp
@@ -269,7 +270,7 @@ Written to token.txt
      -gen
         invoke token generation mode
     -token string
-            file to write token (default "token.txt")
+            file to read/write token (default "token.txt")
      -no int       
             mobile number
 ```
