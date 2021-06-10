@@ -270,7 +270,8 @@ func (scheduleData *ScheduleData) getSessionID(options Options) {
 
 		fmt.Printf("Center: %v %v Dose-%v %v\n\n", selectedCenter.Name, selectedCenter.Vaccine, selectedCenter.DoseType, selectedCenter.Date)
 	} else {
-		log.Fatalln("No Centers available for booking")
+		log.Println("No Centers available for booking")
+		os.Exit(4)
 	}
 
 }

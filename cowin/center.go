@@ -110,7 +110,7 @@ func PrintCenters(options Options) {
 
 		}
 	} else {
-		os.Exit(1)
+		os.Exit(4)
 	}
 
 }

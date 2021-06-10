@@ -6,11 +6,6 @@ cowin-cli is a simple cli tool to book vaccines and list centers using the COWIN
 **DUE TO LATEST CHANGES IN THE API ACCESS POLICY BY [MoHFW](https://www.mohfw.gov.in/pdf/CoWINAPIGuidelinesFinal240521.pdf), THERE WILL BE NO MORE COMMITS/CONTRIBUTIONS/RELEASES/MAINTENANCE IN THE PROJECT. THE PROJECT HAS BEEN PUT ON INDEFINITE HOLD. GRATEFUL TO EVERY CONTRIBUTORS, SUPPORTERS, USERS.I ADVISE NOT TO USE THIS APP, OTHERWISE YOU MIGHT FACE LEGAL ISSUES.**
 
 
-
-
-
-
-
 >Note: By default cowin-cli will not run continoulsy and monitor slot changes, use bash / batch scripts for that purpose, which can be found [here](#scripts).
 
 
